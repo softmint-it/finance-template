@@ -1,6 +1,6 @@
 <style>
 .apply-now {
-    width: 130px;
+    width: 180px;
     background-color: #f8f9fa;
     color: #000;
     border: 1px solid #000;
@@ -45,7 +45,7 @@
                 </a>
                 <button id="mobile-applynow-button" class="nav-link btn apply-now text-center d-lg-none d-block mt-1">
                     <i class="uil uil-arrow-right"></i>
-                    Apply Now
+                    Request a Quote
                 </button>
 
             </div>
@@ -104,7 +104,7 @@
                     <li class="nav-item w-full d-none d-lg-block">
                         <button id="desktop-applynow-button" class="nav-link btn apply-now text-center">
                             <i class="uil uil-arrow-right"></i>
-                            Apply Now
+                            Request a Quote
                         </button>
                     </li>
                     <li class="nav-item d-lg-none">

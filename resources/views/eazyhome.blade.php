@@ -9,6 +9,10 @@
     top: 90%;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 @keyframes scroll {
     0% {
         transform: translateX(0);
@@ -95,102 +99,108 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-lg-flex d-block justify-content-between">
-                                <div>
-                                    <h4>Leasing Calculator</h4>
+                                <div class="d-flex justify-lg-content-between gap-3">
+                                    <h6 id="leasingCalculatorTitle" class="cursor-pointer">Leasing Calculator</h6>
+                                    <h6 id="standardCalculatorTitle" class="cursor-pointer">Standard Calculator</h6>
                                 </div>
                                 <div class="slider">
                                     <div class="slide-track">
+                                        @foreach ($banks as $bank)
                                         <div class="slide">
-                                            <img src="./assets/img/companylogos/assetlinelogon.png" height="50"
-                                                width="150" alt="" />
-                                        </div>
-                                        <div class="slide">
-                                            <img src="./assets/img/companylogos/commerciallogon.png" height="50"
-                                                width="150" alt="" />
-                                        </div>
-                                        <div class="slide">
-                                            <img src="./assets/img/companylogos/lolclogon.png" height="50" width="150"
+                                            <img src="{{env('BASE_URL')}}{{ $bank->logo }}" height="50" width="150"
                                                 alt="" />
                                         </div>
+                                        @endforeach
+                                        @foreach ($banks as $bank)
                                         <div class="slide">
-                                            <img src="./assets/img/companylogos/siyapathalogon.png" height="50"
-                                                width="150" alt="" />
-                                        </div>
-                                        <div class="slide">
-                                            <img src="./assets/img/companylogos/assetlinelogon.png" height="50"
-                                                width="150" alt="" />
-                                        </div>
-                                        <div class="slide">
-                                            <img src="./assets/img/companylogos/commerciallogon.png" height="50"
-                                                width="150" alt="" />
-                                        </div>
-                                        <div class="slide">
-                                            <img src="./assets/img/companylogos/lolclogon.png" height="50" width="150"
+                                            <img src="{{env('BASE_URL')}}{{ $bank->logo }}" height="50" width="150"
                                                 alt="" />
                                         </div>
-                                        <div class="slide">
-                                            <img src="./assets/img/companylogos/siyapathalogon.png" height="50"
-                                                width="150" alt="" />
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="card-body">
-                            <form>
+                        <div class="card-body" id="leasingcalculator">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-12 form-group">
+                                    <lable for="leasingcompany">Leasing Company</lable>
+                                    <select id="leasingcompany" class="form-select" aria-label="Default select example">
+                                        <option selected>Select Leasing Company</option>
+                                        @foreach ($banks as $bank)
+                                        <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-12 form-group">
+                                    <label for="vehicleType">Vehicle Type</label>
+                                    <select id="vehicleType" class="form-select" aria-label="Default select example">
+                                        <option selected>Select Vehicle Type</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6 col-12 form-group">
+                                    <label for="leasingperiod">Leasing Period</label>
+                                    <input type="number" class="form-control" id="leasingperiod"
+                                        placeholder="Leasing Period" readonly style="cursor: not-allowed;">
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-12 form-group">
+                                    <label for="leasingrate">Rate</label><span class="pl-2 pb-2 text-danger"
+                                        id="bankratespan" style="font-size:10px;"></span>
+                                    <input type="number" step="0.1" class="form-control" id="leasingrate"
+                                        placeholder="Rate">
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-12 form">
+                                    <label for=" leasingamount">Leasing Amount</label>
+                                    <input type="number" class="form-control" id="leasingamount"
+                                        placeholder="Leasing Amount">
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-12 form">
+                                    <label for=" installment">Installment</label>
+                                    <input type="number" class="form-control" id="installment" value="0" readonly
+                                        style="cursor: not-allowed;">
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <div class="">
+                                    <button id="requestqt" class="btn btn-primary mt-2">Request a Quotation</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="standardcalculator">
+                            <div class="card-body">
                                 <div class="row">
-
                                     <div class="col-lg-4 col-md-6 col-12 form-group">
-                                        <lable for="leasingcompany">Leasing Company</lable>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Select Leasing Company</option>
-                                            <option value="company1">Company 1</option>
-                                            <option value="company2">Company 2</option>
-                                            <option value="company3">Company 3</option>
-                                        </select>
+                                        <label for="loanamount">Loan Amount</label>
+                                        <input type="number" class="form-control" id="sloanamount"
+                                            placeholder="Loan Amount">
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-12 form-group">
-                                        <label for="Vehcile Type">Vehicle Type</label>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Select Vehicle Type</option>
-                                            <option value="car">Car</option>
-                                            <option value="motorbike">Motor Bike</option>
-                                            <option value="thereewheel">ThreeWHeel</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-6 col-12 form-group">
-                                        <label for="leasingperiod">Leasing Period</label>
-                                        <input type="number" class="form-control" id="leasingperiod"
-                                            placeholder="Leasing Period">
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-12 form-group">
-                                        <label for="leasingrate">Rate</label>
-                                        <input type="number" step="0.1" class="form-control" id="leasingrate"
+                                        <label for="loanrate">Rate</label>
+                                        <input type="number" step="0.1" class="form-control" id="sloanrate"
                                             placeholder="Rate">
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-12 form">
-                                        <label for=" leasingamount">Leasing Amount</label>
-                                        <input type="number" class="form-control" id="leasingamount"
-                                            placeholder="Leasing Amount">
+                                    <div class="col-lg-4 col-md-6 col-12 form-group">
+                                        <label for="loanperiod">Loan Period</label>
+                                        <input type="number" class="form-control" id="sloanperiod"
+                                            placeholder="Loan Period">
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-12 form">
                                         <label for=" installment">Installment</label>
-                                        <input type="number" class="form-control" id="installment" value="0" readonly
+                                        <input type="number" class="form-control" id="sinstallment" value="0" readonly
                                             style="cursor: not-allowed;">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-2">Submit</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- /.container -->
+        <!-- /.container -->
 </section>
 <!-- /section -->
 <section class="wrapper bg-light">
@@ -499,375 +509,162 @@
     <!-- /.container -->
 </section>
 <!-- /section -->
-<section class="wrapper bg-gray position-relative min-vh-60 d-lg-flex align-items-center">
-    <div class="col-lg-6 position-lg-absolute top-0 end-0 image-wrapper bg-image bg-cover h-100"
-        data-image-src="./assets/img/photos/bg39.jpg">
-        <div class="divider text-gray divider-v-start d-none d-lg-block">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54 1200">
-                <g />
-                <g>
-                    <g>
-                        <polygon fill="currentColor" points="6 0 0 0 0 1200 6 1200 54 0 6 0" />
-                    </g>
-                </g>
-            </svg>
-        </div>
-    </div>
-    <!--/column -->
-    <div class="container">
-        <div class="row gx-0">
-            <div class="col-lg-6">
-                <div class="pt-13 pb-15 pb-md-17 py-lg-16 pe-lg-15">
-                    <h2 class="fs-16 text-uppercase text-muted mb-3">Our Solutions</h2>
-                    <h3 class="display-3 ls-sm mb-5">Just sit & relax while we take care of your business needs.
-                    </h3>
-                    <p class="mb-6">Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-                        mus. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Praesent commodo cursus.
-                        Maecenas sed diam eget risus varius blandit sit amet non magna. Praesent commodo cursus
-                        magna.</p>
-                    <div class="row align-items-center counter-wrapper gy-6">
-                        <div class="col-md-6">
-                            <h3 class="counter counter-lg mb-1">99.7%</h3>
-                            <h6 class="fs-17 ls-sm mb-1">Customer Satisfaction</h6>
-                            <span class="ratings five"></span>
-                        </div>
-                        <!--/column -->
-                        <div class="col-md-6">
-                            <h3 class="counter counter-lg mb-1">4x</h3>
-                            <h6 class="fs-17 ls-sm mb-1">New Visitors</h6>
-                            <span class="ratings five"></span>
-                        </div>
-                        <!--/column -->
-                    </div>
-                    <!--/.row -->
-                </div>
-            </div>
-            <!--/column -->
-        </div>
-        <!--/.row -->
-    </div>
-    <!-- /.container -->
-</section>
-<!-- /section -->
-<section class="wrapper bg-white">
-    <div class="container py-15 py-md-17">
-        <div class="row gy-10 gy-sm-13 gx-md-8 gx-xl-12 align-items-center mb-10 mb-md-12">
-            <div class="col-lg-6">
-                <div class="row gx-md-5 gy-5">
-                    <div class="col-md-6">
-                        <figure class="rounded"><img src="./assets/img/photos/g14.jpg"
-                                srcset="./assets/img/photos/g14@2x.jpg 2x" alt=""></figure>
-                    </div>
-                    <!--/column -->
-                    <div class="col-md-6 align-self-end">
-                        <figure class="rounded"><img src="./assets/img/photos/g15.jpg"
-                                srcset="./assets/img/photos/g15@2x.jpg 2x" alt=""></figure>
-                    </div>
-                    <!--/column -->
-                    <div class="col-12">
-                        <figure class="rounded mx-md-5"><img src="./assets/img/photos/g16.jpg"
-                                srcset="./assets/img/photos/g16@2x.jpg 2x" alt=""></figure>
-                    </div>
-                    <!--/column -->
-                </div>
-                <!--/.row -->
-            </div>
-            <!--/column -->
-            <div class="col-lg-6">
-                <h2 class="fs-15 text-uppercase text-muted mb-3">Who Are We?</h2>
-                <h3 class="display-3 ls-sm mb-5">Company that believes in the power of creative strategy.</h3>
-                <p class="mb-6">Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-                    mus. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Praesent commodo cursus magna,
-                    vel scelerisque nisl consectetur et. Cum sociis natoque penatibus et magnis dis parturient
-                    montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed.</p>
-                <div class="row gy-3 gx-xl-8">
-                    <div class="col-xl-6">
-                        <ul class="icon-list bullet-primary mb-0">
-                            <li><span><i class="uil uil-check"></i></span><span>Aenean eu leo quam ornare curabitur
-                                    blandit tempus.</span></li>
-                            <li class="mt-3"><span><i class="uil uil-check"></i></span><span>Nullam quis risus eget
-                                    urna mollis ornare donec elit.</span></li>
-                        </ul>
-                    </div>
-                    <!--/column -->
-                    <div class="col-xl-6">
-                        <ul class="icon-list bullet-primary mb-0">
-                            <li><span><i class="uil uil-check"></i></span><span>Etiam porta sem malesuada magna
-                                    mollis euismod.</span></li>
-                            <li class="mt-3"><span><i class="uil uil-check"></i></span><span>Fermentum massa vivamus
-                                    faucibus amet euismod.</span></li>
-                        </ul>
-                    </div>
-                    <!--/column -->
-                </div>
-                <!--/.row -->
-            </div>
-            <!--/column -->
-        </div>
-        <!--/.row -->
-        <div class="row gx-lg-8 gx-xl-12 gy-6 mb-15 mb-md-18">
-            <div class="col-lg-4">
-                <div class="d-flex flex-row">
-                    <div>
-                        <img src="./assets/img/icons/lineal/target.svg"
-                            class="svg-inject icon-svg icon-svg-md text-blue me-5" alt="" />
-                    </div>
-                    <div>
-                        <h4 class="fs-20 ls-sm">Our Vision</h4>
-                        <p class="mb-2">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta
-                            gravida at eget. Fusce dapibus tellus.</p>
-                    </div>
-                </div>
-            </div>
-            <!--/column -->
-            <div class="col-lg-4">
-                <div class="d-flex flex-row">
-                    <div>
-                        <img src="./assets/img/icons/lineal/award-2.svg"
-                            class="svg-inject icon-svg icon-svg-md text-green me-5" alt="" />
-                    </div>
-                    <div>
-                        <h4 class="fs-20 ls-sm">Our Mission</h4>
-                        <p class="mb-2">Maecenas faucibus mollis interdum. Vivamus sagittis lacus vel augue laoreet.
-                            Sed posuere consectetur.</p>
-                    </div>
-                </div>
-            </div>
-            <!--/column -->
-            <div class="col-lg-4">
-                <div class="d-flex flex-row">
-                    <div>
-                        <img src="./assets/img/icons/lineal/loyalty.svg"
-                            class="svg-inject icon-svg icon-svg-md text-yellow me-5" alt="" />
-                    </div>
-                    <div>
-                        <h4 class="fs-20 ls-sm">Our Values</h4>
-                        <p class="mb-2">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Praesent
-                            commodo cursus magna scelerisque.</p>
-                    </div>
-                </div>
-            </div>
-            <!--/column -->
-        </div>
-        <!--/.row -->
-        <div class="row position-relative mb-15 mb-md-17">
-            <figure class="rounded position-absolute d-none d-lg-block"
-                style="top: 50%; right:0; width: 45%; height: auto; transform: translateY(-50%); z-index:2"><img
-                    src="./assets/img/photos/tei1.jpg" srcset="./assets/img/photos/tei1@2x.jpg 2x" alt=""></figure>
-            <div class="col-lg-9 text-center">
-                <div class="card bg-gray">
-                    <div class="card-body p-md-10 py-xxl-16">
-                        <div class="row gx-0">
-                            <div class="col-lg-8 ps-xl-10">
-                                <span class="ratings five fs-20 mb-3"></span>
-                                <blockquote class="border-0 fs-lg mb-0">
-                                    <p>“Donec id elit non mi porta gravida at eget metus. Vivamus mollis est non
-                                        commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+@endsection
 
-                                        Duis mollis porta est non commodo luctus.”</p>
-                                    <div class="blockquote-details justify-content-center text-center">
-                                        <div class="info p-0">
-                                            <h4 class="ls-sm mb-1">Coriss Ambady</h4>
-                                            <p class="mb-0">Financial Analyst</p>
-                                        </div>
-                                    </div>
-                                </blockquote>
-                            </div>
-                            <!-- /column -->
-                        </div>
-                        <!-- /.row -->
-                    </div>
-                    <!--/.card-body -->
-                </div>
-                <!--/.card -->
-            </div>
-            <!-- /column -->
-        </div>
-        <!-- /.row -->
-        <div class="row text-center">
-            <div class="col-md-10 col-lg-8 col-xl-9 col-xxl-8 mx-auto">
-                <h2 class="fs-15 text-uppercase text-muted mb-3">Our Pricing</h2>
-                <h3 class="display-3 ls-sm mb-10 px-xl-15">We offer great prices and quality service for your
-                    business.</h3>
-            </div>
-            <!-- /column -->
-        </div>
-        <!-- /.row -->
-        <div class="pricing-wrapper mb-10 mb-md-14">
-            <div class="row gx-0 gy-6">
-                <div class="col-md-6 col-lg-3">
-                    <div class="pricing card shadow-none">
-                        <div class="card-body">
-                            <h4 class="card-title ls-sm">Basic Plan</h4>
-                            <div class="prices text-dark">
-                                <div class="price justify-content-start"><span class="price-currency">$</span><span
-                                        class="price-value">9</span> <span class="price-duration">mo</span></div>
-                            </div>
-                            <!--/.prices -->
-                            <ul class="icon-list bullet-green mt-7 mb-8">
-                                <li><i class="uil uil-check"></i><span><strong>1</strong> Project </span></li>
-                                <li><i class="uil uil-check"></i><span><strong>100K</strong> API Access </span></li>
-                                <li><i class="uil uil-check"></i><span><strong>100MB</strong> Storage </span></li>
-                                <li><i class="uil uil-times text-red"></i><span> Weekly <strong>Reports</strong>
-                                    </span></li>
-                                <li><i class="uil uil-times text-red"></i><span> 7/24
-                                        <strong>Support</strong></span></li>
-                            </ul>
-                            <a href="#" class="btn btn-soft-primary rounded">Choose Plan</a>
-                        </div>
-                        <!--/.card-body -->
-                    </div>
-                    <!--/.pricing -->
-                </div>
-                <!--/column -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="pricing card shadow-none">
-                        <div class="card-body">
-                            <h4 class="card-title ls-sm">Premium Plan</h4>
-                            <div class="prices text-dark">
-                                <div class="price justify-content-start"><span class="price-currency">$</span><span
-                                        class="price-value">19</span> <span class="price-duration">mo</span></div>
-                            </div>
-                            <!--/.prices -->
-                            <ul class="icon-list bullet-green mt-7 mb-8">
-                                <li><i class="uil uil-check"></i><span><strong>5</strong> Projects </span></li>
-                                <li><i class="uil uil-check"></i><span><strong>100K</strong> API Access </span></li>
-                                <li><i class="uil uil-check"></i><span><strong>200MB</strong> Storage </span></li>
-                                <li><i class="uil uil-check"></i><span> Weekly <strong>Reports</strong></span></li>
-                                <li><i class="uil uil-times text-red"></i><span> 7/24
-                                        <strong>Support</strong></span></li>
-                            </ul>
-                            <a href="#" class="btn btn-soft-primary rounded">Choose Plan</a>
-                        </div>
-                        <!--/.card-body -->
-                    </div>
-                    <!--/.pricing -->
-                </div>
-                <!--/column -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="pricing card bg-gray">
-                        <div class="card-body">
-                            <h4 class="card-title ls-sm">Corporate Plan</h4>
-                            <div class="prices text-dark">
-                                <div class="price justify-content-start"><span class="price-currency">$</span><span
-                                        class="price-value">29</span> <span class="price-duration">mo</span></div>
-                            </div>
-                            <!--/.prices -->
-                            <ul class="icon-list bullet-green mt-7 mb-8">
-                                <li><i class="uil uil-check"></i><span><strong>20</strong> Projects </span></li>
-                                <li><i class="uil uil-check"></i><span><strong>300K</strong> API Access </span></li>
-                                <li><i class="uil uil-check"></i><span><strong>500MB</strong> Storage </span></li>
-                                <li><i class="uil uil-check"></i><span> Weekly <strong>Reports</strong></span></li>
-                                <li><i class="uil uil-check"></i><span> 7/24 <strong>Support</strong></span></li>
-                            </ul>
-                            <a href="#" class="btn btn-primary rounded">Choose Plan</a>
-                        </div>
-                        <!--/.card-body -->
-                    </div>
-                    <!--/.pricing -->
-                </div>
-                <!--/column -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="pricing card shadow-none">
-                        <div class="card-body">
-                            <h4 class="card-title ls-sm">Community Plan</h4>
-                            <div class="prices text-dark">
-                                <div class="price justify-content-start"><span class="price-currency">$</span><span
-                                        class="price-value">49</span> <span class="price-duration">mo</span></div>
-                            </div>
-                            <!--/.prices -->
-                            <ul class="icon-list bullet-green mt-7 mb-8">
-                                <li><i class="uil uil-check"></i><span><strong>90</strong> Projects </span></li>
-                                <li><i class="uil uil-check"></i><span><strong>900K</strong> API Access </span></li>
-                                <li><i class="uil uil-check"></i><span><strong>900MB</strong> Storage </span></li>
-                                <li><i class="uil uil-check"></i><span> Weekly <strong>Reports</strong> </span></li>
-                                <li><i class="uil uil-check"></i><span> 7/24 <strong>Support</strong></span></li>
-                            </ul>
-                            <a href="#" class="btn btn-soft-primary rounded">Choose Plan</a>
-                        </div>
-                        <!--/.card-body -->
-                    </div>
-                    <!--/.pricing -->
-                </div>
-            </div>
-            <!--/.row -->
-        </div>
-        <!--/.pricing-wrapper -->
-        <div class="row">
-            <div class="col-xl-11 mx-auto">
-                <div class="row gx-md-8 gx-xl-12 gy-10 px-lg-5">
-                    <div class="col-lg-6">
-                        <div class="d-flex flex-row">
-                            <div>
-                                <img src="./assets/img/icons/lineal/check-list.svg"
-                                    class="svg-inject icon-svg icon-svg-sm text-blue me-5 mt-1" alt="" />
-                            </div>
-                            <div>
-                                <h4 class="fs-20 ls-sm">Can I cancel my subscription?</h4>
-                                <p class="mb-0">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-                                    nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-                                    mollis euismod.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /column -->
-                    <div class="col-lg-6">
-                        <div class="d-flex flex-row">
-                            <div>
-                                <img src="./assets/img/icons/lineal/wallet.svg"
-                                    class="svg-inject icon-svg icon-svg-sm text-yellow me-5 mt-1" alt="" />
-                            </div>
-                            <div>
-                                <h4 class="fs-20 ls-sm">Which payment methods do you accept?</h4>
-                                <p class="mb-0">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-                                    nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-                                    mollis euismod.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /column -->
-                    <div class="col-lg-6">
-                        <div class="d-flex flex-row">
-                            <div>
-                                <img src="./assets/img/icons/lineal/insurance.svg"
-                                    class="svg-inject icon-svg icon-svg-sm text-pink me-5 mt-1" alt="" />
-                            </div>
-                            <div>
-                                <h4 class="fs-20 ls-sm">How can I manage my Account?</h4>
-                                <p class="mb-0">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-                                    nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-                                    mollis euismod.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /column -->
-                    <div class="col-lg-6">
-                        <div class="d-flex flex-row">
-                            <div>
-                                <img src="./assets/img/icons/lineal/padlock.svg"
-                                    class="svg-inject icon-svg icon-svg-sm text-green me-5 mt-1" alt="" />
-                            </div>
-                            <div>
-                                <h4 class="fs-20 ls-sm">Is my credit card information secure?</h4>
-                                <p class="mb-0">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-                                    nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-                                    mollis euismod.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /column -->
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /column -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container -->
-</section>
-<!-- /section -->
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const leasingCalculatorTitle = document.getElementById('leasingCalculatorTitle');
+    const standardCalculatorTitle = document.getElementById('standardCalculatorTitle');
+    const leasingCalculator = document.getElementById('leasingcalculator');
+    const standardCalculator = document.getElementById('standardcalculator');
+
+    // Show Leasing Calculator and hide Standard Calculator on load
+    leasingCalculator.style.display = 'block';
+    standardCalculator.style.display = 'none';
+    leasingCalculatorTitle.style.borderBottom = '2px solid blue';
+    standardCalculatorTitle.style.borderBottom = 'none';
+
+    // Event listener for Leasing Calculator title
+    leasingCalculatorTitle.addEventListener('click', () => {
+        leasingCalculator.style.display = 'block';
+        standardCalculator.style.display = 'none';
+        leasingCalculatorTitle.style.borderBottom = '2px solid blue';
+        standardCalculatorTitle.style.borderBottom = 'none';
+    });
+
+    // Event listener for Standard Calculator title
+    standardCalculatorTitle.addEventListener('click', () => {
+        leasingCalculator.style.display = 'none';
+        standardCalculator.style.display = 'block';
+        standardCalculatorTitle.style.borderBottom = '2px solid blue';
+        leasingCalculatorTitle.style.borderBottom = 'none';
+
+    });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const leasingCompany = document.getElementById('leasingcompany');
+    const vehicleTypeSelect = document.getElementById('vehicleType');
+    const leasingPeriodInput = document.getElementById('leasingperiod');
+    const leasingRateInput = document.getElementById('leasingrate');
+    const bankratesspan = document.getElementById('bankratespan');
+    const leasingAmountInput = document.getElementById('leasingamount');
+    const installmentInput = document.getElementById('installment');
+
+    document.getElementById('leasingrate').value = 0;
+    document.getElementById('leasingperiod').value = 0;
+    document.getElementById('leasingamount').value = 0;
+    document.getElementById('installment').value = 0;
+    document.getElementById('leasingcompany').value = 'Select Leasing Company';
 
 
+    let bankRates = [];
+
+    function calculateInstallment() {
+        const leasingAmount = parseFloat(leasingAmountInput.value) || 0;
+        const leasingRate = parseFloat(leasingRateInput.value) || 0;
+        const leasingPeriod = parseInt(leasingPeriodInput.value) || 0;
+
+        if (leasingAmount && leasingRate && leasingPeriod) {
+            const installment = (leasingAmount * leasingRate * leasingPeriod) / (100 * 12);
+            installmentInput.value = installment.toFixed(2);
+        } else {
+            installmentInput.value = '0';
+        }
+    }
+
+    if (leasingCompany && vehicleTypeSelect && leasingPeriodInput && leasingRateInput) {
+        leasingCompany.addEventListener('change', function() {
+            const bankId = this.value;
+
+            vehicleTypeSelect.innerHTML = '<option selected>Select Vehicle Type</option>';
+            leasingPeriodInput.value = '';
+            leasingRateInput.value = '';
+
+            if (bankId) {
+                fetch(`/get-bank-rates/${bankId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        bankRates = data;
+                        if (data.length > 0) {
+                            data.forEach(rate => {
+                                const option = document.createElement('option');
+                                option.value = rate.vehicle_type;
+                                option.textContent =
+                                    `${rate.vehicle_type.charAt(0).toUpperCase() + rate.vehicle_type.slice(1)} (${rate.year} Years)`;
+                                vehicleTypeSelect.appendChild(option);
+                            });
+                        } else {
+                            const option = document.createElement('option');
+                            option.textContent = 'No Vehicle Types Available';
+                            vehicleTypeSelect.appendChild(option);
+                        }
+                    })
+                    .catch(error => console.error('Error fetching vehicle types:', error));
+            }
+        });
+        vehicleTypeSelect.addEventListener('change', function() {
+            const selectedVehicleType = this.value;
+
+            if (selectedVehicleType && bankRates.length > 0) {
+                const selectedRate = bankRates.find(rate => rate.vehicle_type === selectedVehicleType);
+                if (selectedRate) {
+                    leasingPeriodInput.value = selectedRate.year;
+                    leasingRateInput.value = selectedRate
+                        .min_rate;
+                    leasingRateInput.setAttribute('min', selectedRate.min_rate);
+                    leasingRateInput.setAttribute('max', selectedRate.max_rate);
+                    bankratesspan.textContent =
+                        `*(Min Rate: ${selectedRate.min_rate} - Max Rate: ${selectedRate.max_rate})`;
+                } else {
+                    leasingPeriodInput.value = '';
+                    leasingRateInput.value = '';
+                }
+            } else {
+                leasingPeriodInput.value = '';
+                leasingRateInput.value = '';
+            }
+        });
+
+        leasingAmountInput.addEventListener('input', calculateInstallment);
+        leasingRateInput.addEventListener('input', calculateInstallment);
+        leasingPeriodInput.addEventListener('input', calculateInstallment);
+    }
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const sloanamount = document.getElementById('sloanamount');
+    const sloanrate = document.getElementById('sloanrate');
+    const sloanperiod = document.getElementById('sloanperiod');
+    const sinstallment = document.getElementById('sinstallment');
+
+    document.getElementById('sloanrate').value = 0;
+    document.getElementById('sloanperiod').value = 0;
+    document.getElementById('sloanamount').value = 0;
+    document.getElementById('sinstallment').value = 0;
+
+    function calculateStandardInstallment() {
+        const loanAmount = parseFloat(sloanamount.value) || 0;
+        const loanRate = parseFloat(sloanrate.value) || 0;
+        const loanPeriod = parseInt(sloanperiod.value) || 0;
+
+        if (loanAmount && loanRate && loanPeriod) {
+            const installment = (loanAmount * loanRate * loanPeriod) / (100 * 12);
+            sinstallment.value = installment.toFixed(2);
+        } else {
+            sinstallment.value = '0';
+        }
+    }
+
+    sloanamount.addEventListener('input', calculateStandardInstallment);
+    sloanrate.addEventListener('input', calculateStandardInstallment);
+    sloanperiod.addEventListener('input', calculateStandardInstallment);
+});
+</script>
 
 
 

@@ -3,16 +3,22 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('eazyhome');
+// Route::get('/', function () {
+
+//     return view('eazyhome');
+// });
+
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/about-us', 'aboutUs');
+    Route::get('/contact-us', 'contactUs');
+    Route::get('/get-bank-rates/{bankId}', 'getBankRates');
 });
-Route::get('/about-us', function () {
-    return view('about-us');
-});
-Route::get('/contact-us', function () {
-    return view('contact-us');
-});
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
