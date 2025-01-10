@@ -9,7 +9,7 @@
                         alt="" />
                     <p class="mb-4">© <script>
                         document.write(new Date().getUTCFullYear());
-                        </script> Sandbox. <br class="d-none d-lg-block" />All rights reserved.</p>
+                        </script> {{env('COMPANY_NAME')}}. <br class="d-none d-lg-block" />All rights reserved.</p>
                     <nav class="nav social social-muted">
                         <a href="#"><i class="uil uil-twitter"></i></a>
                         <a href="#"><i class="uil uil-facebook-f"></i></a>
@@ -25,8 +25,8 @@
             <div class="col-md-4 col-lg-3">
                 <div class="widget">
                     <h4 class="widget-title ls-sm mb-3">Get in Touch</h4>
-                    <address class="pe-xl-15 pe-xxl-17">Moonshine St. 14/05 Light City, London, United Kingdom</address>
-                    <a href="mailto:#" class="link-body">info@email.com</a><br /> 00 (123) 456 78 90
+                    <address class="pe-xl-15 pe-xxl-17">{{env('COMPANY_ADDRESS')}}</address>
+                    <a href="mailto:#" class="link-body">{{env('COMPANY_EMAIL')}}</a><br /> {{env('COMPANY_PHONE')}}
                 </div>
                 <!-- /.widget -->
             </div>
@@ -35,7 +35,7 @@
                 <div class="widget">
                     <h4 class="widget-title ls-sm mb-3">Learn More</h4>
                     <ul class="list-unstyled text-reset mb-0">
-                        <li><a href="#">About Us</a></li>
+                        <li><a href="/about-us">About Us</a></li>
                         <li><a href="#">Our Story</a></li>
                         <li><a href="#">Projects</a></li>
                         <li><a href="#">Terms of Use</a></li>

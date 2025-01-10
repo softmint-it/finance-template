@@ -24,7 +24,7 @@
     margin: 0px;
     overflow: hidden;
     position: relative;
-    width: 70%;
+    width: 60%;
 }
 
 .slider::before,
@@ -58,6 +58,19 @@
     height: 50px;
     width: 180px;
 }
+
+@media screen and (max-width: 1399px) {
+    .slider {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 991.5px) {
+    .slider {
+        width: 100%;
+        margin-top: 25px;
+    }
+}
 </style>
 <section class="wrapper image-wrapper bg-cover bg-image bg-xs-none bg-gray position-relative"
     data-image-src="./assets/img/photos/bg37.jpg">
@@ -65,7 +78,8 @@
         <div class="row">
             <div class="col-sm-6 col-xxl-5 text-center text-sm-start" data-cues="slideInDown" data-group="page-title"
                 data-interval="-200" data-delay="500">
-                <h2 class="display-1 fs-56 mb-4 mt-0 mt-lg-5 ls-xs pe-xl-5 pe-xxl-0">We bring solutions to make life
+                <h2 class="display-1 fs-56 mb-4 mt-0 mt-lg-5 ls-xs pe-xl-5 pe-xxl-0">We bring leasing solutions to make
+                    life
                     <span class="underline-3 style-3 yellow">easier</span>
                 </h2>
                 <p class="lead fs-23 lh-sm mb-7 pe-lg-5 pe-xl-5 pe-xxl-0">We are a creative company that focuses on
@@ -80,7 +94,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-lg-flex d-block justify-content-between">
                                 <div>
                                     <h4>Leasing Calculator</h4>
                                 </div>
@@ -126,16 +140,8 @@
                         <div class="card-body">
                             <form>
                                 <div class="row">
-                                    <div class="col-4 form-group">
-                                        <label for="Vehcile Type">Vehicle Type</label>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Select Vehicle Type</option>
-                                            <option value="car">Car</option>
-                                            <option value="motorbike">Motor Bike</option>
-                                            <option value="thereewheel">ThreeWHeel</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-4 form-group">
+
+                                    <div class="col-lg-4 col-md-6 col-12 form-group">
                                         <lable for="leasingcompany">Leasing Company</lable>
                                         <select class="form-select" aria-label="Default select example">
                                             <option selected>Select Leasing Company</option>
@@ -144,28 +150,36 @@
                                             <option value="company3">Company 3</option>
                                         </select>
                                     </div>
-                                    <div class="col-4 form-group">
-                                        <label for="leasingrate">Rate</label>
-                                        <input type="number" step="0.1" class="form-control" id="leasingrate"
-                                            placeholder="Rate">
+                                    <div class="col-lg-4 col-md-6 col-12 form-group">
+                                        <label for="Vehcile Type">Vehicle Type</label>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Select Vehicle Type</option>
+                                            <option value="car">Car</option>
+                                            <option value="motorbike">Motor Bike</option>
+                                            <option value="thereewheel">ThreeWHeel</option>
+                                        </select>
                                     </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-4 form-group">
+
+                                    <div class="col-lg-4 col-md-6 col-12 form-group">
                                         <label for="leasingperiod">Leasing Period</label>
                                         <input type="number" class="form-control" id="leasingperiod"
                                             placeholder="Leasing Period">
                                     </div>
-                                    <div class="col-4 form">
+                                    <div class="col-lg-4 col-md-6 col-12 form-group">
+                                        <label for="leasingrate">Rate</label>
+                                        <input type="number" step="0.1" class="form-control" id="leasingrate"
+                                            placeholder="Rate">
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-12 form">
                                         <label for=" leasingamount">Leasing Amount</label>
                                         <input type="number" class="form-control" id="leasingamount"
                                             placeholder="Leasing Amount">
                                     </div>
-                                    <!-- <div class="col-4 form">
-                                        <label for=" leasingamount">Leasing Amount</label>
-                                        <input type="number" class="form-control" id="leasingamount"
-                                            placeholder="Leasing Amount">
-                                    </div> -->
+                                    <div class="col-lg-4 col-md-6 col-12 form">
+                                        <label for=" installment">Installment</label>
+                                        <input type="number" class="form-control" id="installment" value="0" readonly
+                                            style="cursor: not-allowed;">
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-2">Submit</button>
                             </form>
@@ -195,12 +209,12 @@
                 <div class="d-flex flex-row">
                     <div>
                         <img src="./assets/img/icons/lineal/telephone-3.svg"
-                            class="svg-inject icon-svg icon-svg-md text-blue me-5 mt-1" alt="" />
+                            class="svg-inject icon-svg icon-svg-md text-blue me-5 mt-1" alt="24/7 Support" />
                     </div>
                     <div>
-                        <h4 class="fs-20 ls-sm">24/7 Support</h4>
-                        <p class="mb-0">Duis mollis gravida commodo id luctus erat porttitor ligula, eget lacinia
-                            odio sem aget elit nullam quis risus eget.</p>
+                        <h4 class="fs-20 ls-sm">24/7 Customer Support</h4>
+                        <p class="mb-0">Our dedicated support team is available round-the-clock to assist both customers
+                            and leasing companies with their queries and needs.</p>
                     </div>
                 </div>
             </div>
@@ -209,12 +223,12 @@
                 <div class="d-flex flex-row">
                     <div>
                         <img src="./assets/img/icons/lineal/shield.svg"
-                            class="svg-inject icon-svg icon-svg-md text-yellow me-5 mt-1" alt="" />
+                            class="svg-inject icon-svg icon-svg-md text-yellow me-5 mt-1" alt="Secure Platform" />
                     </div>
                     <div>
-                        <h4 class="fs-20 ls-sm">Secure Payments</h4>
-                        <p class="mb-0">Duis mollis gravida commodo id luctus erat porttitor ligula, eget lacinia
-                            odio sem aget elit nullam quis risus eget.</p>
+                        <h4 class="fs-20 ls-sm">Secure Platform</h4>
+                        <p class="mb-0">We ensure a safe and secure environment for all transactions and interactions on
+                            our platform, giving you peace of mind.</p>
                     </div>
                 </div>
             </div>
@@ -223,12 +237,12 @@
                 <div class="d-flex flex-row">
                     <div>
                         <img src="./assets/img/icons/lineal/cloud-computing-2.svg"
-                            class="svg-inject icon-svg icon-svg-md text-orange me-5" alt="" />
+                            class="svg-inject icon-svg icon-svg-md text-orange me-5" alt="Real-Time Updates" />
                     </div>
                     <div>
-                        <h4 class="fs-20 ls-sm">Daily Updates</h4>
-                        <p class="mb-0">Duis mollis gravida commodo id luctus erat porttitor ligula, eget lacinia
-                            odio sem aget elit nullam quis risus eget.</p>
+                        <h4 class="fs-20 ls-sm">Real-Time Updates</h4>
+                        <p class="mb-0">Stay informed with real-time updates about leasing options, application status,
+                            and platform features.</p>
                     </div>
                 </div>
             </div>
@@ -237,12 +251,12 @@
                 <div class="d-flex flex-row">
                     <div>
                         <img src="./assets/img/icons/lineal/analytics.svg"
-                            class="svg-inject icon-svg icon-svg-md text-pink me-5" alt="" />
+                            class="svg-inject icon-svg icon-svg-md text-pink me-5" alt="Analytics & Insights" />
                     </div>
                     <div>
-                        <h4 class="fs-20 ls-sm">Market Research</h4>
-                        <p class="mb-0">Duis mollis gravida commodo id luctus erat porttitor ligula, eget lacinia
-                            odio sem aget elit nullam quis risus eget.</p>
+                        <h4 class="fs-20 ls-sm">Analytics & Insights</h4>
+                        <p class="mb-0">Access detailed insights to help you make informed decisions when choosing the
+                            right leasing options or market opportunities.</p>
                     </div>
                 </div>
             </div>
@@ -251,12 +265,13 @@
                 <div class="d-flex flex-row">
                     <div>
                         <img src="./assets/img/icons/lineal/chat-2.svg"
-                            class="svg-inject icon-svg icon-svg-md text-green me-5 mt-1" alt="" />
+                            class="svg-inject icon-svg icon-svg-md text-green me-5 mt-1"
+                            alt="Effortless Communication" />
                     </div>
                     <div>
-                        <h4 class="fs-20 ls-sm">Social Engagement</h4>
-                        <p class="mb-0">Duis mollis gravida commodo id luctus erat porttitor ligula, eget lacinia
-                            odio sem aget elit nullam quis risus eget.</p>
+                        <h4 class="fs-20 ls-sm">Effortless Communication</h4>
+                        <p class="mb-0">Our platform bridges the gap between leasing companies and customers, offering
+                            seamless communication channels.</p>
                     </div>
                 </div>
             </div>
@@ -265,17 +280,18 @@
                 <div class="d-flex flex-row">
                     <div>
                         <img src="./assets/img/icons/lineal/megaphone.svg"
-                            class="svg-inject icon-svg icon-svg-md text-purple me-5 mt-1" alt="" />
+                            class="svg-inject icon-svg icon-svg-md text-purple me-5 mt-1" alt="Exclusive Promotions" />
                     </div>
                     <div>
-                        <h4 class="fs-20 ls-sm">Content Marketing</h4>
-                        <p class="mb-0">Duis mollis gravida commodo id luctus erat porttitor ligula, eget lacinia
-                            odio sem aget elit nullam quis risus eget.</p>
+                        <h4 class="fs-20 ls-sm">Exclusive Promotions</h4>
+                        <p class="mb-0">Discover exclusive deals and offers from top leasing companies, all in one
+                            convenient platform.</p>
                     </div>
                 </div>
             </div>
             <!--/column -->
         </div>
+
         <!--/.row -->
     </div>
     <!-- /.container -->
@@ -301,43 +317,51 @@
             <div class="col-lg-6 ms-auto">
                 <div class="pt-13 pb-15 pb-md-17 py-lg-16 ps-lg-15 pe-xxl-16">
                     <h2 class="fs-15 text-uppercase text-muted mb-3">How It Works?</h2>
-                    <h3 class="display-3 ls-sm mb-7">Here are the 3 working steps on success.</h3>
+                    <h3 class="display-3 ls-sm mb-7">Follow these 3 simple steps to get started with leasing.</h3>
+
+                    <!-- Step 1 -->
                     <div class="d-flex flex-row mb-5">
                         <div>
-                            <img src="./assets/img/icons/lineal/light-bulb.svg"
-                                class="svg-inject icon-svg icon-svg-md text-blue me-5 mt-1" alt="" />
+                            <img src="./assets/img/icons/lineal/compare-icon.png"
+                                class="svg-inject icon-svg icon-svg-md text-blue me-5 mt-1" alt="Compare Rates Icon" />
                         </div>
                         <div>
-                            <h4 class="fs-20 ls-sm">Collect Ideas</h4>
-                            <p class="mb-0">Nulla vitae elit libero pharetra augue dapibus. Praesent commodo cursus.
-                            </p>
+                            <h4 class="fs-20 ls-sm">Compare Leasing Rates</h4>
+                            <p class="mb-0">Analyze and compare leasing rates from various providers to find the most
+                                competitive offers.</p>
                         </div>
                     </div>
+
+                    <!-- Step 2 -->
                     <div class="d-flex flex-row mb-5">
                         <div>
-                            <img src="./assets/img/icons/lineal/pie-chart-2.svg"
-                                class="svg-inject icon-svg icon-svg-md text-green me-5 mt-1" alt="" />
+                            <img src="./assets/img/icons/lineal/handshake.svg"
+                                class="svg-inject icon-svg icon-svg-md text-green me-5 mt-1"
+                                alt="Choose Best Company Icon" />
                         </div>
                         <div>
-                            <h4 class="fs-20 ls-sm">Data Analysis</h4>
-                            <p class="mb-0">Vivamus sagittis lacus vel augue laoreet. Etiam porta sem malesuada
-                                magna.</p>
+                            <h4 class="fs-20 ls-sm">Choose the Best Company</h4>
+                            <p class="mb-0">Select the company that aligns with your needs, offering the best terms and
+                                services.</p>
                         </div>
                     </div>
+
+                    <!-- Step 3 -->
                     <div class="d-flex flex-row">
                         <div>
-                            <img src="./assets/img/icons/lineal/design.svg"
-                                class="svg-inject icon-svg icon-svg-md text-yellow me-5 mt-1" alt="" />
+                            <img src="./assets/img/icons/lineal/application-icon.png"
+                                class="svg-inject icon-svg icon-svg-md text-yellow me-5 mt-1"
+                                alt="Apply for Leasing Icon" />
                         </div>
                         <div>
-                            <h4 class="fs-20 ls-sm">Magic Touch</h4>
-                            <p class="mb-0">Cras mattis consectetur purus sit amet. Aenean lacinia bibendum nulla
-                                sed.</p>
+                            <h4 class="fs-20 ls-sm">Apply for Leasing</h4>
+                            <p class="mb-0">Complete the application process and start your leasing journey
+                                effortlessly.</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--/column -->
+            <!-- /column -->
         </div>
         <!--/.row -->
     </div>

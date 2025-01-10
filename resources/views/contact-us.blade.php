@@ -69,7 +69,7 @@
                     </div>
                     <div>
                         <h5 class="mb-1">Address</h5>
-                        <address>Moonshine St. 14/05 Light City, <br class="d-none d-md-block" />London, United Kingdom
+                        <address>{{env('COMPANY_ADDRESS')}}
                         </address>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                     </div>
                     <div>
                         <h5 class="mb-1">Phone</h5>
-                        <p>00 (123) 456 78 90</p>
+                        <p> {{env('COMPANY_PHONE')}}</p>
                     </div>
                 </div>
                 <div class="d-flex flex-row">
@@ -88,7 +88,8 @@
                     </div>
                     <div>
                         <h5 class="mb-1">E-mail</h5>
-                        <p class="mb-0"><a href="mailto:sandbox@email.com" class="link-body">sandbox@email.com</a></p>
+                        <p class="mb-0"><a href="mailto:{{env('COMPANY_EMAIL')}}"
+                                class="link-body">{{env('COMPANY_EMAIL')}}</a></p>
                     </div>
                 </div>
             </div>
@@ -164,8 +165,8 @@
                         <!-- /column -->
                     </div>
                     <!-- /.row -->
-               
- </form>
+
+                </form>
                 <!-- /form -->
             </div>
             <!-- /column -->

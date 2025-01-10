@@ -30,6 +30,11 @@
     color: blue;
     transition: ease-in-out 0.3s;
 }
+
+.custom-nav-link.active {
+    font-weight: bold;
+    color: blue !important;
+}
 </style>
 <header class="wrapper bg-light">
     <nav class="navbar navbar-expand-lg classic transparent position-absolute navbar-light">
@@ -52,24 +57,24 @@
                 </div>
                 <div class="offcanvas-body ms-lg-auto d-flex flex-column h-100">
                     <ul class="navbar-nav">
-
                         <li class="nav-item dropdown dropdown-mega">
-                            <a class="nav-link  custom-nav-link" href="/">Leasing</a>
-                            <!--/.dropdown-menu -->
+                            <a class="nav-link custom-nav-link <?= ($_SERVER['REQUEST_URI'] === '/') ? 'active' : '' ?>"
+                                href="/">Leasing</a>
                         </li>
                         <li class="nav-item dropdown dropdown-mega">
-                            <a class="nav-link custom-nav-link" href="/">Insurance</a>
-                            <!--/.dropdown-menu -->
+                            <a class="nav-link custom-nav-link <?= ($_SERVER['REQUEST_URI'] === '/') ? 'active' : '' ?>"
+                                href="/">Insurance</a>
                         </li>
                         <li class="nav-item dropdown dropdown-mega">
-                            <a class="nav-link custom-nav-link" href="/about-us">About Us</a>
-                            <!--/.dropdown-menu -->
+                            <a class="nav-link custom-nav-link <?= ($_SERVER['REQUEST_URI'] === '/about-us') ? 'active' : '' ?>"
+                                href="/about-us">About Us</a>
                         </li>
                         <li class="nav-item dropdown dropdown-mega">
-                            <a class="nav-link custom-nav-link" href="/contact-us">Contact Us</a>
-                            <!--/.dropdown-menu -->
+                            <a class="nav-link custom-nav-link <?= ($_SERVER['REQUEST_URI'] === '/contact-us') ? 'active' : '' ?>"
+                                href="/contact-us">Contact Us</a>
                         </li>
                     </ul>
+
                     <!-- /.navbar-nav -->
                     <div class="offcanvas-footer d-lg-none">
                         <div>
@@ -200,12 +205,14 @@
 </div>
 
 <script>
-document.getElementById('desktop-applynow-button').addEventListener('click', function() {
-    const applyNowModal = new bootstrap.Modal(document.getElementById('applyNowModal'));
-    applyNowModal.show();
-});
-document.getElementById('mobile-applynow-button').addEventListener('click', function() {
-    const applyNowModal = new bootstrap.Modal(document.getElementById('applyNowModal'));
-    applyNowModal.show();
+document.addEventListener('click', function(event) {
+    if (event.target && event.target.id === 'desktop-applynow-button') {
+        const applyNowModal = new bootstrap.Modal(document.getElementById('applyNowModal'));
+        applyNowModal.show();
+    }
+    if (event.target && event.target.id === 'mobile-applynow-button') {
+        const applyNowModal = new bootstrap.Modal(document.getElementById('applyNowModal'));
+        applyNowModal.show();
+    }
 });
 </script>
