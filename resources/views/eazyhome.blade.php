@@ -519,13 +519,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const leasingCalculator = document.getElementById('leasingcalculator');
     const standardCalculator = document.getElementById('standardcalculator');
 
-    // Show Leasing Calculator and hide Standard Calculator on load
     leasingCalculator.style.display = 'block';
     standardCalculator.style.display = 'none';
     leasingCalculatorTitle.style.borderBottom = '2px solid blue';
     standardCalculatorTitle.style.borderBottom = 'none';
 
-    // Event listener for Leasing Calculator title
     leasingCalculatorTitle.addEventListener('click', () => {
         leasingCalculator.style.display = 'block';
         standardCalculator.style.display = 'none';
@@ -533,7 +531,6 @@ document.addEventListener('DOMContentLoaded', () => {
         standardCalculatorTitle.style.borderBottom = 'none';
     });
 
-    // Event listener for Standard Calculator title
     standardCalculatorTitle.addEventListener('click', () => {
         leasingCalculator.style.display = 'none';
         standardCalculator.style.display = 'block';
