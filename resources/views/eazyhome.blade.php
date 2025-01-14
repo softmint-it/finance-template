@@ -139,10 +139,11 @@
                                         <option selected>Select Vehicle Type</option>
                                     </select>
                                 </div>
+                                <input type="hidden" id="selectedrateid">
 
                                 <div class="col-lg-4 col-md-6 col-12 form-group">
                                     <label for="leasingperiod">Leasing Period</label>
-                                    <input type="number" class="form-control" id="leasingperiod"
+                                    <input type="text" class="form-control" id="leasingperiod"
                                         placeholder="Leasing Period" readonly style="cursor: not-allowed;">
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-12 form-group">
@@ -158,7 +159,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-12 form">
                                     <label for=" installment">Installment</label>
-                                    <input type="number" class="form-control" id="installment" value="0" readonly
+                                    <input type="text" class="form-control" id="installment" value="0" readonly
                                         style="cursor: not-allowed;">
                                 </div>
                             </div>
@@ -549,13 +550,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const bankratesspan = document.getElementById('bankratespan');
     const leasingAmountInput = document.getElementById('leasingamount');
     const installmentInput = document.getElementById('installment');
+    const selectedrateid = document.getElementById('selectedrateid');
 
     document.getElementById('leasingrate').value = 0;
     document.getElementById('leasingperiod').value = 0;
     document.getElementById('leasingamount').value = 0;
     document.getElementById('installment').value = 0;
     document.getElementById('leasingcompany').value = 'Select Leasing Company';
-
 
     let bankRates = [];
 
@@ -579,6 +580,8 @@ document.addEventListener('DOMContentLoaded', () => {
             vehicleTypeSelect.innerHTML = '<option selected>Select Vehicle Type</option>';
             leasingPeriodInput.value = '';
             leasingRateInput.value = '';
+            document.getElementById('leasingamount').value = 0;
+            document.getElementById('installment').value = 0;
 
             if (bankId) {
                 fetch(`/get-bank-rates/${bankId}`)
@@ -588,7 +591,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (data.length > 0) {
                             data.forEach(rate => {
                                 const option = document.createElement('option');
-                                option.value = rate.vehicle_type;
+                                option.value = rate.id;
                                 option.textContent =
                                     `${rate.vehicle_type.charAt(0).toUpperCase() + rate.vehicle_type.slice(1)} (${rate.year} Years)`;
                                 vehicleTypeSelect.appendChild(option);
@@ -604,9 +607,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         vehicleTypeSelect.addEventListener('change', function() {
             const selectedVehicleType = this.value;
-
+            selectedrateid.value = selectedVehicleType;
+            document.getElementById('leasingamount').value = 0;
+            document.getElementById('installment').value = 0;
             if (selectedVehicleType && bankRates.length > 0) {
-                const selectedRate = bankRates.find(rate => rate.vehicle_type === selectedVehicleType);
+                const selectedRate = bankRates.find(rate => rate.id == selectedVehicleType);
                 if (selectedRate) {
                     leasingPeriodInput.value = selectedRate.year;
                     leasingRateInput.value = selectedRate
@@ -662,6 +667,107 @@ document.addEventListener('DOMContentLoaded', () => {
     sloanperiod.addEventListener('input', calculateStandardInstallment);
 });
 </script>
+<script>
+document.getElementById('requestqt').addEventListener('click', () => {
+    const leasingCompany = document.getElementById('leasingcompany').value;
+    const vehicleType = document.getElementById('vehicleType').value;
+    const leasingPeriod = document.getElementById('leasingperiod').value;
+    const leasingRate = document.getElementById('leasingrate').value;
+    const leasingAmount = document.getElementById('leasingamount').value;
+    const installment = document.getElementById('installment').value;
+
+    if (leasingCompany === 'Select Leasing Company' || vehicleType === 'Select Vehicle Type' || !
+        leasingPeriod || !leasingRate || !leasingAmount || !installment || installment === '0' ||
+        leasingAmount === '0') {
+        Swal.fire({
+            icon: 'warning',
+            title: 'WARNING...',
+            text: 'Please fill all fields before requesting a quotation',
+        });
+    } else {
+        const applyNowModal = new bootstrap.Modal(document.getElementById('applyNowModal'));
+
+        const leasingCompanySelect = document.getElementById('modelleasingcompany');
+        const vehicleTypeSelect = document.getElementById('modelvehicleType');
+        const leasingPeriodInput = document.getElementById('modelleasingperiod');
+        const leasingRateInput = document.getElementById('modelleasingrate');
+        const leasingAmountInput = document.getElementById('modelleasingamount');
+        const installmentInput = document.getElementById('modelinstallment');
+        const bankratesspan = document.getElementById('modelbankratespan');
+        const rateIdInput = document.getElementById('rate_id');
+
+        leasingCompanySelect.value = leasingCompany;
+        const bankId = leasingCompany;
+        vehicleTypeSelect.innerHTML = '<option selected>Select Vehicle Type</option>';
+        if (bankId) {
+            fetch(`/get-bank-rates/${bankId}`)
+                .then(response => response.json())
+                .then(data => {
+                    bankRates = data;
+                    if (data.length > 0) {
+                        data.forEach(rate => {
+                            const option = document.createElement('option');
+                            option.value = rate.id;
+                            option.textContent =
+                                `${rate.vehicle_type.charAt(0).toUpperCase() + rate.vehicle_type.slice(1)} (${rate.year} Years)`;
+                            vehicleTypeSelect.appendChild(option);
+
+                            vehicleTypeSelect.value = vehicleType;
+
+                            Array.from(vehicleTypeSelect.options).forEach(option => {
+                                if (option.value !== vehicleType) {
+                                    option.hidden = true;
+                                }
+                            });
+
+                            rateIdInput.value = vehicleType;
+
+                            const selectedVehicleType = vehicleType;
+                            if (selectedVehicleType && bankRates.length > 0) {
+                                const selectedRate = bankRates.find(rate => rate.id ==
+                                    selectedVehicleType);
+                                if (selectedRate) {
+                                    leasingRateInput.value = selectedRate
+                                        .min_rate;
+                                    leasingRateInput.setAttribute('min', selectedRate.min_rate);
+                                    leasingRateInput.setAttribute('max', selectedRate.max_rate);
+                                    bankratesspan.textContent =
+                                        `*(Min Rate: ${selectedRate.min_rate} - Max Rate: ${selectedRate.max_rate})`;
+                                } else {
+                                    leasingPeriodInput.value = '';
+                                    leasingRateInput.value = '';
+                                }
+                            } else {
+                                leasingPeriodInput.value = '';
+                                leasingRateInput.value = '';
+                            }
+
+                        });
+                    } else {
+                        const option = document.createElement('option');
+                        option.textContent = 'No Vehicle Types Available';
+                        vehicleTypeSelect.appendChild(option);
+                    }
+                })
+                .catch(error => console.error('Error fetching vehicle types:', error));
+        }
+
+        //make vehicle type readonly and cursor not-allowed
+        vehicleTypeSelect.setAttribute('readonly', 'readonly');
+        vehicleTypeSelect.style.cursor = 'not-allowed';
+
+        leasingPeriodInput.value = leasingPeriod;
+        leasingRateInput.value = leasingRate;
+        leasingAmountInput.value = leasingAmount;
+        installmentInput.value = installment;
+
+
+        applyNowModal.show();
+    }
+});
+</script>
+
+
 
 
 

@@ -15,6 +15,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/about-us', 'aboutUs');
     Route::get('/contact-us', 'contactUs');
     Route::get('/get-bank-rates/{bankId}', 'getBankRates');
+    Route::post('/submit-quotation-request', 'submitQuotationRequest');
 });
 
 

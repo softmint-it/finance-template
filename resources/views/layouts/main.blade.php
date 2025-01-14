@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/colors/navy.css') }}">
+        <link href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
     </head>
 
     <body>
@@ -26,6 +27,8 @@
         @yield('scripts')
         <script src="{{ asset('assets/js/plugins.js') }}"></script>
         <script src="{{ asset('assets/js/theme.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+
     </body>
 
 
