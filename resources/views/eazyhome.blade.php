@@ -175,15 +175,16 @@
                                         style="cursor: not-allowed;">
                                 </div>
                             </div>
+
+                            <div id="totalpayablediv"
+                                class="d-lg-flex d-block justify-content-between align-items-center mt-4 mb-4">
+
+                            </div>
                             <div class="d-flex justify-content-end">
                                 <div class="">
                                     <button id="requestqt" class="btn btn-primary mt-2 btn-sm">Request a
                                         Quotation</button>
                                 </div>
-                            </div>
-                            <div id="totalpayablediv"
-                                class="d-lg-flex d-block justify-content-between align-items-center mt-4 mb-4">
-
                             </div>
                             <div id="showplan" class="d-none justify-content-center align-items-center text-center"
                                 style="cursor:pointer">
@@ -247,6 +248,129 @@
         <!-- /.container -->
 </section>
 <!-- /section -->
+
+<section class="wrapper bg-light">
+    <div class="container py-15 py-md-17">
+        <div class="row text-center">
+            <div class="col-lg-10 col-xl-7 col-xxl-6 mx-auto">
+                <h2 class="fs-15 text uppercase text-muted mb-3">Leasing Comparison</h2>
+                <h3 class="ls-sm mb-10">Compare leasing rates from top companies to find the best deal for
+                    you.</h3>
+            </div>
+            <!-- /column -->
+        </div>
+        <!-- /.row -->
+        <div class="row gx-lg-8 gx-xl-12 gy-8">
+            @foreach ($banks as $bank)
+            <div class="col-lg-4 col-md-6 col-12 mb-6">
+                <article>
+                    <figure class="overlay overlay-1 hover-scale rounded mb-6">
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#bankModal{{ $bank->id }}">
+                            <img src="{{env('BASE_URL')}}{{ $bank->logo }}" alt="" />
+                        </a>
+                        <figcaption>
+                            <h5 id="readmoreleasing" class="from-top mb-0">Read More</h5>
+                        </figcaption>
+                    </figure>
+                    <div class="post-header">
+                        <h2 class="post-title h3 ls-sm mb-3">
+                            <a class="link-dark" href="{{env('BASE_URL')}}bank/{{ $bank->id }}">{{ $bank->name }}</a>
+                        </h2>
+                    </div>
+                    <div class="post-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Vehicle Type</th>
+                                    <th>Rate</th>
+                                    <th>Period</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($bank->rates as $rate)
+                                <tr>
+                                    <td>{{ $rate->vehicle_type }}</td>
+                                    <td>{{ $rate->min_rate }} - {{ $rate->max_rate }}</td>
+                                    <td>{{ $rate->year }} Years</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="post-footer">
+                        <ul class="post-meta">
+                            <li class="post-date">
+                                <i
+                                    class="uil uil-calendar-alt"></i><span>{{ $bank->updated_at->format('d M Y') }}</span>
+                            </li>
+                            <li class="post-comments">
+                                <a href="javascript:void(0);" data-bs-toggle="modal"
+                                    data-bs-target="#bankModal{{ $bank->id }}">
+                                    <i class="uil uil-file-alt fs-15"></i>View Details
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="bankModal{{ $bank->id }}" tabindex="-1"
+                aria-labelledby="bankModalLabel{{ $bank->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding-bottom: 0;">
+                            <h5 class="modal-title" id="bankModalLabel{{ $bank->id }}">{{ $bank->name }} - Leasing
+                                Details</h5>
+                            <img src="{{env('BASE_URL')}}{{ $bank->logo }}" alt="{{ $bank->name }}" class="img-fluid"
+                                style="width: 100px; height: 100px;" />
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <p>{{ $bank->description }}</p>
+                            <p><strong>Website:</strong> <a href="{{ $bank->website }}"
+                                    target="_blank">{{ $bank->website }}</a></p>
+                            <h6>Available Vehicle Types and Rates:</h6>
+                            <ul>
+                                @foreach ($bank->rates as $rate)
+                                <li>
+                                    <strong>Vehicle Type:</strong> {{ $rate->vehicle_type }} <br />
+                                    <strong>Rate:</strong> {{ $rate->min_rate }} - {{ $rate->max_rate }} <br />
+                                    <strong>Period:</strong> {{ $rate->year }} Years
+                                </li>
+                                <p><b>Features:</b>{{$rate->note}}</p>
+                                <hr />
+                                @endforeach
+                            </ul>
+                            <p><strong>Last Updated:</strong> {{ $bank->updated_at->format('d M Y') }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <!-- <div class="swiper-container blog grid-view mb-10" data-margin="30" data-dots="true" data-items-xl="3" -->
+        <!-- data-items-md="2" data-items-xs="1"> -->
+        <!-- <div class="swiper"> -->
+        <!-- <div class="swiper-wrapper"> -->
+
+        <!-- </div> -->
+        <!--/.swiper-wrapper -->
+        <!-- </div> -->
+        <!-- /.swiper -->
+        <!-- </div> -->
+        <!-- /.swiper-container -->
+    </div>
+    <!-- /.container -->
+</section>
+
+
 <section class="wrapper bg-light">
     <div class="container py-15 py-md-17">
         <div class="row text-center">
@@ -616,9 +740,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const showplan = document.getElementById('showplan');
 
         if (leasingAmount && leasingRate && leasingPeriod) {
+            const leasingmonths = leasingPeriod * 12;
             const monthrate = leasingRate / (100 * 12);
-            const installment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -leasingPeriod *
-                12));
+            const installment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -leasingmonths));
+
             installmentInput.value = installment.toFixed(2);
         } else {
             installmentInput.value = '0';
@@ -645,9 +770,9 @@ document.addEventListener('DOMContentLoaded', () => {
             let tableHTML =
                 '<table class="table table-bordered"><thead><tr><th>Month</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
             const monthrate = leasingRate / 100 / 12;
+            const leasingmonths = leasingPeriod * 12;
             const monthlyInstallment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -
-                leasingPeriod *
-                12));
+                leasingmonths));
             let capital = monthlyInstallment * leasingPeriod * 12;
             let remainingBalance = capital;
 
@@ -663,7 +788,19 @@ document.addEventListener('DOMContentLoaded', () => {
             tableHTML += '</tbody></table>';
             installmentPlanDiv.innerHTML = tableHTML;
             totalpayablediv.innerHTML =
-                `<p>Leasing Amount: ${leasingAmount.toFixed(2)}</p><p>Total Payable: ${capital.toFixed(2)}</p><p>Monthly Installment: ${monthlyInstallment.toFixed(2)}</p>`;
+                `<table style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <tr style="background-color: #f2f2f2;">
+                        <th style="border: 1px solid #ddd; padding: 8px;">Leasing Amount</th>
+                        <th style="border: 1px solid #ddd; padding: 8px;">Total Payable</th>
+                        <th style="border: 1px solid #ddd; padding: 8px;">Monthly Installment</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${leasingAmount.toFixed(2)}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${capital.toFixed(2)}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${monthlyInstallment.toFixed(2)}</td>
+                    </tr>
+                </table>
+            `;
         } else {
             installmentPlanDiv.innerHTML = '<p>No data available. Please fill in all required fields.</p>';
         }
@@ -672,6 +809,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (leasingCompany && vehicleTypeSelect && leasingPeriodInput && leasingRateInput) {
         leasingCompany.addEventListener('change', function() {
             const bankId = this.value;
+
+            installmentPlanDiv.classList.add('d-none');
+            showhidetext.textContent = 'Show Installment Plan';
+
 
             vehicleTypeSelect.innerHTML = '<option selected>Select Vehicle Type</option>';
             leasingPeriodInput.value = '';
@@ -768,9 +909,9 @@ document.addEventListener('DOMContentLoaded', () => {
             let tableHTML =
                 '<table class="table table-bordered"><thead><tr><th>Month</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
             const monthrate = leasingRate / 100 / 12;
+            const leasingmonths = leasingPeriod * 12;
             const monthlyInstallment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -
-                leasingPeriod *
-                12));
+                leasingmonths));
             let capital = monthlyInstallment * leasingPeriod * 12;
             let remainingBalance = capital;
 
@@ -785,9 +926,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
             tableHTML += '</tbody></table>';
             installmentPlanDiv.innerHTML = tableHTML;
+            totalpayablediv.innerHTML = `
+                <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <tr style="background-color: #f2f2f2;">
+                        <th style="border: 1px solid #ddd; padding: 8px;">Leasing Amount</th>
+                        <th style="border: 1px solid #ddd; padding: 8px;">Total Payable</th>
+                        <th style="border: 1px solid #ddd; padding: 8px;">Monthly Installment</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${leasingAmount.toFixed(2)}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${capital.toFixed(2)}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${monthlyInstallment.toFixed(2)}</td>
+                    </tr>
+                </table>
+            `;
 
-            totalpayablediv.innerHTML =
-                `<p>Leasing Amount: ${leasingAmount.toFixed(2)}</p><p>Total Payable: ${capital.toFixed(2)}</p><p>Monthly Installment: ${monthlyInstallment.toFixed(2)}</p>`;
+
         } else {
             installmentPlanDiv.innerHTML = '<p>No data available. Please fill in all required fields.</p>';
         }
@@ -800,9 +954,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (loanAmount && loanRate && loanPeriod) {
             const monthrate = loanRate / (100 * 12);
-            const installment = (loanAmount * monthrate) / (1 - Math.pow(1 + monthrate, -loanPeriod *
-                12));
-            sinstallment.value = installment.toFixed(2);
+            const leasingmonths = loanPeriod * 12;
+            const monthlyInstallment = (loanAmount * monthrate) / (1 - Math.pow(1 + monthrate, -
+                leasingmonths));
+            sinstallment.value = monthlyInstallment.toFixed(2);
         } else {
             sinstallment.value = '0';
         }
@@ -931,6 +1086,8 @@ document.getElementById('requestqt').addEventListener('click', () => {
     }
 });
 </script>
+
+
 
 
 

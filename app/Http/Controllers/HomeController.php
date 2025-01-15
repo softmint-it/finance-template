@@ -13,15 +13,18 @@ class HomeController extends Controller
 
     public function index(): View
     {
-        $banks = Bank::all();
-        $bankRates = BankRates::all();
+        $banks = Bank::where('status', 1)->get();
 
-        return view('eazyhome', compact('banks', 'bankRates'));
+        foreach ($banks as $bank) {
+            $bank->rates = BankRates::where('bank_id', $bank->id)->where('status', 1)->get();
+        }
+
+        return view('eazyhome', compact('banks'));
     }
 
     public function getBankRates($bankId)
 {
-    $BankRates = BankRates::where('bank_id', $bankId)->get();
+    $BankRates = BankRates::where('bank_id', $bankId)->where('status', 1)->get();
     return response()->json($BankRates);
 }
 
