@@ -63,6 +63,18 @@
     width: 180px;
 }
 
+.showplan-btn {
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.6s ease, color 0.3s ease;
+}
+
+.showplan-btn:hover {
+    color: blue;
+    transform: rotate(360deg);
+}
+
+
 @media screen and (max-width: 1399px) {
     .slider {
         width: 50%;
@@ -165,8 +177,23 @@
                             </div>
                             <div class="d-flex justify-content-end">
                                 <div class="">
-                                    <button id="requestqt" class="btn btn-primary mt-2">Request a Quotation</button>
+                                    <button id="requestqt" class="btn btn-primary mt-2 btn-sm">Request a
+                                        Quotation</button>
                                 </div>
+                            </div>
+                            <div id="totalpayablediv"
+                                class="d-lg-flex d-block justify-content-between align-items-center mt-4 mb-4">
+
+                            </div>
+                            <div id="showplan" class="d-none justify-content-center align-items-center text-center"
+                                style="cursor:pointer">
+                                <div>
+                                    <p id="showhidetext" style="line-height: 2px; margin-bottom: 0px;"></p>
+                                    <i class="uil uil-angle-down fs-30 text-black showplan-btn"></i>
+                                </div>
+                            </div>
+                            <div class="d-none" id="installmentplan">
+
                             </div>
                         </div>
 
@@ -194,10 +221,26 @@
                                             style="cursor: not-allowed;">
                                     </div>
                                 </div>
+                                <div id="sttotalpayablediv"
+                                    class="d-lg-flex d-block justify-content-between align-items-center mt-4 mb-4">
+
+                                </div>
+                                <div id="stshowplan"
+                                    class="d-none justify-content-center align-items-center text-center"
+                                    style="cursor:pointer">
+                                    <div>
+                                        <p id="stshowhidetext" style="line-height: 2px; margin-bottom: 0px;"></p>
+                                        <i class="uil uil-angle-down fs-30 text-black showplan-btn"></i>
+                                    </div>
+                                </div>
+                                <div class="d-none" id="stinstallmentplan">
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -541,6 +584,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
+
+<!-- Leasing Calculator -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const leasingCompany = document.getElementById('leasingcompany');
@@ -551,6 +596,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const leasingAmountInput = document.getElementById('leasingamount');
     const installmentInput = document.getElementById('installment');
     const selectedrateid = document.getElementById('selectedrateid');
+    const showPlanDiv = document.getElementById('showplan');
+    const installmentPlanDiv = document.getElementById('installmentplan');
+    const showhidetext = document.getElementById('showhidetext');
+    const totalpayablediv = document.getElementById('totalpayablediv');
 
     document.getElementById('leasingrate').value = 0;
     document.getElementById('leasingperiod').value = 0;
@@ -564,12 +613,59 @@ document.addEventListener('DOMContentLoaded', () => {
         const leasingAmount = parseFloat(leasingAmountInput.value) || 0;
         const leasingRate = parseFloat(leasingRateInput.value) || 0;
         const leasingPeriod = parseInt(leasingPeriodInput.value) || 0;
+        const showplan = document.getElementById('showplan');
 
         if (leasingAmount && leasingRate && leasingPeriod) {
-            const installment = (leasingAmount * leasingRate * leasingPeriod) / (100 * 12);
+            const monthrate = leasingRate / (100 * 12);
+            const installment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -leasingPeriod *
+                12));
             installmentInput.value = installment.toFixed(2);
         } else {
             installmentInput.value = '0';
+        }
+
+        showhidetext.textContent = installmentInput.value > 0 ? 'Show Installment Plan' : '';
+
+        if (installmentInput.value > 0) {
+            showPlanDiv.classList.remove('d-none');
+            showPlanDiv.classList.add('d-flex');
+            populateInstallmentPlan();
+        } else {
+            showPlanDiv.classList.remove('d-flex');
+            showPlanDiv.classList.add('d-none');
+        }
+    }
+
+    function populateInstallmentPlan() {
+        const leasingAmount = parseFloat(leasingAmountInput.value) || 0;
+        const leasingRate = parseFloat(leasingRateInput.value) || 0;
+        const leasingPeriod = parseInt(leasingPeriodInput.value) || 0;
+
+        if (leasingAmount && leasingRate && leasingPeriod) {
+            let tableHTML =
+                '<table class="table table-bordered"><thead><tr><th>Month</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
+            const monthrate = leasingRate / 100 / 12;
+            const monthlyInstallment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -
+                leasingPeriod *
+                12));
+            let capital = monthlyInstallment * leasingPeriod * 12;
+            let remainingBalance = capital;
+
+            for (let month = 1; month <= leasingPeriod * 12; month++) {
+                remainingBalance -= monthlyInstallment;
+                tableHTML += `<tr>
+                    <td>${month}</td>
+                    <td>${monthlyInstallment.toFixed(2)}</td>
+                    <td>${remainingBalance > 0 ? remainingBalance.toFixed(2) : '0.00'}</td>
+                </tr>`;
+            }
+
+            tableHTML += '</tbody></table>';
+            installmentPlanDiv.innerHTML = tableHTML;
+            totalpayablediv.innerHTML =
+                `<p>Leasing Amount: ${leasingAmount.toFixed(2)}</p><p>Total Payable: ${capital.toFixed(2)}</p><p>Monthly Installment: ${monthlyInstallment.toFixed(2)}</p>`;
+        } else {
+            installmentPlanDiv.innerHTML = '<p>No data available. Please fill in all required fields.</p>';
         }
     }
 
@@ -633,21 +729,69 @@ document.addEventListener('DOMContentLoaded', () => {
         leasingAmountInput.addEventListener('input', calculateInstallment);
         leasingRateInput.addEventListener('input', calculateInstallment);
         leasingPeriodInput.addEventListener('input', calculateInstallment);
+
+        showPlanDiv.addEventListener('click', () => {
+            installmentPlanDiv.classList.toggle('d-none');
+            populateInstallmentPlan();
+            showhidetext.textContent = installmentPlanDiv.classList.contains('d-none') ?
+                'Show Installment Plan' :
+                'Hide Installment Plan';
+        });
     }
 });
 </script>
 
+
+<!-- Standard Calculator -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const sloanamount = document.getElementById('sloanamount');
     const sloanrate = document.getElementById('sloanrate');
     const sloanperiod = document.getElementById('sloanperiod');
     const sinstallment = document.getElementById('sinstallment');
+    const showPlanDiv = document.getElementById('stshowplan');
+    const installmentPlanDiv = document.getElementById('stinstallmentplan');
+    const showhidetext = document.getElementById('stshowhidetext');
+    const totalpayablediv = document.getElementById('sttotalpayablediv');
 
     document.getElementById('sloanrate').value = 0;
     document.getElementById('sloanperiod').value = 0;
     document.getElementById('sloanamount').value = 0;
     document.getElementById('sinstallment').value = 0;
+
+    function populateInstallmentPlan() {
+        const leasingAmount = parseFloat(sloanamount.value) || 0;
+        const leasingRate = parseFloat(sloanrate.value) || 0;
+        const leasingPeriod = parseInt(sloanperiod.value) || 0;
+
+        if (leasingAmount && leasingRate && leasingPeriod) {
+            let tableHTML =
+                '<table class="table table-bordered"><thead><tr><th>Month</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
+            const monthrate = leasingRate / 100 / 12;
+            const monthlyInstallment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -
+                leasingPeriod *
+                12));
+            let capital = monthlyInstallment * leasingPeriod * 12;
+            let remainingBalance = capital;
+
+            for (let month = 1; month <= leasingPeriod * 12; month++) {
+                remainingBalance -= monthlyInstallment;
+                tableHTML += `<tr>
+                    <td>${month}</td>
+                    <td>${monthlyInstallment.toFixed(2)}</td>
+                    <td>${remainingBalance > 0 ? remainingBalance.toFixed(2) : '0.00'}</td>
+                </tr>`;
+            }
+
+            tableHTML += '</tbody></table>';
+            installmentPlanDiv.innerHTML = tableHTML;
+
+            totalpayablediv.innerHTML =
+                `<p>Leasing Amount: ${leasingAmount.toFixed(2)}</p><p>Total Payable: ${capital.toFixed(2)}</p><p>Monthly Installment: ${monthlyInstallment.toFixed(2)}</p>`;
+        } else {
+            installmentPlanDiv.innerHTML = '<p>No data available. Please fill in all required fields.</p>';
+        }
+    }
 
     function calculateStandardInstallment() {
         const loanAmount = parseFloat(sloanamount.value) || 0;
@@ -655,16 +799,37 @@ document.addEventListener('DOMContentLoaded', () => {
         const loanPeriod = parseInt(sloanperiod.value) || 0;
 
         if (loanAmount && loanRate && loanPeriod) {
-            const installment = (loanAmount * loanRate * loanPeriod) / (100 * 12);
+            const monthrate = loanRate / (100 * 12);
+            const installment = (loanAmount * monthrate) / (1 - Math.pow(1 + monthrate, -loanPeriod *
+                12));
             sinstallment.value = installment.toFixed(2);
         } else {
             sinstallment.value = '0';
+        }
+
+        showhidetext.textContent = sinstallment.value > 0 ? 'Show Installment Plan' : '';
+
+        if (sinstallment.value > 0) {
+            showPlanDiv.classList.remove('d-none');
+            showPlanDiv.classList.add('d-flex');
+            populateInstallmentPlan();
+        } else {
+            showPlanDiv.classList.remove('d-flex');
+            showPlanDiv.classList.add('d-none');
         }
     }
 
     sloanamount.addEventListener('input', calculateStandardInstallment);
     sloanrate.addEventListener('input', calculateStandardInstallment);
     sloanperiod.addEventListener('input', calculateStandardInstallment);
+
+    showPlanDiv.addEventListener('click', () => {
+        installmentPlanDiv.classList.toggle('d-none');
+        populateInstallmentPlan();
+        showhidetext.textContent = installmentPlanDiv.classList.contains('d-none') ?
+            'Show Installment Plan' :
+            'Hide Installment Plan';
+    });
 });
 </script>
 <script>
@@ -766,6 +931,12 @@ document.getElementById('requestqt').addEventListener('click', () => {
     }
 });
 </script>
+
+
+
+
+
+
 
 
 
