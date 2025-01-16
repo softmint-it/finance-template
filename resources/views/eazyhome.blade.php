@@ -74,6 +74,13 @@
     transform: rotate(360deg);
 }
 
+.table-fonts {
+    font-size: 0.7rem;
+}
+
+.table-fonts-modal {
+    font-size: 0.7rem;
+}
 
 @media screen and (max-width: 1399px) {
     .slider {
@@ -85,6 +92,30 @@
     .slider {
         width: 100%;
         margin-top: 25px;
+    }
+
+    .table-fonts-modal {
+        font-size: 0.6rem;
+    }
+
+    .table-fonts {
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (max-width:768px) {
+
+    .table-fonts,
+    .table-fonts-modal {
+        font-size: 0.6rem;
+    }
+}
+
+@media screen and (max-width:480px) {
+
+    .table-fonts,
+    .table-fonts-modal {
+        font-size: 0.5rem;
     }
 }
 </style>
@@ -176,8 +207,7 @@
                                 </div>
                             </div>
 
-                            <div id="totalpayablediv"
-                                class="d-lg-flex d-block justify-content-between align-items-center mt-4 mb-4">
+                            <div id="totalpayablediv" class="justify-content-center align-items-center mt-4 mb-4 w-100">
 
                             </div>
                             <div class="d-flex justify-content-end">
@@ -186,7 +216,8 @@
                                         Quotation</button>
                                 </div>
                             </div>
-                            <div id="showplan" class="d-none justify-content-center align-items-center text-center"
+                            <div id="showplan"
+                                class="d-none justify-content-center align-items-center text-center mt-10 mt-md-5"
                                 style="cursor:pointer">
                                 <div>
                                     <p id="showhidetext" style="line-height: 2px; margin-bottom: 0px;"></p>
@@ -223,11 +254,11 @@
                                     </div>
                                 </div>
                                 <div id="sttotalpayablediv"
-                                    class="d-lg-flex d-block justify-content-between align-items-center mt-4 mb-4">
+                                    class="d-flex justify-content-between align-items-center mt-4 mb-4">
 
                                 </div>
                                 <div id="stshowplan"
-                                    class="d-none justify-content-center align-items-center text-center"
+                                    class="d-none justify-content-center align-items-center text-center "
                                     style="cursor:pointer">
                                     <div>
                                         <p id="stshowhidetext" style="line-height: 2px; margin-bottom: 0px;"></p>
@@ -677,9 +708,42 @@
     <!-- /.container -->
 </section>
 <!-- /section -->
+
+<!-- Modal to show intallment plan -->
+<div class="modal fade" id="installmentPlanModal" tabindex="-1" aria-labelledby="installmentPlanModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 0;">
+                <h4 class="modal-title" id="installmentPlanModalLabel">Installment Plan</h4>
+                <button id="downloadPdf" class="btn btn-primary btn-sm">Download as PDF</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="bank-name-logo" class="d-none justify-content-between w-100 mb-2"></div>
+                <div id="modal-leasing-info" class="d-none justify-content-center align-items-center w-100"></div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-fonts">
+                        <thead>
+
+                        </thead>
+                        <tbody id="installmentPlanTable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const leasingCalculatorTitle = document.getElementById('leasingCalculatorTitle');
@@ -724,6 +788,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const installmentPlanDiv = document.getElementById('installmentplan');
     const showhidetext = document.getElementById('showhidetext');
     const totalpayablediv = document.getElementById('totalpayablediv');
+    const modal_leasing_info_div = document.getElementById('modal-leasing-info');
+    const modla_bank_name_logo = document.getElementById('bank-name-logo');
 
     document.getElementById('leasingrate').value = 0;
     document.getElementById('leasingperiod').value = 0;
@@ -747,6 +813,7 @@ document.addEventListener('DOMContentLoaded', () => {
             installmentInput.value = installment.toFixed(2);
         } else {
             installmentInput.value = '0';
+            populateInstallmentPlan();
         }
 
         showhidetext.textContent = installmentInput.value > 0 ? 'Show Installment Plan' : '';
@@ -758,17 +825,36 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             showPlanDiv.classList.remove('d-flex');
             showPlanDiv.classList.add('d-none');
+            populateInstallmentPlan();
         }
     }
+
+    showPlanDiv.addEventListener("click", function() {
+        const installmentPlanModal = new bootstrap.Modal(document.getElementById(
+            'installmentPlanModal'));
+        installmentPlanModal.show();
+        populateInstallmentPlan();
+    });
+
+    function getBankById(bankId) {
+        const banks = @json($banks);
+        const numericBankId = parseInt(bankId, 10);
+        const bank = banks.find(bank => bank.id == numericBankId);
+        return bank ? bank : null;
+    }
+
 
     function populateInstallmentPlan() {
         const leasingAmount = parseFloat(leasingAmountInput.value) || 0;
         const leasingRate = parseFloat(leasingRateInput.value) || 0;
         const leasingPeriod = parseInt(leasingPeriodInput.value) || 0;
+        const vehicleType = vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex].text.split(" (")[0];
 
         if (leasingAmount && leasingRate && leasingPeriod) {
+
+
             let tableHTML =
-                '<table class="table table-bordered"><thead><tr><th>Month</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
+                '<table class="table table-bordered table-fonts"><thead><tr><th>Month</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
             const monthrate = leasingRate / 100 / 12;
             const leasingmonths = leasingPeriod * 12;
             const monthlyInstallment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -
@@ -784,25 +870,78 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${remainingBalance > 0 ? remainingBalance.toFixed(2) : '0.00'}</td>
                 </tr>`;
             }
-
             tableHTML += '</tbody></table>';
-            installmentPlanDiv.innerHTML = tableHTML;
-            totalpayablediv.innerHTML =
-                `<table style="width: 100%; border-collapse: collapse; text-align: left;">
-                    <tr style="background-color: #f2f2f2;">
-                        <th style="border: 1px solid #ddd; padding: 8px;">Leasing Amount</th>
-                        <th style="border: 1px solid #ddd; padding: 8px;">Total Payable</th>
-                        <th style="border: 1px solid #ddd; padding: 8px;">Monthly Installment</th>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #ddd; padding: 8px;">${leasingAmount.toFixed(2)}</td>
-                        <td style="border: 1px solid #ddd; padding: 8px;">${capital.toFixed(2)}</td>
-                        <td style="border: 1px solid #ddd; padding: 8px;">${monthlyInstallment.toFixed(2)}</td>
-                    </tr>
-                </table>
+            let intallmentplanmodaltablebody = document.getElementById('installmentPlanTable');
+            intallmentplanmodaltablebody.innerHTML = tableHTML;
+
+            let leasinginfoHTML = `
+                <div class="table-responsive w-100">
+                    <table class="table table-bordered table-striped table-hover text-center table-fonts-modal">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Vehicle Type</th>
+                                <th>Leasing Amount</th>
+                                <th>Leasing Rate</th>
+                                <th>Total Payable</th>
+                                <th>Monthly Installment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>${vehicleType}</td>
+                                <td>${leasingAmount.toFixed(2)}</td>
+                                <td>${leasingRate} (${leasingPeriod} Years)</td>
+                                <td>${capital.toFixed(2)}</td>
+                                <td>${monthlyInstallment.toFixed(2)}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             `;
+
+            modal_leasing_info_div.innerHTML = leasinginfoHTML;
+
+            if (leasingCompany && vehicleTypeSelect && leasingPeriodInput.value && leasingRateInput.value &&
+                leasingAmountInput.value) {
+                if (installmentInput.value > 0) {
+
+                    totalpayablediv.classList.remove("d-none");
+                    totalpayablediv.classList.add("d-flex");
+
+                    installmentPlanDiv.innerHTML = tableHTML;
+                    totalpayablediv.innerHTML = `
+                        <div class="table-responsive w-100">
+                            <table class="table table-bordered table-striped table-hover text-center table-fonts">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Vehicle Type</th>
+                                        <th>Leasing Amount</th>
+                                        <th>Leasing Rate</th>
+                                        <th>Total Payable</th>
+                                        <th>Monthly Installment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>${vehicleType}</td>
+                                        <td>${leasingAmount.toFixed(2)}</td>
+                                        <td>${leasingRate} (${leasingPeriod} Years)</td>
+                                        <td>${capital.toFixed(2)}</td>
+                                        <td>${monthlyInstallment.toFixed(2)}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+                } else {
+                    installmentPlanDiv.innerHTML =
+                        '<p>No data available. Please fill in all required fields.</p>';
+                }
+
+            }
         } else {
-            installmentPlanDiv.innerHTML = '<p>No data available. Please fill in all required fields.</p>';
+            installmentPlanDiv.innerHTML =
+                '<p>No data available. Please fill in all required fields.</p>';
         }
     }
 
@@ -810,7 +949,21 @@ document.addEventListener('DOMContentLoaded', () => {
         leasingCompany.addEventListener('change', function() {
             const bankId = this.value;
 
+
+            const bankDetails = getBankById(bankId);
+            modla_bank_name_logo.classList.remove('d-none');
+            modal_leasing_info_div.classList.remove('d-none');
+            modla_bank_name_logo.classList.add('d-flex');
+            modal_leasing_info_div.classList.add('d-flex');
+
+            if (bankDetails) {
+                modla_bank_name_logo.innerHTML = `<h4>${bankDetails.name}</h4>
+                    <img src="${bankDetails.logo}" alt="${bankDetails.name}" class="img-fluid" style="width: 20%;" />
+                `;
+            }
+
             installmentPlanDiv.classList.add('d-none');
+            totalpayablediv.classList.add("d-none");
             showhidetext.textContent = 'Show Installment Plan';
 
 
@@ -847,6 +1000,7 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedrateid.value = selectedVehicleType;
             document.getElementById('leasingamount').value = 0;
             document.getElementById('installment').value = 0;
+            totalpayablediv.classList.add("d-none");
             if (selectedVehicleType && bankRates.length > 0) {
                 const selectedRate = bankRates.find(rate => rate.id == selectedVehicleType);
                 if (selectedRate) {
@@ -872,8 +1026,12 @@ document.addEventListener('DOMContentLoaded', () => {
         leasingPeriodInput.addEventListener('input', calculateInstallment);
 
         showPlanDiv.addEventListener('click', () => {
-            installmentPlanDiv.classList.toggle('d-none');
+            // installmentPlanDiv.classList.toggle('d-none');
             populateInstallmentPlan();
+            modla_bank_name_logo.classList.remove('d-none');
+            modal_leasing_info_div.classList.remove('d-none');
+            modla_bank_name_logo.classList.add('d-flex');
+            modal_leasing_info_div.classList.add('d-flex');
             showhidetext.textContent = installmentPlanDiv.classList.contains('d-none') ?
                 'Show Installment Plan' :
                 'Hide Installment Plan';
@@ -894,11 +1052,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const installmentPlanDiv = document.getElementById('stinstallmentplan');
     const showhidetext = document.getElementById('stshowhidetext');
     const totalpayablediv = document.getElementById('sttotalpayablediv');
+    const modal_leasing_info_div = document.getElementById('modal-leasing-info');
+    const modla_bank_name_logo = document.getElementById('bank-name-logo');
 
     document.getElementById('sloanrate').value = 0;
     document.getElementById('sloanperiod').value = 0;
     document.getElementById('sloanamount').value = 0;
     document.getElementById('sinstallment').value = 0;
+
+    showPlanDiv.addEventListener("click", function() {
+        const installmentPlanModal = new bootstrap.Modal(document.getElementById(
+            'installmentPlanModal'));
+        installmentPlanModal.show();
+        populateInstallmentPlan();
+    });
+
 
     function populateInstallmentPlan() {
         const leasingAmount = parseFloat(sloanamount.value) || 0;
@@ -907,7 +1075,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (leasingAmount && leasingRate && leasingPeriod) {
             let tableHTML =
-                '<table class="table table-bordered"><thead><tr><th>Month</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
+                '<table class="table table-bordered table-fonts"><thead><tr><th>Month</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
             const monthrate = leasingRate / 100 / 12;
             const leasingmonths = leasingPeriod * 12;
             const monthlyInstallment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -
@@ -924,21 +1092,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 </tr>`;
             }
 
+            let intallmentplanmodaltablebody = document.getElementById('installmentPlanTable');
+            intallmentplanmodaltablebody.innerHTML = tableHTML;
+
             tableHTML += '</tbody></table>';
+
+            modla_bank_name_logo.classList.remove('d-flex');
+            modal_leasing_info_div.classList.remove('d-flex');
+            modla_bank_name_logo.classList.add('d-none');
+            modal_leasing_info_div.classList.add('d-none');
+
+
             installmentPlanDiv.innerHTML = tableHTML;
             totalpayablediv.innerHTML = `
-                <table style="width: 100%; border-collapse: collapse; text-align: left;">
-                    <tr style="background-color: #f2f2f2;">
-                        <th style="border: 1px solid #ddd; padding: 8px;">Leasing Amount</th>
-                        <th style="border: 1px solid #ddd; padding: 8px;">Total Payable</th>
-                        <th style="border: 1px solid #ddd; padding: 8px;">Monthly Installment</th>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #ddd; padding: 8px;">${leasingAmount.toFixed(2)}</td>
-                        <td style="border: 1px solid #ddd; padding: 8px;">${capital.toFixed(2)}</td>
-                        <td style="border: 1px solid #ddd; padding: 8px;">${monthlyInstallment.toFixed(2)}</td>
-                    </tr>
-                </table>
+                <div class="table-responsive w-100">
+                    <table class="table table-bordered table-striped table-hover text-center table-fonts">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Leasing Amount</th>
+                                <th>Leasing Rate</th>
+                                <th>Total Payable</th>
+                                <th>Monthly Installment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>${leasingAmount.toFixed(2)}</td>
+                                <td>${leasingRate} (${leasingPeriod} Years)</td>
+                                <td>${capital.toFixed(2)}</td>
+                                <td>${monthlyInstallment.toFixed(2)}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             `;
 
 
@@ -979,7 +1165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sloanperiod.addEventListener('input', calculateStandardInstallment);
 
     showPlanDiv.addEventListener('click', () => {
-        installmentPlanDiv.classList.toggle('d-none');
+        // installmentPlanDiv.classList.toggle('d-none');
         populateInstallmentPlan();
         showhidetext.textContent = installmentPlanDiv.classList.contains('d-none') ?
             'Show Installment Plan' :
@@ -1086,15 +1272,38 @@ document.getElementById('requestqt').addEventListener('click', () => {
     }
 });
 </script>
+<script>
+document.getElementById('downloadPdf').addEventListener('click', function() {
+    const {
+        jsPDF
+    } = window.jspdf;
+    const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+    });
 
+    const modalContent = document.querySelector('#installmentPlanModal .modal-content');
 
+    // Temporarily hide buttons
+    const buttons = modalContent.querySelectorAll('button');
+    buttons.forEach(button => button.style.display = 'none');
 
+    // Render the content to PDF
+    pdf.html(modalContent, {
+        callback: function(doc) {
+            // Restore button visibility
+            buttons.forEach(button => button.style.display = '');
 
-
-
-
-
-
+            doc.save('InstallmentPlan.pdf');
+        },
+        x: 10,
+        y: 10,
+        width: 190,
+        windowWidth: 800
+    });
+});
+</script>
 
 
 
