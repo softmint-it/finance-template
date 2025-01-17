@@ -6,5 +6,5 @@ function formatToLKR(value) {
         currencyDisplay: "narrowSymbol",
     });
 
-    return formatter.format(value).replace("Rs.", "LKR");
+    return formatter.format(value).replace(/^Rs?\.?/, "Rs. ");
 }

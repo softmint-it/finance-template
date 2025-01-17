@@ -320,9 +320,8 @@
                 <thead>
                     <tr>
                         <th style="width:0px"></th>
-                        <th class="text-center" style="width:10%">Bank</th>
+                        <th class="text-center" style="width:10%">Leasing Company</th>
                         <th class="text-center" style="width:20%">Facility per {{ formatLKR(100000) }}</th>
-                        <th class="text-center" style="width:10%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -335,6 +334,10 @@
                                     <img src="{{env('BASE_URL')}}{{ $bank->logo }}" alt="{{ $bank->name }}"
                                         class="img-fluid table-bank-logo" margin-right:10px" />
                                     <h2 class="text-uppercase text-muted mb-3 table-bank-name">{{ $bank->name }}</h2>
+                                    <a href="javascript:void(0);" data-bs-toggle="modal"
+                                        data-bs-target="#bankModal{{ $bank->id }}">
+                                        <i class="uil uil-file-alt fs-15"></i>View Details
+                                    </a>
                                 </div>
                             </div>
                         </td>
@@ -379,13 +382,6 @@
 
 
                         </td>
-                        <td class="text-center">
-                            <a href="javascript:void(0);" data-bs-toggle="modal"
-                                data-bs-target="#bankModal{{ $bank->id }}">
-                                <i class="uil uil-file-alt fs-15"></i>View Details
-                            </a>
-
-                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -411,7 +407,9 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                @php
+                                <!-- Image Carousel -->
+
+                                <!-- @php
                                 $sentences = explode('.', $bank->description);
                                 @endphp
 
@@ -421,10 +419,13 @@
                                     <p class="sentence">{{ trim($sentence) }}.</p>
                                 </div>
                                 @endif
-                                @endforeach
+                                @endforeach -->
+                                {!! $bank->description !!}
 
-                                <p><strong>Website:</strong> <a href="{{ $bank->website }}" target="_blank"><i
-                                            class="uil uil-external-link-alt"></i></a></p>
+                                <p><strong>Website:</strong> <a href="{{ $bank->website }}" target="_blank"
+                                        class="gap-2">{{ $bank->website }}<i class="uil uil-external-link-alt"
+                                            style="margin-left:10px;"></i></a>
+                                </p>
                                 <h6>Available Facility Types and Rates</h6>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-fonts-modal text-center table-responsive">
@@ -433,6 +434,7 @@
                                                 <th>Facility Type</th>
                                                 <th>Leasing Period</th>
                                                 <th>Rate</th>
+                                                <th>Ins Per {{formatLKR(100000)}}</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -442,6 +444,7 @@
                                                 <td>{{ $rate->vehicle_type }}</td>
                                                 <td>{{ $rate->year }} Years</td>
                                                 <td>{{ $rate->min_rate }}% - {{ $rate->max_rate }}%</td>
+                                                <td>{{formatLKR($rate->installment)}}</td>
                                                 <td><button class="leasingtable-reqbtn" data-bs-toggle="modal"
                                                         data-bs-target="#applyNowModal" data-bs-dismiss="modal"
                                                         data-rateid="{{ $rate->id }}" data-bankid="{{ $bank->id }}"
@@ -996,7 +999,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             let tableHTML =
-                '<table class="table table-bordered table-fonts"><thead><tr><th>Ins.Count</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
+                '<table class="table table-bordered table-fonts text-center"><thead><tr><th class="text-center">Ins.Count</th><th class="text-center">Installment</th><th class="text-center">Capital Balance</th><th class="text-center">Leasing Balance</th></tr></thead><tbody>';
             const monthrate = leasingRate / 100 / 12;
             const leasingmonths = leasingPeriod * 12;
             const monthlyInstallment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -
@@ -1004,12 +1007,21 @@ document.addEventListener('DOMContentLoaded', () => {
             let capital = monthlyInstallment * leasingPeriod * 12;
             let remainingBalance = capital;
 
+            let loanAmount = leasingAmount;
+
             for (let month = 1; month <= leasingPeriod * 12; month++) {
+                let interest = loanAmount * monthrate;
+                let capitaldeduction = monthlyInstallment - interest;
+                loanAmount -= capitaldeduction;
                 remainingBalance -= monthlyInstallment;
+
+
+
                 tableHTML += `<tr>
-                    <td>${month}</td>
-                    <td>${formatToLKR(monthlyInstallment)}</td>
-                    <td>${remainingBalance > 0 ? formatToLKR(remainingBalance) : '0.00'}</td>
+                    <td class="text-center">${month}</td>
+                    <td class="text-center">${formatToLKR(monthlyInstallment)}</td>
+                    <td class="text-center">${loanAmount > 0 ?formatToLKR(loanAmount): '0.00'}</td>
+                    <td class="text-center">${remainingBalance > 0 ? formatToLKR(remainingBalance) : '0.00'}</td>
                 </tr>`;
             }
             tableHTML += '</tbody></table>';
@@ -1217,7 +1229,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (leasingAmount && leasingRate && leasingPeriod) {
             let tableHTML =
-                '<table class="table table-bordered table-fonts"><thead><tr><th>Ins.Count</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
+                '<table class="table table-bordered table-fonts text-center"><thead><tr><th class="text-center">Ins.Count</th><th class="text-center">Installment</th><th class="text-center">Capital Balance</th><th class="text-center">Leasing Balance</th></tr></thead><tbody>';
             const monthrate = leasingRate / 100 / 12;
             const leasingmonths = leasingPeriod * 12;
             const monthlyInstallment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -
@@ -1225,12 +1237,21 @@ document.addEventListener('DOMContentLoaded', () => {
             let capital = monthlyInstallment * leasingPeriod * 12;
             let remainingBalance = capital;
 
+            let loanAmount = leasingAmount;
+
             for (let month = 1; month <= leasingPeriod * 12; month++) {
+
+                let interest = loanAmount * monthrate;
+                let capitaldeduction = monthlyInstallment - interest;
+                loanAmount -= capitaldeduction;
                 remainingBalance -= monthlyInstallment;
+
+
                 tableHTML += `<tr>
-                    <td>${month}</td>
-                    <td>${formatToLKR(monthlyInstallment)}</td>
-                    <td>${remainingBalance > 0 ? formatToLKR(remainingBalance) : '0.00'}</td>
+                    <td class="text-center">${month}</td>
+                    <td class="text-center">${formatToLKR(monthlyInstallment)}</td>
+                    <td class="text-center">${loanAmount > 0 ? formatToLKR(loanAmount): '0.00'}</td>
+                    <td class="text-center">${remainingBalance > 0 ? formatToLKR(remainingBalance) : '0.00'}</td>
                 </tr>`;
             }
 
@@ -1622,6 +1643,7 @@ $(document).ready(function() {
 
 });
 </script>
+
 
 
 
