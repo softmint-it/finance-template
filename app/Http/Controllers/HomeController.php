@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use App\Models\BankRates;
 use App\Models\Bank;
 use App\Models\QuotationRequest;
+use App\Helpers\NotifyHelper;
 
 class HomeController extends Controller
 {
@@ -14,12 +15,39 @@ class HomeController extends Controller
     public function index(): View
     {
         $banks = Bank::where('status', 1)->get();
-
         foreach ($banks as $bank) {
             $bank->rates = BankRates::where('bank_id', $bank->id)->where('status', 1)->get();
         }
 
-        return view('eazyhome', compact('banks'));
+        $notify = [];
+        $noFilteredRates = true;
+
+        if(isset($_GET['vfilter'])){
+            $vfilter = $_GET['vfilter'];
+        }else{
+            $vfilter = 'Motor Car Leasing';
+        }
+
+        $filterdbanks = Bank::whereHas('bankRates', function($query) use ($vfilter) {
+            $query->where('status', 1)
+                ->where('vehicle_type', $vfilter);
+        })->get();
+        foreach ($filterdbanks as $bank) {
+            $bank->filterdrates = BankRates::where('bank_id', $bank->id)->where('status', 1)->where('vehicle_type', $vfilter )->get();
+            if (!$bank->filterdrates->isEmpty()) {
+                $noFilteredRates = false;
+            }
+        }
+
+         if ($noFilteredRates) {
+            $notify[] = ['error', 'No rates found for ' . $vfilter . ' in any bank'];
+        }
+
+        $vehicle_types = BankRates::select('vehicle_type')->distinct()->get();
+
+
+
+        return view('eazyhome', compact('banks', 'vehicle_types','filterdbanks' ,'vfilter','notify'));
     }
 
     public function getBankRates($bankId)
@@ -31,12 +59,14 @@ class HomeController extends Controller
 
     public function aboutUs(): View
     {
-        return view('about-us');
+        $banks = Bank::where('status', 1)->get();
+        return view('about-us', compact('banks'));
     }
 
     public function contactUs(): View
     {
-        return view('contact-us');
+        $banks = Bank::where('status', 1)->get();
+        return view('contact-us' , compact('banks'));
     }
 
     public function submitQuotationRequest(Request $request)

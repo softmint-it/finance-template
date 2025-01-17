@@ -205,7 +205,7 @@
                                 <label for="modelvehicleType" class="form-label" name="vehicle_type">Vehicle
                                     Type</label><span class="text-danger">*</span>
                                 <select id="modelvehicleType" class="form-select" aria-label="Default select example">
-                                    <option selected>Select Vehicle Type</option>
+                                    <option selected>Select Facility Type</option>
                                 </select>
                             </div>
                         </div>
@@ -278,10 +278,29 @@
 document.addEventListener('click', function(event) {
     if (event.target && event.target.id === 'desktop-applynow-button') {
         const applyNowModal = new bootstrap.Modal(document.getElementById('applyNowModal'));
+
+        const vehicleTypeSelect = document.getElementById('modelvehicleType');
+        vehicleTypeSelect.removeAttribute('readonly');
+        vehicleTypeSelect.style.cursor = '';
+        document.getElementById('modelleasingrate').value = 0;
+        document.getElementById('modelleasingperiod').value = 0;
+        document.getElementById('modelleasingamount').value = 0;
+        document.getElementById('modelinstallment').value = 0;
+        document.getElementById('modelleasingcompany').value = 'Select Leasing Company';
+        vehicleTypeSelect.value = 'Select Facility Type';
         applyNowModal.show();
     }
     if (event.target && event.target.id === 'mobile-applynow-button') {
         const applyNowModal = new bootstrap.Modal(document.getElementById('applyNowModal'));
+        const vehicleTypeSelect = document.getElementById('modelvehicleType');
+        vehicleTypeSelect.removeAttribute('readonly');
+        vehicleTypeSelect.style.cursor = '';
+        document.getElementById('modelleasingrate').value = 0;
+        document.getElementById('modelleasingperiod').value = 0;
+        document.getElementById('modelleasingamount').value = 0;
+        document.getElementById('modelinstallment').value = 0;
+        document.getElementById('modelleasingcompany').value = 'Select Leasing Company';
+        vehicleTypeSelect.value = 'Select Facility Type';
         applyNowModal.show();
     }
 });
@@ -312,7 +331,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const leasingPeriod = parseInt(leasingPeriodInput.value) || 0;
 
         if (leasingAmount && leasingRate && leasingPeriod) {
-            const installment = (leasingAmount * leasingRate * leasingPeriod) / (100 * 12);
+            const monthrate = leasingRate / 100 / 12;
+            const installment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -leasingPeriod *
+                12));
             installmentInput.value = installment.toFixed(2);
         } else {
             installmentInput.value = '0';
@@ -323,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
         leasingCompany.addEventListener('change', function() {
             const bankId = this.value;
 
-            vehicleTypeSelect.innerHTML = '<option selected>Select Vehicle Type</option>';
+            vehicleTypeSelect.innerHTML = '<option selected>Select Facility Type</option>';
             leasingPeriodInput.value = '';
             leasingRateInput.value = '';
             document.getElementById('modelleasingamount').value = 0;
@@ -344,11 +365,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             });
                         } else {
                             const option = document.createElement('option');
-                            option.textContent = 'No Vehicle Types Available';
+                            option.textContent = 'No Facility Types Available';
                             vehicleTypeSelect.appendChild(option);
                         }
                     })
-                    .catch(error => console.error('Error fetching vehicle types:', error));
+                    .catch(error => console.error('Error fetching Facility Types:', error));
             }
         });
         vehicleTypeSelect.addEventListener('change', function() {

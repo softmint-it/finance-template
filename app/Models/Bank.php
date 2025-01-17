@@ -13,4 +13,10 @@ class Bank extends Model
 
     protected $fillable = ['name', 'address', 'logo', 'email','mobile1','mobile2','description','website','status'];
 
+    public function bankRates()
+{
+    return $this->hasMany(BankRates::class);
+}
+
+
 }

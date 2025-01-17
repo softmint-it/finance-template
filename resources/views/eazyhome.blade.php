@@ -82,6 +82,10 @@
     font-size: 0.7rem;
 }
 
+.dataTables_filter {
+    display: none;
+}
+
 @media screen and (max-width: 1399px) {
     .slider {
         width: 50%;
@@ -167,7 +171,7 @@
                         </div>
                         <div class="card-body" id="leasingcalculator">
                             <div class="row">
-                                <div class="col-lg-4 col-md-6 col-12 form-group">
+                                <div class="col-lg-6 col-md-6 col-12 form-group">
                                     <lable for="leasingcompany">Leasing Company</lable>
                                     <select id="leasingcompany" class="form-select" aria-label="Default select example">
                                         <option selected>Select Leasing Company</option>
@@ -176,31 +180,31 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-12 form-group">
-                                    <label for="vehicleType">Vehicle Type</label>
+                                <div class="col-lg-6 col-md-6 col-12 form-group">
+                                    <label for="vehicleType">Facility Type</label>
                                     <select id="vehicleType" class="form-select" aria-label="Default select example">
-                                        <option selected>Select Vehicle Type</option>
+                                        <option selected>Select Facility Type</option>
                                     </select>
                                 </div>
                                 <input type="hidden" id="selectedrateid">
 
-                                <div class="col-lg-4 col-md-6 col-12 form-group">
+                                <div class="col-lg-4 col-md-6 col-12 form-group d-none">
                                     <label for="leasingperiod">Leasing Period</label>
                                     <input type="text" class="form-control" id="leasingperiod"
                                         placeholder="Leasing Period" readonly style="cursor: not-allowed;">
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-12 form-group">
+                                <div class="col-lg-6 col-md-6 col-12 form-group">
                                     <label for="leasingrate">Rate</label><span class="pl-2 pb-2 text-danger"
                                         id="bankratespan" style="font-size:10px;"></span>
                                     <input type="number" step="0.1" class="form-control" id="leasingrate"
                                         placeholder="Rate">
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-12 form">
+                                <div class="col-lg-6 col-md-6 col-12 form">
                                     <label for=" leasingamount">Leasing Amount</label>
                                     <input type="number" class="form-control" id="leasingamount"
                                         placeholder="Leasing Amount">
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-12 form">
+                                <div class="col-lg-4 col-md-6 col-12 form d-none">
                                     <label for=" installment">Installment</label>
                                     <input type="text" class="form-control" id="installment" value="0" readonly
                                         style="cursor: not-allowed;">
@@ -233,7 +237,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-6 col-12 form-group">
-                                        <label for="loanamount">Loan Amount</label>
+                                        <label for="loanamount">Leasing Amount</label>
                                         <input type="number" class="form-control" id="sloanamount"
                                             placeholder="Loan Amount">
                                     </div>
@@ -280,7 +284,7 @@
 </section>
 <!-- /section -->
 
-<section class="wrapper bg-light">
+<section id="leasingcomparisonsection" class="wrapper bg-light">
     <div class="container py-15 py-md-17">
         <div class="row text-center">
             <div class="col-lg-10 col-xl-7 col-xxl-6 mx-auto">
@@ -291,114 +295,190 @@
             <!-- /column -->
         </div>
         <!-- /.row -->
-        <div class="row gx-lg-8 gx-xl-12 gy-8">
-            @foreach ($banks as $bank)
-            <div class="col-lg-4 col-md-6 col-12 mb-6">
-                <article>
-                    <figure class="overlay overlay-1 hover-scale rounded mb-6">
-                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#bankModal{{ $bank->id }}">
-                            <img src="{{env('BASE_URL')}}{{ $bank->logo }}" alt="" />
-                        </a>
-                        <figcaption>
-                            <h5 id="readmoreleasing" class="from-top mb-0">Read More</h5>
-                        </figcaption>
-                    </figure>
-                    <div class="post-header">
-                        <h2 class="post-title h3 ls-sm mb-3">
-                            <a class="link-dark" href="{{env('BASE_URL')}}bank/{{ $bank->id }}">{{ $bank->name }}</a>
-                        </h2>
-                    </div>
-                    <div class="post-body">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Vehicle Type</th>
-                                    <th>Rate</th>
-                                    <th>Period</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($bank->rates as $rate)
-                                <tr>
-                                    <td>{{ $rate->vehicle_type }}</td>
-                                    <td>{{ $rate->min_rate }} - {{ $rate->max_rate }}</td>
-                                    <td>{{ $rate->year }} Years</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="post-footer">
-                        <ul class="post-meta">
-                            <li class="post-date">
-                                <i
-                                    class="uil uil-calendar-alt"></i><span>{{ $bank->updated_at->format('d M Y') }}</span>
-                            </li>
-                            <li class="post-comments">
-                                <a href="javascript:void(0);" data-bs-toggle="modal"
-                                    data-bs-target="#bankModal{{ $bank->id }}">
-                                    <i class="uil uil-file-alt fs-15"></i>View Details
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </article>
+
+        <!-- loan comparison table-->
+        <div class="table-responsive table-padding">
+
+
+            <div class="d-md-flex d-block justify-content-between align-items-center mb-3 filter-section">
+                <!-- Filter Container -->
+                <div class="filter-container d-block align-items-center">
+                    <label for="vehicleTypeFilter" class="me-2 fs-14">Facility Type</label>
+                    <select id="vehicleTypeFilter" class="form-select w-auto typefilter">
+                    </select>
+                </div>
+
+                <!-- Search Box -->
+                <div class="search-container d-block align-items-center mt-5 mt-md-0">
+                    <label for="searchBox" class="me-2 fs-14">Search</label>
+                    <input type="text" id="searchBox" class="form-control lesingserach" placeholder="Search..." />
+                </div>
             </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="bankModal{{ $bank->id }}" tabindex="-1"
-                aria-labelledby="bankModalLabel{{ $bank->id }}" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header" style="padding-bottom: 0;">
-                            <h5 class="modal-title" id="bankModalLabel{{ $bank->id }}">{{ $bank->name }} - Leasing
-                                Details</h5>
-                            <img src="{{env('BASE_URL')}}{{ $bank->logo }}" alt="{{ $bank->name }}" class="img-fluid"
-                                style="width: 100px; height: 100px;" />
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
+            <!-- Table -->
+            <table id="leasingcomparisontable" class="table table-bordered table-fonts">
+                <thead>
+                    <tr>
+                        <th style="width:0px"></th>
+                        <th class="text-center" style="width:10%">Bank</th>
+                        <th class="text-center" style="width:20%">Facility per {{ formatLKR(100000) }}</th>
+                        <th class="text-center" style="width:10%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($filterdbanks as $bank)
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="me-3 justify-content-center text-center align-items-center">
+                                    <img src="{{env('BASE_URL')}}{{ $bank->logo }}" alt="{{ $bank->name }}"
+                                        class="img-fluid table-bank-logo" margin-right:10px" />
+                                    <h2 class="text-uppercase text-muted mb-3 table-bank-name">{{ $bank->name }}</h2>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
 
-                            <p>{{ $bank->description }}</p>
-                            <p><strong>Website:</strong> <a href="{{ $bank->website }}"
-                                    target="_blank">{{ $bank->website }}</a></p>
-                            <h6>Available Vehicle Types and Rates:</h6>
-                            <ul>
-                                @foreach ($bank->rates as $rate)
-                                <li>
-                                    <strong>Vehicle Type:</strong> {{ $rate->vehicle_type }} <br />
-                                    <strong>Rate:</strong> {{ $rate->min_rate }} - {{ $rate->max_rate }} <br />
-                                    <strong>Period:</strong> {{ $rate->year }} Years
-                                </li>
-                                <p><b>Features:</b>{{$rate->note}}</p>
-                                <hr />
+                            <table id="innerratestable" class="table table-bordered table-fonts" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width:8%">Period</th>
+                                        <th class="text-center" style="width:12%">Rate</th>
+                                        <th class="text-center" style="width:8%">Monthly Installment</th>
+                                        <th class="text-center" style="width:10%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($bank->filterdrates as $rate)
+                                    @php
+                                    $sampleAmount = 100000;
+                                    $monthlyRate = $rate->min_rate / 100 / 12;
+                                    $loanMonths = $rate->year * 12;
+                                    $monthlyInstallment = ($sampleAmount * $monthlyRate) / (1 - pow(1 + $monthlyRate,
+                                    -$loanMonths));
+                                    $totalPayable = $monthlyInstallment * $loanMonths;
+                                    @endphp
+                                    <tr>
+                                        <td class="text-center">{{ $rate->year }} Years</td>
+                                        <td class="text-center">{{ $rate->min_rate }}% - {{ $rate->max_rate }}%</td>
+                                        <td class="text-center">{{ formatLKR($monthlyInstallment) }}</td>
+                                        <td class="text-center"><button class="leasingtable-reqbtn"
+                                                data-bs-toggle="modal" data-bs-target="#applyNowModal"
+                                                data-bs-dismiss="modal" data-rateid="{{ $rate->id }}"
+                                                data-bankid="{{ $bank->id }}"
+                                                data-vehicletype="{{ $rate->vehicle_type }}"
+                                                data-leasingperiod="{{ $rate->year }}"
+                                                data-leasingminrate="{{ $rate->min_rate }}"
+                                                data-leasingmaxrate="{{ $rate->max_rate }}"
+                                                id="qtreqbtn">Request</button></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+
+                        </td>
+                        <td class="text-center">
+                            <a href="javascript:void(0);" data-bs-toggle="modal"
+                                data-bs-target="#bankModal{{ $bank->id }}">
+                                <i class="uil uil-file-alt fs-15"></i>View Details
+                            </a>
+
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
+
+            <div class="row gx-lg-8 gx-xl-12 gy-8">
+                @foreach ($banks as $bank)
+                <!-- Modal -->
+                <div class="modal fade" id="bankModal{{ $bank->id }}" tabindex="-1"
+                    aria-labelledby="bankModalLabel{{ $bank->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header" style="padding-bottom: 0;">
+                                <h5 class="modal-title bank-modal-title" id="bankModalLabel{{ $bank->id }}">
+                                    {{ $bank->name }} - Leasing
+                                    Details
+                                </h5>
+                                <img src="{{env('BASE_URL')}}{{ $bank->logo }}" alt="{{ $bank->name }}"
+                                    class="img-fluid bank-modal-logo" />
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                @php
+                                $sentences = explode('.', $bank->description);
+                                @endphp
+
+                                @foreach ($sentences as $sentence)
+                                @if(trim($sentence))
+                                <div class="sentence-block">
+                                    <p class="sentence">{{ trim($sentence) }}.</p>
+                                </div>
+                                @endif
                                 @endforeach
-                            </ul>
-                            <p><strong>Last Updated:</strong> {{ $bank->updated_at->format('d M Y') }}</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm"
-                                data-bs-dismiss="modal">Close</button>
+
+                                <p><strong>Website:</strong> <a href="{{ $bank->website }}" target="_blank"><i
+                                            class="uil uil-external-link-alt"></i></a></p>
+                                <h6>Available Facility Types and Rates</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-fonts-modal text-center table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Facility Type</th>
+                                                <th>Leasing Period</th>
+                                                <th>Rate</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($bank->rates as $rate)
+                                            <tr>
+                                                <td>{{ $rate->vehicle_type }}</td>
+                                                <td>{{ $rate->year }} Years</td>
+                                                <td>{{ $rate->min_rate }}% - {{ $rate->max_rate }}%</td>
+                                                <td><button class="leasingtable-reqbtn" data-bs-toggle="modal"
+                                                        data-bs-target="#applyNowModal" data-bs-dismiss="modal"
+                                                        data-rateid="{{ $rate->id }}" data-bankid="{{ $bank->id }}"
+                                                        data-vehicletype="{{ $rate->vehicle_type }}"
+                                                        data-leasingperiod="{{ $rate->year }}"
+                                                        data-leasingminrate="{{ $rate->min_rate }}"
+                                                        data-leasingmaxrate="{{ $rate->max_rate }}"
+                                                        id="qtreqnewbtn">Request</button></td>
+                                                @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p><strong>Last Updated:</strong> {{ $bank->updated_at->format('d M Y') }}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    data-bs-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
+
+            <!-- <div class="swiper-container blog grid-view mb-10" data-margin="30" data-dots="true" data-items-xl="3" -->
+            <!-- data-items-md="2" data-items-xs="1"> -->
+            <!-- <div class="swiper"> -->
+            <!-- <div class="swiper-wrapper"> -->
+
+            <!-- </div> -->
+            <!--/.swiper-wrapper -->
+            <!-- </div> -->
+            <!-- /.swiper -->
+            <!-- </div> -->
+            <!-- /.swiper-container -->
         </div>
-
-        <!-- <div class="swiper-container blog grid-view mb-10" data-margin="30" data-dots="true" data-items-xl="3" -->
-        <!-- data-items-md="2" data-items-xs="1"> -->
-        <!-- <div class="swiper"> -->
-        <!-- <div class="swiper-wrapper"> -->
-
-        <!-- </div> -->
-        <!--/.swiper-wrapper -->
-        <!-- </div> -->
-        <!-- /.swiper -->
-        <!-- </div> -->
-        <!-- /.swiper-container -->
-    </div>
-    <!-- /.container -->
+        <!-- /.container -->
 </section>
 
 
@@ -722,6 +802,7 @@
             <div class="modal-body">
                 <div id="bank-name-logo" class="d-none justify-content-between w-100 mb-2"></div>
                 <div id="modal-leasing-info" class="d-none justify-content-center align-items-center w-100"></div>
+                <h3 class="modal-title">Installment Schedule</h3>
                 <div class="table-responsive">
                     <table class="table table-bordered table-fonts">
                         <thead>
@@ -744,6 +825,67 @@
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<!-- DataTables Bootstrap 5 JS -->
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- DataTables Responsive JS -->
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script>
+$(document).ready(function() {
+    var table = $('#leasingcomparisontable').DataTable({
+        paging: false,
+        searching: true,
+        orderable: false,
+        ordering: false,
+        pageLength: 5,
+        lengthMenu: [5, 10, 25, 50],
+        columnDefs: [{
+            targets: 0,
+            visible: false,
+            orderable: true // enable ordering for this column
+        }],
+    });
+
+
+
+
+    // Custom Search Box
+    $('#searchBox').on('keyup', function() {
+        table.search(this.value).draw();
+    });
+
+    // Custom Filter
+    const vehicleTypeFilter = document.getElementById('vehicleTypeFilter');
+    const vehicletypejson = @json($vehicle_types);
+    vehicletypejson.forEach((vehicletype) => {
+        const option = document.createElement('option');
+        option.value = vehicletype.vehicle_type;
+        option.text = vehicletype.vehicle_type;
+        vehicleTypeFilter.appendChild(option);
+    });
+
+    const vfilter = @json($vfilter);
+    if (vfilter) {
+        vehicleTypeFilter.value = vfilter;
+    }
+
+    vehicleTypeFilter.addEventListener('change', function() {
+        window.location.href = `{{ route('home') }}?vfilter=${this.value}#leasingcomparisonsection`;
+    });
+
+
+
+});
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const leasingCalculatorTitle = document.getElementById('leasingCalculatorTitle');
@@ -854,7 +996,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             let tableHTML =
-                '<table class="table table-bordered table-fonts"><thead><tr><th>Month</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
+                '<table class="table table-bordered table-fonts"><thead><tr><th>Ins.Count</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
             const monthrate = leasingRate / 100 / 12;
             const leasingmonths = leasingPeriod * 12;
             const monthlyInstallment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -
@@ -866,8 +1008,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 remainingBalance -= monthlyInstallment;
                 tableHTML += `<tr>
                     <td>${month}</td>
-                    <td>${monthlyInstallment.toFixed(2)}</td>
-                    <td>${remainingBalance > 0 ? remainingBalance.toFixed(2) : '0.00'}</td>
+                    <td>${formatToLKR(monthlyInstallment)}</td>
+                    <td>${remainingBalance > 0 ? formatToLKR(remainingBalance) : '0.00'}</td>
                 </tr>`;
             }
             tableHTML += '</tbody></table>';
@@ -879,7 +1021,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <table class="table table-bordered table-striped table-hover text-center table-fonts-modal">
                         <thead class="table-dark">
                             <tr>
-                                <th>Vehicle Type</th>
+                                <th>Facility Type</th>
                                 <th>Leasing Amount</th>
                                 <th>Leasing Rate</th>
                                 <th>Total Payable</th>
@@ -889,10 +1031,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <tbody>
                             <tr>
                                 <td>${vehicleType}</td>
-                                <td>${leasingAmount.toFixed(2)}</td>
+                                <td>${formatToLKR(leasingAmount)}</td>
                                 <td>${leasingRate} (${leasingPeriod} Years)</td>
-                                <td>${capital.toFixed(2)}</td>
-                                <td>${monthlyInstallment.toFixed(2)}</td>
+                                <td>${formatToLKR(capital)}</td>
+                                <td>${formatToLKR(monthlyInstallment)}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -914,7 +1056,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <table class="table table-bordered table-striped table-hover text-center table-fonts">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>Vehicle Type</th>
+                                        <th>Facility Type</th>
                                         <th>Leasing Amount</th>
                                         <th>Leasing Rate</th>
                                         <th>Total Payable</th>
@@ -924,10 +1066,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <tbody>
                                     <tr>
                                         <td>${vehicleType}</td>
-                                        <td>${leasingAmount.toFixed(2)}</td>
+                                        <td>${formatToLKR(leasingAmount)}</td>
                                         <td>${leasingRate} (${leasingPeriod} Years)</td>
-                                        <td>${capital.toFixed(2)}</td>
-                                        <td>${monthlyInstallment.toFixed(2)}</td>
+                                        <td>${formatToLKR(capital)}</td>
+                                        <td>${formatToLKR(monthlyInstallment)}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -967,7 +1109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showhidetext.textContent = 'Show Installment Plan';
 
 
-            vehicleTypeSelect.innerHTML = '<option selected>Select Vehicle Type</option>';
+            vehicleTypeSelect.innerHTML = '<option selected>Select Facility Type</option>';
             leasingPeriodInput.value = '';
             leasingRateInput.value = '';
             document.getElementById('leasingamount').value = 0;
@@ -988,11 +1130,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             });
                         } else {
                             const option = document.createElement('option');
-                            option.textContent = 'No Vehicle Types Available';
+                            option.textContent = 'No Facility Types Available';
                             vehicleTypeSelect.appendChild(option);
                         }
                     })
-                    .catch(error => console.error('Error fetching vehicle types:', error));
+                    .catch(error => console.error('Error fetching Facility Types:', error));
             }
         });
         vehicleTypeSelect.addEventListener('change', function() {
@@ -1075,7 +1217,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (leasingAmount && leasingRate && leasingPeriod) {
             let tableHTML =
-                '<table class="table table-bordered table-fonts"><thead><tr><th>Month</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
+                '<table class="table table-bordered table-fonts"><thead><tr><th>Ins.Count</th><th>Installment</th><th>Remaining Balance</th></tr></thead><tbody>';
             const monthrate = leasingRate / 100 / 12;
             const leasingmonths = leasingPeriod * 12;
             const monthlyInstallment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -
@@ -1087,8 +1229,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 remainingBalance -= monthlyInstallment;
                 tableHTML += `<tr>
                     <td>${month}</td>
-                    <td>${monthlyInstallment.toFixed(2)}</td>
-                    <td>${remainingBalance > 0 ? remainingBalance.toFixed(2) : '0.00'}</td>
+                    <td>${formatToLKR(monthlyInstallment)}</td>
+                    <td>${remainingBalance > 0 ? formatToLKR(remainingBalance) : '0.00'}</td>
                 </tr>`;
             }
 
@@ -1117,10 +1259,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>${leasingAmount.toFixed(2)}</td>
+                                <td>${formatToLKR(leasingAmount)}</td>
                                 <td>${leasingRate} (${leasingPeriod} Years)</td>
-                                <td>${capital.toFixed(2)}</td>
-                                <td>${monthlyInstallment.toFixed(2)}</td>
+                                <td>${formatToLKR(capital)}</td>
+                                <td>${formatToLKR(monthlyInstallment)}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1182,7 +1324,7 @@ document.getElementById('requestqt').addEventListener('click', () => {
     const leasingAmount = document.getElementById('leasingamount').value;
     const installment = document.getElementById('installment').value;
 
-    if (leasingCompany === 'Select Leasing Company' || vehicleType === 'Select Vehicle Type' || !
+    if (leasingCompany === 'Select Leasing Company' || vehicleType === 'Select Facility Type' || !
         leasingPeriod || !leasingRate || !leasingAmount || !installment || installment === '0' ||
         leasingAmount === '0') {
         Swal.fire({
@@ -1204,7 +1346,7 @@ document.getElementById('requestqt').addEventListener('click', () => {
 
         leasingCompanySelect.value = leasingCompany;
         const bankId = leasingCompany;
-        vehicleTypeSelect.innerHTML = '<option selected>Select Vehicle Type</option>';
+        vehicleTypeSelect.innerHTML = '<option selected>Select Facility Type</option>';
         if (bankId) {
             fetch(`/get-bank-rates/${bankId}`)
                 .then(response => response.json())
@@ -1251,14 +1393,14 @@ document.getElementById('requestqt').addEventListener('click', () => {
                         });
                     } else {
                         const option = document.createElement('option');
-                        option.textContent = 'No Vehicle Types Available';
+                        option.textContent = 'No Facility Types Available';
                         vehicleTypeSelect.appendChild(option);
                     }
                 })
-                .catch(error => console.error('Error fetching vehicle types:', error));
+                .catch(error => console.error('Error fetching Facility Types:', error));
         }
 
-        //make vehicle type readonly and cursor not-allowed
+        //make Facility Type readonly and cursor not-allowed
         vehicleTypeSelect.setAttribute('readonly', 'readonly');
         vehicleTypeSelect.style.cursor = 'not-allowed';
 
@@ -1304,6 +1446,195 @@ document.getElementById('downloadPdf').addEventListener('click', function() {
     });
 });
 </script>
+<script>
+$(document).ready(function() {
+    // Use event delegation for dynamically created buttons
+    $(document).on('click', '#qtreqnewbtn', function() {
+        // Get data from the button
+        var rateId = $(this).data('rateid');
+        var bankId = $(this).data('bankid');
+        var vehicleType = rateId;
+        var leasingPeriod = $(this).data('leasingperiod');
+        var leasingminRate = $(this).data('leasingminrate');
+        var leasingmaxRate = $(this).data('leasingmaxrate');
+
+
+
+        const vehicleTypeSelect = document.getElementById('modelvehicleType');
+        const rateIdInput = document.getElementById('rate_id');
+        const leasingRateInput = document.getElementById('modelleasingrate');
+        const bankratesspan = document.getElementById('modelbankratespan');
+
+        $('#rate_id').val(rateId);
+        console.log(bankId);
+        if (bankId) {
+            fetch(`/get-bank-rates/${bankId}`)
+                .then(response => response.json())
+                .then(data => {
+                    bankRates = data;
+                    console.log(data);
+                    if (data.length > 0) {
+                        data.forEach(rate => {
+                            const option = document.createElement('option');
+                            option.value = rate.id;
+                            option.textContent =
+                                `${rate.vehicle_type.charAt(0).toUpperCase() + rate.vehicle_type.slice(1)} (${rate.year} Years)`;
+                            vehicleTypeSelect.appendChild(option);
+
+                            vehicleTypeSelect.value = vehicleType;
+
+                            Array.from(vehicleTypeSelect.options).forEach(option => {
+                                if (option.value !== vehicleType) {
+                                    option.hidden = true;
+                                }
+                            });
+
+                            rateIdInput.value = vehicleType;
+
+                            const selectedVehicleType = vehicleType;
+                            if (selectedVehicleType && bankRates.length > 0) {
+                                const selectedRate = bankRates.find(rate => rate.id ==
+                                    selectedVehicleType);
+                                if (selectedRate) {
+                                    leasingRateInput.value = selectedRate
+                                        .min_rate;
+                                    leasingRateInput.setAttribute('min', selectedRate
+                                        .min_rate);
+                                    leasingRateInput.setAttribute('max', selectedRate
+                                        .max_rate);
+                                    bankratesspan.textContent =
+                                        `*(Min Rate: ${selectedRate.min_rate} - Max Rate: ${selectedRate.max_rate})`;
+                                } else {
+                                    $('#modelleasingperiod').val(leasingPeriod);
+                                    $('#modelleasingrate').val(leasingminRate);
+                                }
+                            } else {
+                                $('#modelleasingperiod').val(leasingPeriod);
+                                $('#modelleasingrate').val(leasingminRate);
+                            }
+
+                        });
+                    } else {
+                        const option = document.createElement('option');
+                        option.textContent = 'No Facility Types Available';
+                        vehicleTypeSelect.appendChild(option);
+                    }
+                })
+                .catch(error => console.error('Error fetching Facility Types:', error));
+        }
+        vehicleTypeSelect.setAttribute('readonly', 'readonly');
+        vehicleTypeSelect.style.cursor = 'not-allowed';
+
+        $('#modelleasingcompany').val(bankId);
+        $('#modelleasingperiod').val(leasingPeriod);
+        $('#modelleasingrate').val(leasingminRate);
+        $('#modelleasingamount').val('');
+        $('#modelinstallment').val('');
+    });
+
+});
+</script>
+<script>
+$(document).ready(function() {
+    // Use event delegation for dynamically created buttons
+    $(document).on('click', '#qtreqbtn', function() {
+        // Get data from the button
+        var rateId = $(this).data('rateid');
+        var bankId = $(this).data('bankid');
+        var vehicleType = rateId;
+        var leasingPeriod = $(this).data('leasingperiod');
+        var leasingminRate = $(this).data('leasingminrate');
+        var leasingmaxRate = $(this).data('leasingmaxrate');
+
+
+
+        const vehicleTypeSelect = document.getElementById('modelvehicleType');
+        const rateIdInput = document.getElementById('rate_id');
+        const leasingRateInput = document.getElementById('modelleasingrate');
+        const bankratesspan = document.getElementById('modelbankratespan');
+
+        $('#rate_id').val(rateId);
+        console.log(bankId);
+        if (bankId) {
+            fetch(`/get-bank-rates/${bankId}`)
+                .then(response => response.json())
+                .then(data => {
+                    bankRates = data;
+                    console.log(data);
+                    if (data.length > 0) {
+                        data.forEach(rate => {
+                            const option = document.createElement('option');
+                            option.value = rate.id;
+                            option.textContent =
+                                `${rate.vehicle_type.charAt(0).toUpperCase() + rate.vehicle_type.slice(1)} (${rate.year} Years)`;
+                            vehicleTypeSelect.appendChild(option);
+
+                            vehicleTypeSelect.value = vehicleType;
+
+                            Array.from(vehicleTypeSelect.options).forEach(option => {
+                                if (option.value !== vehicleType) {
+                                    option.hidden = true;
+                                }
+                            });
+
+                            rateIdInput.value = vehicleType;
+
+                            const selectedVehicleType = vehicleType;
+                            if (selectedVehicleType && bankRates.length > 0) {
+                                const selectedRate = bankRates.find(rate => rate.id ==
+                                    selectedVehicleType);
+                                if (selectedRate) {
+                                    leasingRateInput.value = selectedRate
+                                        .min_rate;
+                                    leasingRateInput.setAttribute('min', selectedRate
+                                        .min_rate);
+                                    leasingRateInput.setAttribute('max', selectedRate
+                                        .max_rate);
+                                    bankratesspan.textContent =
+                                        `*(Min Rate: ${selectedRate.min_rate} - Max Rate: ${selectedRate.max_rate})`;
+                                } else {
+                                    $('#modelleasingperiod').val(leasingPeriod);
+                                    $('#modelleasingrate').val(leasingminRate);
+                                }
+                            } else {
+                                $('#modelleasingperiod').val(leasingPeriod);
+                                $('#modelleasingrate').val(leasingminRate);
+                            }
+
+                        });
+                    } else {
+                        const option = document.createElement('option');
+                        option.textContent = 'No Facility Types Available';
+                        vehicleTypeSelect.appendChild(option);
+                    }
+                })
+                .catch(error => console.error('Error fetching Facility Types:', error));
+        }
+        vehicleTypeSelect.setAttribute('readonly', 'readonly');
+        vehicleTypeSelect.style.cursor = 'not-allowed';
+
+        $('#modelleasingcompany').val(bankId);
+        $('#modelleasingperiod').val(leasingPeriod);
+        $('#modelleasingrate').val(leasingminRate);
+        $('#modelleasingamount').val('');
+        $('#modelinstallment').val('');
+    });
+
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

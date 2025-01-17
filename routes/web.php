@@ -11,7 +11,7 @@ use App\Http\Controllers\HomeController;
 // });
 
 Route::controller(HomeController::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/', 'index')->name('home');
     Route::get('/about-us', 'aboutUs');
     Route::get('/contact-us', 'contactUs');
     Route::get('/get-bank-rates/{bankId}', 'getBankRates');
