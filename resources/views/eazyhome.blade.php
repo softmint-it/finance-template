@@ -148,7 +148,7 @@
 
 <section id="calculatorsection" class="wrapper bg-light">
     <div class="container" style="padding-top:0px;">
-        <div class="pb-10 calculator-block" style="margin-top:-100px;">
+        <div class="calculator-block" style="margin-top:-100px;">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -202,14 +202,20 @@
                                         placeholder="Leasing Period" readonly style="cursor: not-allowed;">
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12 form-group">
-                                    <label for="leasingrate">Rate</label><span class="pl-2 pb-2 text-danger"
+                                    <label for="sloanrate">Rate</label><span class="pl-2 pb-2 text-danger"
                                         id="bankratespan" style="font-size:10px;"></span>
-                                    <input type="text" class="form-control" id="leasingrate" placeholder="Rate">
+                                    <div class="input-container">
+                                        <input type="text" class="form-control" id="leasingrate" placeholder="Rate">
+                                        <span class="percentage">%</span>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12 form">
-                                    <label for=" leasingamount">Leasing Amount</label>
-                                    <input type="text" class="form-control" id="leasingamount"
-                                        placeholder="Leasing Amount">
+                                    <label for="leasingamount">Leasing amount</label>
+                                    <div class="input-container">
+                                        <input id="leasingamount" name="leasingamount" type="text"
+                                            placeholder="Leasing Amount" />
+                                        <span class="currency">{{ getenv('CURRENCY') }}</span>
+                                    </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-12 form d-none">
                                     <label for=" installment">Installment</label>
@@ -244,21 +250,29 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-6 col-12 form-group">
-                                        <label for="loanamount">Leasing Amount</label>
-                                        <input type="number" class="form-control" id="sloanamount"
-                                            placeholder="Loan Amount">
+                                        <label for="loanamount">Leasing amount</label>
+                                        <div class="input-container">
+                                            <input id="sloanamount" name="sloanamount" type="text"
+                                                placeholder="Leasing Amount" />
+                                            <span class="currency">{{ getenv('CURRENCY') }}</span>
+                                        </div>
                                     </div>
+
                                     <div class="col-lg-4 col-md-6 col-12 form-group">
-                                        <label for="loanrate">Rate</label>
-                                        <input type="number" step="0.1" class="form-control" id="sloanrate"
-                                            placeholder="Rate">
+                                        <label for="sloanrate">Rate</label>
+                                        <div class="input-container">
+                                            <input type="text" step="0.1" class="form-control" id="sloanrate"
+                                                placeholder="Rate">
+                                            <span class="percentage">%</span>
+                                        </div>
                                     </div>
+
                                     <div class="col-lg-4 col-md-6 col-12 form-group">
                                         <label for="loanperiod">Loan Period</label>
                                         <input type="number" class="form-control" id="sloanperiod"
                                             placeholder="Loan Period">
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-12 form">
+                                    <div class="col-lg-4 col-md-6 col-12 form d-none">
                                         <label for=" installment">Installment</label>
                                         <input type="number" class="form-control" id="sinstallment" value="0" readonly
                                             style="cursor: not-allowed;">
@@ -290,7 +304,7 @@
 </section>
 
 <section id="leasingcomparisonsection" class="wrapper bg-light">
-    <div class="container py-15 py-md-17">
+    <div class="container py-8 py-md-10">
         <div class="row text-center">
             <div class="col-lg-10 col-xl-7 col-xxl-6 mx-auto">
                 <h2 class="fs-15 text uppercase text-muted mb-3">Leasing Comparison</h2>
@@ -494,7 +508,7 @@
 
 
 <section class="wrapper bg-light">
-    <div class="container py-15 py-md-17">
+    <div class="container py-8 py-md-10">
         <div class="row text-center">
             <div class="col-md-10 col-lg-9 col-xxl-8 mx-auto">
                 <h2 class="fs-15 text-uppercase text-muted mb-3">What We Do?</h2>
@@ -669,7 +683,7 @@
 </section>
 <!-- /section -->
 <section class="wrapper bg-white">
-    <div class="container py-15 py-md-17">
+    <div class="container py-8 py-md-10">
         <div class="row text-center">
             <div class="col-lg-10 col-xl-7 col-xxl-6 mx-auto">
                 <h2 class="fs-15 text-uppercase text-muted mb-3">Case Studies</h2>
@@ -851,6 +865,43 @@
 <!-- DataTables Responsive JS -->
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 <script>
+const leasingAmountInput = document.getElementById('leasingamount');
+leasingAmountInput.addEventListener('input', function(e) {
+    const value = this.value.replace(/,/g, '');
+    this.value = Number(value).toLocaleString('en-US');
+});
+
+const sloanamountInput = document.getElementById('sloanamount');
+sloanamountInput.addEventListener('input', function(e) {
+    const value = this.value.replace(/,/g, '');
+    this.value = Number(value).toLocaleString('en-US');
+});
+</script>
+
+<script>
+const leasingrateinput = document.getElementById('leasingrate');
+leasingrateinput.addEventListener('input', function(e) {
+
+    if (isNaN(this.value)) {
+        this.value = this.value.replace(/[^0-9.]/g, '');
+    }
+    if (this.value > 100) {
+        this.value = 100;
+    }
+});
+
+const sloanrateinput = document.getElementById('sloanrate');
+sloanrateinput.addEventListener('input', function(e) {
+
+    if (isNaN(this.value)) {
+        this.value = this.value.replace(/[^0-9.]/g, '');
+    }
+    if (this.value > 100) {
+        this.value = 100;
+    }
+});
+</script>
+<script>
 $(document).ready(function() {
     var table = $('#leasingcomparisontable').DataTable({
         paging: false,
@@ -977,10 +1028,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let bankRates = [];
 
     function calculateInstallment() {
-        const leasingAmount = parseFloat(leasingAmountInput.value) || 0;
+        const leasingAmount = parseFloat(leasingAmountInput.value.replace(/,/g, '')) || 0;
         const leasingRate = parseFloat(leasingRateInput.value) || 0;
         const leasingPeriod = parseInt(leasingPeriodInput.value) || 0;
         const showplan = document.getElementById('showplan');
+
+        console.log(leasingAmount, leasingRate, leasingPeriod);
 
         if (leasingAmount && leasingRate && leasingPeriod) {
             const leasingmonths = leasingPeriod * 12;
@@ -988,6 +1041,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const installment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -leasingmonths));
 
             installmentInput.value = installment.toFixed(2);
+            populateInstallmentPlan();
         } else {
             installmentInput.value = '0';
             populateInstallmentPlan();
@@ -1022,7 +1076,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function populateInstallmentPlan() {
-        const leasingAmount = parseFloat(leasingAmountInput.value) || 0;
+        const leasingAmount = parseFloat(leasingAmountInput.value.replace(/,/g, '')) || 0;
         const leasingRate = parseFloat(leasingRateInput.value) || 0;
         const leasingPeriod = parseInt(leasingPeriodInput.value) || 0;
         const vehicleType = vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex].text.split(" (")[0];
@@ -1174,7 +1228,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 if (rate.default_type) {
                                     option.selected = true;
                                     selectedrateid.value = rate.id;
-                                    document.getElementById('leasingamount').value = 100000;
+                                    document.getElementById('leasingamount').value =
+                                        '100,000';
                                     let ins = 100000 * rate.min_rate / 100 / 12 / (1 - Math
                                         .pow(1 + rate.min_rate /
                                             100 / 12, -rate.year * 12));
@@ -1204,9 +1259,8 @@ document.addEventListener('DOMContentLoaded', () => {
         vehicleTypeSelect.addEventListener('change', function() {
             const selectedVehicleType = this.value;
             selectedrateid.value = selectedVehicleType;
-            document.getElementById('leasingamount').value = 0;
-            document.getElementById('installment').value = 0;
-            totalpayablediv.classList.add("d-none");
+
+
             if (selectedVehicleType && bankRates.length > 0) {
                 const selectedRate = bankRates.find(rate => rate.id == selectedVehicleType);
                 if (selectedRate) {
@@ -1217,6 +1271,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     leasingRateInput.setAttribute('max', selectedRate.max_rate);
                     bankratesspan.textContent =
                         `*(Min Rate: ${selectedRate.min_rate} - Max Rate: ${selectedRate.max_rate})`;
+                    populateInstallmentPlan();
+                    calculateInstallment();
                 } else {
                     leasingPeriodInput.value = '';
                     leasingRateInput.value = '';
@@ -1225,6 +1281,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 leasingPeriodInput.value = '';
                 leasingRateInput.value = '';
             }
+
         });
 
         leasingAmountInput.addEventListener('input', calculateInstallment);
@@ -1275,7 +1332,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function populateInstallmentPlan() {
-        const leasingAmount = parseFloat(sloanamount.value) || 0;
+        const leasingAmount = parseFloat(sloanamount.value.replace(/,/g, '')) || 0;
         const leasingRate = parseFloat(sloanrate.value) || 0;
         const leasingPeriod = parseInt(sloanperiod.value) || 0;
 
@@ -1349,7 +1406,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function calculateStandardInstallment() {
-        const loanAmount = parseFloat(sloanamount.value) || 0;
+        const loanAmount = parseFloat(sloanamount.value.replace(/,/g, '')) || 0;
         const loanRate = parseFloat(sloanrate.value) || 0;
         const loanPeriod = parseInt(sloanperiod.value) || 0;
 
@@ -1394,8 +1451,10 @@ document.getElementById('requestqt').addEventListener('click', () => {
     const vehicleType = document.getElementById('vehicleType').value;
     const leasingPeriod = document.getElementById('leasingperiod').value;
     const leasingRate = document.getElementById('leasingrate').value;
-    const leasingAmount = document.getElementById('leasingamount').value;
+    const leasingAmount = document.getElementById('leasingamount').value.replace(/,/g, '') || 0;
     const installment = document.getElementById('installment').value;
+
+
 
     if (leasingCompany === 'Select Leasing Company' || vehicleType === 'Select Facility Type' || !
         leasingPeriod || !leasingRate || !leasingAmount || !installment || installment === '0' ||
@@ -1480,7 +1539,8 @@ document.getElementById('requestqt').addEventListener('click', () => {
         leasingPeriodInput.value = leasingPeriod;
         leasingRateInput.value = leasingRate;
         leasingAmountInput.value = leasingAmount;
-        installmentInput.value = installment;
+        installmentInput.value = parseFloat(installment).toFixed(2);
+
 
 
         applyNowModal.show();

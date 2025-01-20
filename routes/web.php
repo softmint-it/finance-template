@@ -12,10 +12,10 @@ use App\Http\Controllers\HomeController;
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
-    Route::get('/about-us', 'aboutUs');
-    Route::get('/contact-us', 'contactUs');
-    Route::get('/get-bank-rates/{bankId}', 'getBankRates');
-    Route::post('/submit-quotation-request', 'submitQuotationRequest');
+    Route::get('/about-us', 'aboutUs')->name('about-us');
+    Route::get('/contact-us', 'contactUs')->name('contact-us');
+    Route::get('/get-bank-rates/{bankId}', 'getBankRates')->name('get-bank-rates');
+    Route::post('/submit-quotation-request', 'submitQuotationRequest')->name('submit-quotation-request');
 });
 
 

@@ -40,7 +40,7 @@
     <nav class="navbar navbar-expand-lg classic transparent position-absolute navbar-light">
         <div class="container flex-lg-row flex-nowrap align-items-center">
             <div class="navbar-brand w-50">
-                <a href="./index.html">
+                <a href="{{route('home')}}">
                     <img src="./assets/img/logo-dark.png" srcset="./assets/img/logo-dark@2x.png 2x" alt="" />
                 </a>
                 <button id="mobile-applynow-button" class="nav-link btn apply-now text-center d-lg-none d-block mt-1">
@@ -59,19 +59,19 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown dropdown-mega">
                             <a class="nav-link custom-nav-link <?= ($_SERVER['REQUEST_URI'] === '/') ? 'active' : '' ?>"
-                                href="/">Leasing</a>
+                                href="{{route('home')}}">Leasing</a>
                         </li>
                         <li class="nav-item dropdown dropdown-mega">
                             <a class="nav-link custom-nav-link <?= ($_SERVER['REQUEST_URI'] === '/') ? 'active' : '' ?>"
-                                href="/">Insurance</a>
+                                href="{{route('home')}}">Insurance</a>
                         </li>
                         <li class="nav-item dropdown dropdown-mega">
                             <a class="nav-link custom-nav-link <?= ($_SERVER['REQUEST_URI'] === '/about-us') ? 'active' : '' ?>"
-                                href="/about-us">About Us</a>
+                                href="{{route('about-us')}}">About Us</a>
                         </li>
                         <li class="nav-item dropdown dropdown-mega">
                             <a class="nav-link custom-nav-link <?= ($_SERVER['REQUEST_URI'] === '/contact-us') ? 'active' : '' ?>"
-                                href="/contact-us">Contact Us</a>
+                                href="{{route('contact-us')}}">Contact Us</a>
                         </li>
                     </ul>
 
