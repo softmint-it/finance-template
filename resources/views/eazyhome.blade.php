@@ -298,23 +298,30 @@
 
         <!-- loan comparison table-->
         <div class="table-responsive table-padding">
-
-
             <div class="d-md-flex d-block justify-content-between align-items-center mb-3 filter-section">
                 <!-- Filter Container -->
-                <div class="filter-container d-block align-items-center">
-                    <label for="vehicleTypeFilter" class="me-2 fs-14">Facility Type</label>
-                    <select id="vehicleTypeFilter" class="form-select w-auto typefilter">
-                    </select>
+                <div class="d-md-flex d-block justify-content-between align-items-center gap-2">
+                    <div class="filter-container d-block align-items-center">
+                        <label for="vehicleTypeFilter" class="me-2 fs-14">Facility Type</label>
+                        <select id="vehicleTypeFilter" class="form-select w-auto typefilter">
+                        </select>
+                    </div>
+                    <div class="filter-container d-block align-items-center">
+                        <lable for="periodfilter" class="me-2 fs-14">Leasing Period</lable>
+                        <select id="leasingperiodfilter" class="form-select w-auto typefilter">
+                            <option value="all">All</option>
+                        </select>
+                    </div>
                 </div>
-
                 <!-- Search Box -->
                 <div class="search-container d-block align-items-center mt-5 mt-md-0">
                     <label for="searchBox" class="me-2 fs-14">Search</label>
                     <input type="text" id="searchBox" class="form-control lesingserach" placeholder="Search..." />
                 </div>
             </div>
+        </div>
 
+        <div class="table-responsive table-padding">
             <!-- Table -->
             <table id="leasingcomparisontable" class="table table-bordered table-fonts">
                 <thead>
@@ -342,7 +349,6 @@
                             </div>
                         </td>
                         <td>
-
                             <table id="innerratestable" class="table table-bordered table-fonts" style="width:100%">
                                 <thead>
                                     <tr>
@@ -374,42 +380,39 @@
                                                 data-leasingperiod="{{ $rate->year }}"
                                                 data-leasingminrate="{{ $rate->min_rate }}"
                                                 data-leasingmaxrate="{{ $rate->max_rate }}"
-                                                id="qtreqbtn">Request</button></td>
+                                                id="qtreqbtn">Request</button>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-
-
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+        </div>
 
+        <div class="row gx-lg-8 gx-xl-12 gy-8">
+            @foreach ($banks as $bank)
+            <!-- Modal -->
+            <div class="modal fade" id="bankModal{{ $bank->id }}" tabindex="-1"
+                aria-labelledby="bankModalLabel{{ $bank->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding-bottom: 0;">
+                            <h5 class="modal-title bank-modal-title" id="bankModalLabel{{ $bank->id }}">
+                                {{ $bank->name }} - Leasing
+                                Details
+                            </h5>
+                            <img src="{{env('BASE_URL')}}{{ $bank->logo }}" alt="{{ $bank->name }}"
+                                class="img-fluid bank-modal-logo" />
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Image Carousel -->
 
-
-            <div class="row gx-lg-8 gx-xl-12 gy-8">
-                @foreach ($banks as $bank)
-                <!-- Modal -->
-                <div class="modal fade" id="bankModal{{ $bank->id }}" tabindex="-1"
-                    aria-labelledby="bankModalLabel{{ $bank->id }}" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header" style="padding-bottom: 0;">
-                                <h5 class="modal-title bank-modal-title" id="bankModalLabel{{ $bank->id }}">
-                                    {{ $bank->name }} - Leasing
-                                    Details
-                                </h5>
-                                <img src="{{env('BASE_URL')}}{{ $bank->logo }}" alt="{{ $bank->name }}"
-                                    class="img-fluid bank-modal-logo" />
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Image Carousel -->
-
-                                <!-- @php
+                            <!-- @php
                                 $sentences = explode('.', $bank->description);
                                 @endphp
 
@@ -420,68 +423,68 @@
                                 </div>
                                 @endif
                                 @endforeach -->
-                                {!! $bank->description !!}
+                            {!! $bank->description !!}
 
-                                <p><strong>Website:</strong> <a href="{{ $bank->website }}" target="_blank"
-                                        class="gap-2">{{ $bank->website }}<i class="uil uil-external-link-alt"
-                                            style="margin-left:10px;"></i></a>
-                                </p>
-                                <h6>Available Facility Types and Rates</h6>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-fonts-modal text-center table-responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>Facility Type</th>
-                                                <th>Leasing Period</th>
-                                                <th>Rate</th>
-                                                <th>Ins Per {{formatLKR(100000)}}</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($bank->rates as $rate)
-                                            <tr>
-                                                <td>{{ $rate->vehicle_type }}</td>
-                                                <td>{{ $rate->year }} Years</td>
-                                                <td>{{ $rate->min_rate }}% - {{ $rate->max_rate }}%</td>
-                                                <td>{{formatLKR($rate->installment)}}</td>
-                                                <td><button class="leasingtable-reqbtn" data-bs-toggle="modal"
-                                                        data-bs-target="#applyNowModal" data-bs-dismiss="modal"
-                                                        data-rateid="{{ $rate->id }}" data-bankid="{{ $bank->id }}"
-                                                        data-vehicletype="{{ $rate->vehicle_type }}"
-                                                        data-leasingperiod="{{ $rate->year }}"
-                                                        data-leasingminrate="{{ $rate->min_rate }}"
-                                                        data-leasingmaxrate="{{ $rate->max_rate }}"
-                                                        id="qtreqnewbtn">Request</button></td>
-                                                @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <p><strong>Last Updated:</strong> {{ $bank->updated_at->format('d M Y') }}</p>
+                            <p><strong>Website:</strong> <a href="{{ $bank->website }}" target="_blank"
+                                    class="gap-2">{{ $bank->website }}<i class="uil uil-external-link-alt"
+                                        style="margin-left:10px;"></i></a>
+                            </p>
+                            <h6>Available Facility Types and Rates</h6>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-fonts-modal text-center table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Facility Type</th>
+                                            <th>Leasing Period</th>
+                                            <th>Rate</th>
+                                            <th>Ins Per {{formatLKR(100000)}}</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($bank->rates as $rate)
+                                        <tr>
+                                            <td>{{ $rate->vehicle_type }}</td>
+                                            <td>{{ $rate->year }} Years</td>
+                                            <td>{{ $rate->min_rate }}% - {{ $rate->max_rate }}%</td>
+                                            <td>{{formatLKR($rate->installment)}}</td>
+                                            <td><button class="leasingtable-reqbtn" data-bs-toggle="modal"
+                                                    data-bs-target="#applyNowModal" data-bs-dismiss="modal"
+                                                    data-rateid="{{ $rate->id }}" data-bankid="{{ $bank->id }}"
+                                                    data-vehicletype="{{ $rate->vehicle_type }}"
+                                                    data-leasingperiod="{{ $rate->year }}"
+                                                    data-leasingminrate="{{ $rate->min_rate }}"
+                                                    data-leasingmaxrate="{{ $rate->max_rate }}"
+                                                    id="qtreqnewbtn">Request</button></td>
+                                            @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm"
-                                    data-bs-dismiss="modal">Close</button>
-                            </div>
+                            <p><strong>Last Updated:</strong> {{ $bank->updated_at->format('d M Y') }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-                @endforeach
             </div>
-
-            <!-- <div class="swiper-container blog grid-view mb-10" data-margin="30" data-dots="true" data-items-xl="3" -->
-            <!-- data-items-md="2" data-items-xs="1"> -->
-            <!-- <div class="swiper"> -->
-            <!-- <div class="swiper-wrapper"> -->
-
-            <!-- </div> -->
-            <!--/.swiper-wrapper -->
-            <!-- </div> -->
-            <!-- /.swiper -->
-            <!-- </div> -->
-            <!-- /.swiper-container -->
+            @endforeach
         </div>
-        <!-- /.container -->
+
+        <!-- <div class="swiper-container blog grid-view mb-10" data-margin="30" data-dots="true" data-items-xl="3" -->
+        <!-- data-items-md="2" data-items-xs="1"> -->
+        <!-- <div class="swiper"> -->
+        <!-- <div class="swiper-wrapper"> -->
+
+        <!-- </div> -->
+        <!--/.swiper-wrapper -->
+        <!-- </div> -->
+        <!-- /.swiper -->
+        <!-- </div> -->
+        <!-- /.swiper-container -->
+    </div>
+    <!-- /.container -->
 </section>
 
 
@@ -875,15 +878,39 @@ $(document).ready(function() {
         option.text = vehicletype.vehicle_type;
         vehicleTypeFilter.appendChild(option);
     });
-
     const vfilter = @json($vfilter);
     if (vfilter) {
         vehicleTypeFilter.value = vfilter;
     }
 
-    vehicleTypeFilter.addEventListener('change', function() {
-        window.location.href = `{{ route('home') }}?vfilter=${this.value}#leasingcomparisonsection`;
+    const leasingperiodfilter = document.getElementById('leasingperiodfilter');
+    const periodjson = @json($leasing_periods);
+    periodjson.forEach((period) => {
+        const option = document.createElement('option');
+        option.value = period.year;
+        option.text = period.year;
+        leasingperiodfilter.appendChild(option);
     });
+    const pfiletr = @json($pfilter);
+    if (pfiletr) {
+        leasingperiodfilter.value = pfiletr;
+    }
+
+    function updateleasingcomparisonSection() {
+        const vfilter = vehicleTypeFilter.value;
+        const pfilter = leasingperiodfilter.value;
+
+        if (pfilter != 'all') {
+            window.location.href =
+                `{{ route('home') }}?vfilter=${vfilter}&pfilter=${pfilter}#leasingcomparisonsection`;
+        } else {
+            window.location.href =
+                `{{ route('home') }}?vfilter=${vfilter}#leasingcomparisonsection`;
+        }
+    }
+
+    leasingperiodfilter.addEventListener('change', updateleasingcomparisonSection);
+    vehicleTypeFilter.addEventListener('change', updateleasingcomparisonSection);
 
 
 
@@ -1643,6 +1670,9 @@ $(document).ready(function() {
 
 });
 </script>
+
+
+
 
 
 

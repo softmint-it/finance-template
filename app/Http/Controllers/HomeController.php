@@ -22,32 +22,45 @@ class HomeController extends Controller
         $notify = [];
         $noFilteredRates = true;
 
+        $vehicle_types = BankRates::select('vehicle_type')->distinct()->get();
+        $leasing_periods = BankRates::select('year')->distinct()->orderBy('year','asc')->get();
+
         if(isset($_GET['vfilter'])){
             $vfilter = $_GET['vfilter'];
         }else{
             $vfilter = 'Motor Car Leasing';
         }
 
-        $filterdbanks = Bank::whereHas('bankRates', function($query) use ($vfilter) {
+        if(isset($_GET['pfilter'])){
+            $pfilter = $_GET['pfilter'];
+            $filterdbanks = Bank::whereHas('bankRates', function ($query) use ($vfilter, $pfilter) {
+                $query->where('status', 1)
+                    ->where('vehicle_type', $vfilter)
+                    ->where('year', $pfilter);
+            })->get();
+        }else{
+            $pfilter = 'all';
+            $filterdbanks = Bank::whereHas('bankRates', function($query) use ($vfilter) {
             $query->where('status', 1)
                 ->where('vehicle_type', $vfilter);
-        })->get();
+            })->get();
+        }
+
+
         foreach ($filterdbanks as $bank) {
             $bank->filterdrates = BankRates::where('bank_id', $bank->id)->where('status', 1)->where('vehicle_type', $vfilter )->get();
+            if($pfilter != 'all'){
+                $bank->filterdrates = $bank->filterdrates->where('year', $pfilter);
+            }
             if (!$bank->filterdrates->isEmpty()) {
                 $noFilteredRates = false;
             }
         }
 
-         if ($noFilteredRates) {
-            $notify[] = ['error', 'No rates found for ' . $vfilter . ' in any bank'];
+        if ($noFilteredRates) {
+            $notify[] = ['error', 'No rates found for your request in any leasing company'];
         }
-
-        $vehicle_types = BankRates::select('vehicle_type')->distinct()->get();
-
-
-
-        return view('eazyhome', compact('banks', 'vehicle_types','filterdbanks' ,'vfilter','notify'));
+        return view('eazyhome', compact('banks', 'vehicle_types','leasing_periods','filterdbanks' ,'vfilter','pfilter','notify'));
     }
 
     public function getBankRates($bankId)
