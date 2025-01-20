@@ -135,7 +135,7 @@
                 </h2>
                 <p class="lead fs-23 lh-sm mb-7 pe-lg-5 pe-xl-5 pe-xxl-0">We are a creative company that focuses on
                     long term relationships with customers.</p>
-                <div><a href="#" class="btn btn-lg btn-primary rounded">Read More</a></div>
+                <div><a href="#leasingcomparisonsection" class="btn btn-lg btn-primary rounded">Best Rates</a></div>
             </div>
             <!--/column -->
         </div>

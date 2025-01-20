@@ -7,9 +7,12 @@
                 <div class="widget">
                     <img class="mb-4" src="./assets/img/logo-dark.png" srcset="./assets/img/logo-dark@2x.png 2x"
                         alt="" />
-                    <p class="mb-4">© <script>
-                        document.write(new Date().getUTCFullYear());
-                        </script> {{env('COMPANY_NAME')}}. <br class="d-none d-lg-block" />All rights reserved.</p>
+                    <br>
+                    <!-- large phone icon with number -->
+                    <a href="tel:{{env('COMPANY_PHONE')}}" class="link-dark fs-22 fs-md-22 fs-lg-32">
+                        <i class="uil uil-phone-volume me-2 "></i>{{env('COMPANY_PHONE')}}
+                    </a>
+
                     <nav class="nav social social-muted">
                         <a href="#"><i class="uil uil-twitter"></i></a>
                         <a href="#"><i class="uil uil-facebook-f"></i></a>
@@ -35,11 +38,11 @@
                 <div class="widget">
                     <h4 class="widget-title ls-sm mb-3">Learn More</h4>
                     <ul class="list-unstyled text-reset mb-0">
-                        <li><a href="/about-us">About Us</a></li>
-                        <li><a href="#">Our Story</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Terms of Use</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="{{route('home')}}">Leasing</a></li>
+                        <li><a href="{{route('home')}}">Insurace</a></li>
+                        <li><a href="{{route('home')}}">Vehicle Import</a></li>
+                        <li><a href="{{route('about-us')}}">About Us</a></li>
+                        <li><a href="{{route('contact-us')}}">Contact Us</a></li>
                     </ul>
                 </div>
                 <!-- /.widget -->
@@ -47,9 +50,22 @@
             <!-- /column -->
             <div class="col-md-12 col-lg-3">
                 <div class="widget">
-                    <h4 class="widget-title ls-sm mb-3">Our Newsletter</h4>
-                    <p class="mb-5">Subscribe to our newsletter to get our news & deals delivered to you.</p>
-                    <div class="newsletter-wrapper">
+                    <h4 class="widget-title ls-sm mb-3">Download</h4>
+                    <p class="mb-5">Download {{env('COMPANY_NAME')}} mobile app.</p>
+
+                    <div class="d-xl-flex d-block">
+                        <div>
+                            <a href="#" class="btn btn-primary btn-sm custom-btn"><i
+                                    class="uil uil-google-play me-2"></i>Google
+                                Play</a>
+                        </div>
+                        <div class="ms-xl-3 mt-3 mt-xl-0">
+                            <a href="#" class="btn btn-primary btn-sm me-2 custom-btn"><i
+                                    class="uil uil-apple me-2"></i>App
+                                Store</a>
+                        </div>
+                    </div>
+                    <div class="newsletter-wrapper" style="display: none;">
                         <!-- Begin Mailchimp Signup Form -->
                         <div id="mc_embed_signup2">
                             <form
@@ -87,4 +103,21 @@
         <!--/.row -->
     </div>
     <!-- /.container -->
+    <div class="footer-bar">
+        <div class="container">
+            <div class="row align-items-center d-flex justify-content-center">
+                <div class="col-md-6 text-center text-md-center">
+                    <p class="mb-0">© {{
+                        date('Y')
+                    }} {{env('APP_NAME')}}. All Rights Reserved</p>
+                </div>
+                <!--/column -->
+            </div>
+            <!--/row -->
+        </div>
+        <!--/container -->
+    </div>
+    <!-- /.footer-bar -->
+
+
 </footer>

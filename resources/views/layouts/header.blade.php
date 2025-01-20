@@ -58,22 +58,38 @@
                 <div class="offcanvas-body ms-lg-auto d-flex flex-column h-100">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown dropdown-mega">
-                            <a class="nav-link custom-nav-link <?= ($_SERVER['REQUEST_URI'] === '/') ? 'active' : '' ?>"
-                                href="{{route('home')}}">Leasing</a>
+                            <a class="nav-link custom-nav-link {{ Route::currentRouteName() === 'home' ? 'active' : '' }}"
+                                href="{{ route('home') }}">
+                                Leasing
+                            </a>
                         </li>
                         <li class="nav-item dropdown dropdown-mega">
-                            <a class="nav-link custom-nav-link <?= ($_SERVER['REQUEST_URI'] === '/') ? 'active' : '' ?>"
-                                href="{{route('home')}}">Insurance</a>
+                            <a class="nav-link custom-nav-link {{ Route::currentRouteName() === 'home' ? 'active' : '' }}"
+                                href="{{ route('home') }}">
+                                Insurance
+                            </a>
                         </li>
                         <li class="nav-item dropdown dropdown-mega">
-                            <a class="nav-link custom-nav-link <?= ($_SERVER['REQUEST_URI'] === '/about-us') ? 'active' : '' ?>"
-                                href="{{route('about-us')}}">About Us</a>
+                            <a class="nav-link custom-nav-link {{ Route::currentRouteName() === 'home' ? 'active' : '' }}"
+                                href="{{ route('home') }}">
+                                Vehicle Import
+                            </a>
                         </li>
                         <li class="nav-item dropdown dropdown-mega">
-                            <a class="nav-link custom-nav-link <?= ($_SERVER['REQUEST_URI'] === '/contact-us') ? 'active' : '' ?>"
-                                href="{{route('contact-us')}}">Contact Us</a>
+                            <a class="nav-link custom-nav-link {{ Route::currentRouteName() === 'about-us' ? 'active' : '' }}"
+                                href="{{ route('about-us') }}">
+                                About Us
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown dropdown-mega">
+                            <a class="nav-link custom-nav-link {{ Route::currentRouteName() === 'contact-us' ? 'active' : '' }}"
+                                href="{{ route('contact-us') }}">
+                                Contact Us
+                            </a>
                         </li>
                     </ul>
+
+
 
                     <!-- /.navbar-nav -->
                     <div class="offcanvas-footer d-lg-none">
@@ -99,8 +115,16 @@
                 <ul class="navbar-nav flex-row align-items-center ms-auto">
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvas-info"><i class="uil uil-info-circle"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvas-search"><i class="uil uil-search"></i></a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="phone-icon">
+                            <i class="uil uil-phone"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="phone-number-container" style="display: none !important;">
+                        <span class="nav-link text-primary" id="phone-number">{{getenv('COMPANY_PHONE')}}</span>
+                    </li>
+                    <!-- <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvas-search"><i class="uil uil-search"></i></a></li> -->
                     <li class="nav-item w-full d-none d-lg-block">
                         <button id="desktop-applynow-button" class="nav-link btn apply-now text-center">
                             <i class="uil uil-arrow-right"></i>
@@ -126,8 +150,8 @@
         </div>
         <div class="offcanvas-body pb-6">
             <div class="widget mb-8">
-                <p>Sandbox is a multipurpose HTML5 template with various layouts which will be a great solution for
-                    your business.</p>
+                <p>We are a creative company that focuses on long term relationships with
+                    customers.</p>
             </div>
             <!-- /.widget -->
             <div class="widget mb-8">
@@ -139,10 +163,11 @@
             <div class="widget mb-8">
                 <h4 class="widget-title text-white mb-3">Learn More</h4>
                 <ul class="list-unstyled">
-                    <li><a href="#">Our Story</a></li>
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="{{route('home')}}">Leasing</a></li>
+                    <li><a href="{{route('home')}}">Insurace</a></li>
+                    <li><a href="{{route('home')}}">Vehicle Import</a></li>
+                    <li><a href="{{route('about-us')}}">About Us</a></li>
+                    <li><a href="{{route('contact-us')}}">Contact Us</a></li>
                 </ul>
             </div>
             <!-- /.widget -->
@@ -468,5 +493,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         });
     }
+});
+</script>
+<script>
+document.getElementById("phone-icon").addEventListener("click", function() {
+    console.log("Phone icon clicked");
+    const phoneContainer = document.getElementById("phone-number-container");
+
+    if (phoneContainer.style.display === "none") {
+        phoneContainer.style.display = "block";
+    } else {
+        phoneContainer.style.display = "none";
+    }
+
+    console.log(phoneContainer.style.display);
+
+
 });
 </script>

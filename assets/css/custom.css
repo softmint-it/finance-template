@@ -132,6 +132,20 @@
     pointer-events: none;
 }
 
+/* Define a class to show the phone number */
+.show-phone {
+    display: block !important;
+}
+
+/* Default hidden state */
+#phone-number-container {
+    display: none;
+}
+
+.custom-btn {
+    width: 95%;
+}
+
 @media screen and (max-width: 768px) {
     .table-bank-logo {
         width: 100%;
@@ -153,5 +167,11 @@
     }
     .sentence-block p {
         font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .custom-btn {
+        width: 100%;
     }
 }
