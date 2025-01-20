@@ -349,9 +349,9 @@ document.addEventListener('DOMContentLoaded', () => {
             leasingRateInput.value = '';
             document.getElementById('modelleasingamount').value = 0;
             document.getElementById('modelinstallment').value = 0;
-
+            const baseUrl = "{{ config('app.url') }}";
             if (bankId) {
-                fetch(`/get-bank-rates/${bankId}`)
+                fetch(`${baseUrl}/get-bank-rates/${bankId}`)
                     .then(response => response.json())
                     .then(data => {
                         bankRates = data;
