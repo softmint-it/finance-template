@@ -296,7 +296,7 @@
         </div>
         <!-- /.row -->
 
-        <!-- loan comparison table-->
+        <!-- loan comparison table -->
         <div class="table-responsive table-padding">
             <div class="d-md-flex d-block justify-content-between align-items-center mb-3 filter-section">
                 <!-- Filter Container -->
