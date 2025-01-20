@@ -14,6 +14,8 @@ class HomeController extends Controller
 
     public function index(): View
     {
+
+
         $banks = Bank::where('status', 1)->get();
         foreach ($banks as $bank) {
             $bank->rates = BankRates::where('bank_id', $bank->id)->where('status', 1)->get();

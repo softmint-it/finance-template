@@ -124,7 +124,7 @@
 }
 </style>
 <section class="wrapper image-wrapper bg-cover bg-image bg-xs-none bg-gray position-relative"
-    data-image-src="./assets/img/photos/bg37.jpg">
+    data-image-src="./assets/img/photos/easyleasingbanner.jpg" style="padding-bottom: 150px">
     <div class="container pt-17   position-relative">
         <div class="row">
             <div class="col-sm-6 col-xxl-5 text-center text-sm-start" data-cues="slideInDown" data-group="page-title"
@@ -140,7 +140,15 @@
             <!--/column -->
         </div>
         <!-- /.row -->
-        <div class="pb-10 mt-10 calculator-block">
+
+
+        <!-- /.container -->
+</section>
+<!-- /section -->
+
+<section id="calculatorsection" class="wrapper bg-light">
+    <div class="container" style="padding-top:0px;">
+        <div class="pb-10 calculator-block" style="margin-top:-100px;">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -196,12 +204,11 @@
                                 <div class="col-lg-6 col-md-6 col-12 form-group">
                                     <label for="leasingrate">Rate</label><span class="pl-2 pb-2 text-danger"
                                         id="bankratespan" style="font-size:10px;"></span>
-                                    <input type="number" step="0.1" class="form-control" id="leasingrate"
-                                        placeholder="Rate">
+                                    <input type="text" class="form-control" id="leasingrate" placeholder="Rate">
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12 form">
                                     <label for=" leasingamount">Leasing Amount</label>
-                                    <input type="number" class="form-control" id="leasingamount"
+                                    <input type="text" class="form-control" id="leasingamount"
                                         placeholder="Leasing Amount">
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-12 form d-none">
@@ -279,10 +286,8 @@
 
             </div>
         </div>
-
-        <!-- /.container -->
+    </div>
 </section>
-<!-- /section -->
 
 <section id="leasingcomparisonsection" class="wrapper bg-light">
     <div class="container py-15 py-md-17">
@@ -857,7 +862,7 @@ $(document).ready(function() {
         columnDefs: [{
             targets: 0,
             visible: false,
-            orderable: true // enable ordering for this column
+            orderable: true
         }],
     });
 
@@ -1153,9 +1158,9 @@ document.addEventListener('DOMContentLoaded', () => {
             leasingRateInput.value = '';
             document.getElementById('leasingamount').value = 0;
             document.getElementById('installment').value = 0;
-
+            const baseUrl = "{{ config('app.url') }}";
             if (bankId) {
-                fetch(`/get-bank-rates/${bankId}`)
+                fetch(`${baseUrl}/get-bank-rates/${bankId}`)
                     .then(response => response.json())
                     .then(data => {
                         bankRates = data;
@@ -1166,6 +1171,26 @@ document.addEventListener('DOMContentLoaded', () => {
                                 option.textContent =
                                     `${rate.vehicle_type.charAt(0).toUpperCase() + rate.vehicle_type.slice(1)} (${rate.year} Years)`;
                                 vehicleTypeSelect.appendChild(option);
+                                if (rate.default_type) {
+                                    option.selected = true;
+                                    selectedrateid.value = rate.id;
+                                    document.getElementById('leasingamount').value = 100000;
+                                    let ins = 100000 * rate.min_rate / 100 / 12 / (1 - Math
+                                        .pow(1 + rate.min_rate /
+                                            100 / 12, -rate.year * 12));
+
+                                    document.getElementById('installment').value = ins;
+                                    totalpayablediv.classList.add("d-none");
+                                    leasingPeriodInput.value = rate.year;
+                                    leasingRateInput.value = rate.min_rate;
+                                    leasingRateInput.setAttribute('min', rate.min_rate);
+                                    leasingRateInput.setAttribute('max', rate.max_rate);
+                                    bankratesspan.textContent =
+                                        `*(Min Rate: ${rate.min_rate} - Max Rate: ${rate.max_rate})`;
+                                    showPlanDiv.classList.remove('d-none');
+                                    showPlanDiv.classList.add('d-flex');
+                                    populateInstallmentPlan();
+                                }
                             });
                         } else {
                             const option = document.createElement('option');
@@ -1391,12 +1416,12 @@ document.getElementById('requestqt').addEventListener('click', () => {
         const installmentInput = document.getElementById('modelinstallment');
         const bankratesspan = document.getElementById('modelbankratespan');
         const rateIdInput = document.getElementById('rate_id');
-
+        const baseUrl = "{{ config('app.url') }}";
         leasingCompanySelect.value = leasingCompany;
         const bankId = leasingCompany;
         vehicleTypeSelect.innerHTML = '<option selected>Select Facility Type</option>';
         if (bankId) {
-            fetch(`/get-bank-rates/${bankId}`)
+            fetch(`${baseUrl}/get-bank-rates/${bankId}`)
                 .then(response => response.json())
                 .then(data => {
                     bankRates = data;
@@ -1515,8 +1540,9 @@ $(document).ready(function() {
 
         $('#rate_id').val(rateId);
         console.log(bankId);
+        const baseUrl = "{{ config('app.url') }}";
         if (bankId) {
-            fetch(`/get-bank-rates/${bankId}`)
+            fetch(`${baseUrl}/get-bank-rates/${bankId}`)
                 .then(response => response.json())
                 .then(data => {
                     bankRates = data;
@@ -1603,8 +1629,9 @@ $(document).ready(function() {
 
         $('#rate_id').val(rateId);
         console.log(bankId);
+        const baseUrl = "{{ config('app.url') }}";
         if (bankId) {
-            fetch(`/get-bank-rates/${bankId}`)
+            fetch(`${baseUrl}/get-bank-rates/${bankId}`)
                 .then(response => response.json())
                 .then(data => {
                     bankRates = data;
