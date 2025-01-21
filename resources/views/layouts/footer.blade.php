@@ -40,7 +40,7 @@
                     <ul class="list-unstyled text-reset mb-0">
                         <li><a href="{{route('home')}}">Leasing</a></li>
                         <li><a href="{{route('home')}}">Insurace</a></li>
-                        <li><a href="{{route('home')}}">Vehicle Import</a></li>
+                        <li><a href="{{route('vehicle-import')}}">Vehicle Import</a></li>
                         <li><a href="{{route('about-us')}}">About Us</a></li>
                         <li><a href="{{route('contact-us')}}">Contact Us</a></li>
                     </ul>
@@ -55,12 +55,12 @@
 
                     <div class="d-xl-flex d-block">
                         <div>
-                            <a href="#" class="btn btn-primary btn-sm custom-btn"><i
+                            <a href="{{getenv('PLAYSTORE_LINK')}}" class="btn btn-primary btn-sm custom-btn"><i
                                     class="uil uil-google-play me-2"></i>Google
                                 Play</a>
                         </div>
                         <div class="ms-xl-3 mt-3 mt-xl-0">
-                            <a href="#" class="btn btn-primary btn-sm me-2 custom-btn"><i
+                            <a href="{{getenv('APPSTORE_LINK')}}" class="btn btn-primary btn-sm me-2 custom-btn"><i
                                     class="uil uil-apple me-2"></i>App
                                 Store</a>
                         </div>

@@ -11,6 +11,6 @@ class BankRates extends Model
 
     protected $table = 'bank_rates';
 
-    protected $fillable = ['bank_id', 'vehicle_type', 'leasing_type','year', 'min_rate','max_rate','amount','installment','note','url','default_type','status'];
+    protected $fillable = ['bank_id', 'vehicle_type', 'leasing_type','year', 'min_rate','max_rate','default_rate','amount','installment','note','url','default_type','status'];
 
 }

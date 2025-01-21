@@ -67,8 +67,15 @@ class HomeController extends Controller
 
     public function getBankRates($bankId)
 {
-    $BankRates = BankRates::where('bank_id', $bankId)->where('status', 1)->get();
+    $BankRates = BankRates::where('bank_id', $bankId)->where('status', 1)->orderBy('year', 'desc')->get();
     return response()->json($BankRates);
+}
+
+
+public function vehicleImport(): View
+{
+    $banks = Bank::where('status', 1)->get();
+    return view('vehicleimport', compact('banks'));
 }
 
 

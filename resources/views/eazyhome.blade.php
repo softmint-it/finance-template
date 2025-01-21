@@ -135,7 +135,9 @@
                 </h2>
                 <p class="lead fs-23 lh-sm mb-7 pe-lg-5 pe-xl-5 pe-xxl-0">We are a creative company that focuses on
                     long term relationships with customers.</p>
-                <div><a href="#leasingcomparisonsection" class="btn btn-lg btn-primary rounded">Best Rates</a></div>
+                <div><a href="#leasingcomparisonsection" class="btn btn-lg btn-primary rounded">Find Best Rates</a>
+                    <a href="{{route('vehicle-import')}}" class="btn btn-lg btn-primary rounded">Vehicle Import</a>
+                </div>
             </div>
             <!--/column -->
         </div>
@@ -1237,7 +1239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     document.getElementById('installment').value = ins;
                                     totalpayablediv.classList.add("d-none");
                                     leasingPeriodInput.value = rate.year;
-                                    leasingRateInput.value = rate.min_rate;
+                                    leasingRateInput.value = rate.default_rate;
                                     leasingRateInput.setAttribute('min', rate.min_rate);
                                     leasingRateInput.setAttribute('max', rate.max_rate);
                                     bankratesspan.textContent =
@@ -1266,7 +1268,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (selectedRate) {
                     leasingPeriodInput.value = selectedRate.year;
                     leasingRateInput.value = selectedRate
-                        .min_rate;
+                        .default_rate;
                     leasingRateInput.setAttribute('min', selectedRate.min_rate);
                     leasingRateInput.setAttribute('max', selectedRate.max_rate);
                     bankratesspan.textContent =
@@ -1318,10 +1320,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal_leasing_info_div = document.getElementById('modal-leasing-info');
     const modla_bank_name_logo = document.getElementById('bank-name-logo');
 
-    document.getElementById('sloanrate').value = 0;
-    document.getElementById('sloanperiod').value = 0;
-    document.getElementById('sloanamount').value = 0;
-    document.getElementById('sinstallment').value = 0;
+    sloanrate.value = 15;
+    sloanperiod.value = 5;
+    sloanamount.value = '100,000';
+    calculateStandardInstallment();
+
 
     showPlanDiv.addEventListener("click", function() {
         const installmentPlanModal = new bootstrap.Modal(document.getElementById(
