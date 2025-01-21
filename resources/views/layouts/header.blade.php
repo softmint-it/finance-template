@@ -70,8 +70,8 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown dropdown-mega">
-                            <a class="nav-link custom-nav-link {{ Route::currentRouteName() === 'home' ? 'active' : '' }}"
-                                href="{{ route('home') }}">
+                            <a class="nav-link custom-nav-link {{ Route::currentRouteName() === 'vehicle-import' ? 'active' : '' }}"
+                                href="{{ route('vehicle-import') }}">
                                 Vehicle Import
                             </a>
                         </li>
@@ -165,7 +165,7 @@
                 <ul class="list-unstyled">
                     <li><a href="{{route('home')}}">Leasing</a></li>
                     <li><a href="{{route('home')}}">Insurace</a></li>
-                    <li><a href="{{route('home')}}">Vehicle Import</a></li>
+                    <li><a href="{{route('vehicle-import')}}">Vehicle Import</a></li>
                     <li><a href="{{route('about-us')}}">About Us</a></li>
                     <li><a href="{{route('contact-us')}}">Contact Us</a></li>
                 </ul>
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (selectedRate) {
                     leasingPeriodInput.value = selectedRate.year;
                     leasingRateInput.value = selectedRate
-                        .min_rate;
+                        .default_rate;
                     leasingRateInput.setAttribute('min', selectedRate.min_rate);
                     leasingRateInput.setAttribute('max', selectedRate.max_rate);
                     bankratesspan.textContent =
