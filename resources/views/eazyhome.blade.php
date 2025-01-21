@@ -308,10 +308,9 @@
 <section id="leasingcomparisonsection" class="wrapper bg-light">
     <div class="container py-8 py-md-10">
         <div class="row text-center">
-            <div class="col-lg-10 col-xl-7 col-xxl-6 mx-auto">
+            <div class="col-lg-10 col-xl-8 col-xxl-8 mx-auto">
                 <h2 class="fs-15 text uppercase text-muted mb-3">Leasing Comparison</h2>
-                <h3 class="ls-sm mb-10">Compare leasing rates from top companies to find the best deal for
-                    you.</h3>
+                <h3 class="display-3 ls-sm mb-9 px-xl-11">Vehicle Leasing Rates Sri Lanka</h3>
             </div>
             <!-- /column -->
         </div>
@@ -321,7 +320,7 @@
         <div class="table-responsive table-padding">
             <div class="d-md-flex d-block justify-content-between align-items-center mb-3 filter-section">
                 <!-- Filter Container -->
-                <div class="d-md-flex d-block justify-content-between align-items-center gap-2">
+                <div class="d-md-flex d-block  align-items-center gap-2 w-100">
                     <div class="filter-container d-block align-items-center">
                         <label for="vehicleTypeFilter" class="me-2 fs-14">Facility type & Period</label>
                         <select id="vehicleTypeFilter" class="form-select w-auto typefilter">
@@ -514,101 +513,10 @@
         <div class="row text-center">
             <div class="col-md-10 col-lg-9 col-xxl-8 mx-auto">
                 <h2 class="fs-15 text-uppercase text-muted mb-3">What We Do?</h2>
-                <h3 class="display-3 ls-sm mb-9 px-xl-11">The service we offer is specifically designed to meet your
-                    needs.</h3>
+                <h3 class="display-3 ls-sm mb-5 px-xl-11">Leasing Made Easy</h3>
             </div>
             <!-- /column -->
         </div>
-        <!-- /.row -->
-        <div class="row gx-lg-8 gx-xl-12 gy-8">
-            <div class="col-md-6 col-lg-4">
-                <div class="d-flex flex-row">
-                    <div>
-                        <img src="./assets/img/icons/lineal/telephone-3.svg"
-                            class="svg-inject icon-svg icon-svg-md text-blue me-5 mt-1" alt="24/7 Support" />
-                    </div>
-                    <div>
-                        <h4 class="fs-20 ls-sm">24/7 Customer Support</h4>
-                        <p class="mb-0">Our dedicated support team is available round-the-clock to assist both customers
-                            and leasing companies with their queries and needs.</p>
-                    </div>
-                </div>
-            </div>
-            <!--/column -->
-            <div class="col-md-6 col-lg-4">
-                <div class="d-flex flex-row">
-                    <div>
-                        <img src="./assets/img/icons/lineal/shield.svg"
-                            class="svg-inject icon-svg icon-svg-md text-yellow me-5 mt-1" alt="Secure Platform" />
-                    </div>
-                    <div>
-                        <h4 class="fs-20 ls-sm">Secure Platform</h4>
-                        <p class="mb-0">We ensure a safe and secure environment for all transactions and interactions on
-                            our platform, giving you peace of mind.</p>
-                    </div>
-                </div>
-            </div>
-            <!--/column -->
-            <div class="col-md-6 col-lg-4">
-                <div class="d-flex flex-row">
-                    <div>
-                        <img src="./assets/img/icons/lineal/cloud-computing-2.svg"
-                            class="svg-inject icon-svg icon-svg-md text-orange me-5" alt="Real-Time Updates" />
-                    </div>
-                    <div>
-                        <h4 class="fs-20 ls-sm">Real-Time Updates</h4>
-                        <p class="mb-0">Stay informed with real-time updates about leasing options, application status,
-                            and platform features.</p>
-                    </div>
-                </div>
-            </div>
-            <!--/column -->
-            <div class="col-md-6 col-lg-4">
-                <div class="d-flex flex-row">
-                    <div>
-                        <img src="./assets/img/icons/lineal/analytics.svg"
-                            class="svg-inject icon-svg icon-svg-md text-pink me-5" alt="Analytics & Insights" />
-                    </div>
-                    <div>
-                        <h4 class="fs-20 ls-sm">Analytics & Insights</h4>
-                        <p class="mb-0">Access detailed insights to help you make informed decisions when choosing the
-                            right leasing options or market opportunities.</p>
-                    </div>
-                </div>
-            </div>
-            <!--/column -->
-            <div class="col-md-6 col-lg-4">
-                <div class="d-flex flex-row">
-                    <div>
-                        <img src="./assets/img/icons/lineal/chat-2.svg"
-                            class="svg-inject icon-svg icon-svg-md text-green me-5 mt-1"
-                            alt="Effortless Communication" />
-                    </div>
-                    <div>
-                        <h4 class="fs-20 ls-sm">Effortless Communication</h4>
-                        <p class="mb-0">Our platform bridges the gap between leasing companies and customers, offering
-                            seamless communication channels.</p>
-                    </div>
-                </div>
-            </div>
-            <!--/column -->
-            <div class="col-md-6 col-lg-4">
-                <div class="d-flex flex-row">
-                    <div>
-                        <img src="./assets/img/icons/lineal/megaphone.svg"
-                            class="svg-inject icon-svg icon-svg-md text-purple me-5 mt-1" alt="Exclusive Promotions" />
-                    </div>
-                    <div>
-                        <h4 class="fs-20 ls-sm">Exclusive Promotions</h4>
-                        <p class="mb-0">Discover exclusive deals and offers from top leasing companies, all in one
-                            convenient platform.</p>
-                    </div>
-                </div>
-            </div>
-            <!--/column -->
-        </div>
-
-        <!--/.row -->
     </div>
     <!-- /.container -->
 </section>
@@ -642,9 +550,8 @@
                                 class="svg-inject icon-svg icon-svg-md text-blue me-5 mt-1" alt="Compare Rates Icon" />
                         </div>
                         <div>
-                            <h4 class="fs-20 ls-sm">Compare Leasing Rates</h4>
-                            <p class="mb-0">Analyze and compare leasing rates from various providers to find the most
-                                competitive offers.</p>
+                            <h4 class="fs-20 ls-sm">Tell Us Your Needs</h4>
+                            <p class="mb-0">Share your requirements, and we’ll handle the rest.</p>
                         </div>
                     </div>
 
@@ -656,9 +563,8 @@
                                 alt="Choose Best Company Icon" />
                         </div>
                         <div>
-                            <h4 class="fs-20 ls-sm">Choose the Best Company</h4>
-                            <p class="mb-0">Select the company that aligns with your needs, offering the best terms and
-                                services.</p>
+                            <h4 class="fs-20 ls-sm">Compare & Select</h4>
+                            <p class="mb-0">Review and choose the best leasing facility tailored to your needs.</p>
                         </div>
                     </div>
 
@@ -670,9 +576,8 @@
                                 alt="Apply for Leasing Icon" />
                         </div>
                         <div>
-                            <h4 class="fs-20 ls-sm">Apply for Leasing</h4>
-                            <p class="mb-0">Complete the application process and start your leasing journey
-                                effortlessly.</p>
+                            <h4 class="fs-20 ls-sm">Drive Your Dream Car</h4>
+                            <p class="mb-0">Turn your dream into reality with the perfect leasing solution!</p>
                         </div>
                     </div>
                 </div>
@@ -1221,12 +1126,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(data => {
                         bankRates = data;
                         if (data.length > 0) {
+                            const groups = {};
                             data.forEach(rate => {
+                                // Create or reuse the optgroup for the vehicle type
+                                if (!groups[rate.vehicle_type]) {
+                                    const optgroup = document.createElement('optgroup');
+                                    optgroup.label = rate.vehicle_type.charAt(0)
+                                        .toUpperCase() + rate.vehicle_type.slice(1);
+                                    groups[rate.vehicle_type] = optgroup;
+                                    vehicleTypeSelect.appendChild(optgroup);
+                                }
                                 const option = document.createElement('option');
                                 option.value = rate.id;
                                 option.textContent =
                                     `${rate.vehicle_type.charAt(0).toUpperCase() + rate.vehicle_type.slice(1)} (${rate.year} Years)`;
-                                vehicleTypeSelect.appendChild(option);
+                                groups[rate.vehicle_type].appendChild(option);
+
                                 if (rate.default_type) {
                                     option.selected = true;
                                     selectedrateid.value = rate.id;

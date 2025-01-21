@@ -116,12 +116,9 @@
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvas-info"><i class="uil uil-info-circle"></i></a></li>
                     <li class="nav-item">
-                        <a class="nav-link" id="phone-icon">
-                            <i class="uil uil-phone"></i>
+                        <a class="nav-link">
+                            <i class="uil uil-phone" id="phone-icon"></i>
                         </a>
-                    </li>
-                    <li class="nav-item" id="phone-number-container" style="display: none !important;">
-                        <span class="nav-link text-primary" id="phone-number">{{getenv('COMPANY_PHONE')}}</span>
                     </li>
                     <!-- <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvas-search"><i class="uil uil-search"></i></a></li> -->
@@ -141,6 +138,20 @@
         </div>
         <!-- /.container -->
     </nav>
+    <!-- Modal Structure -->
+    <div id="phone-modal" class="modal fade" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Contact Us</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>📞 <strong>{{getenv('COMPANY_PHONE')}}</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- /.navbar -->
     <div class="offcanvas offcanvas-end text-inverse" id="offcanvas-info" data-bs-scroll="true">
         <div class="offcanvas-header">
@@ -174,9 +185,7 @@
             <div class="widget">
                 <h4 class="widget-title text-white mb-3">Follow Us</h4>
                 <nav class="nav social social-white">
-                    <a href="#"><i class="uil uil-twitter"></i></a>
                     <a href="#"><i class="uil uil-facebook-f"></i></a>
-                    <a href="#"><i class="uil uil-dribbble"></i></a>
                     <a href="#"><i class="uil uil-instagram"></i></a>
                     <a href="#"><i class="uil uil-youtube"></i></a>
                 </nav>
@@ -301,6 +310,22 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <script>
 document.addEventListener('click', function(event) {
+    if (event.target && event.target.id === 'phone-icon') {
+        const modal = new bootstrap.Modal(document.getElementById('phone-modal'));
+        const phoneIcon = document.getElementById('phone-icon');
+        const rect = phoneIcon.getBoundingClientRect();
+
+        const modalElement = document.querySelector('#phone-modal .modal-dialog');
+        modalElement.style.position = 'absolute';
+        modalElement.style.top = `${rect.top + window.scrollY + 40}px`;
+        modalElement.style.left = `${rect.left}px`;
+
+        modal.show();
+    }
+});
+</script>
+<script>
+document.addEventListener('click', function(event) {
     if (event.target && event.target.id === 'desktop-applynow-button') {
         const applyNowModal = new bootstrap.Modal(document.getElementById('applyNowModal'));
 
@@ -381,12 +406,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(data => {
                         bankRates = data;
                         if (data.length > 0) {
+                            const groups = {};
                             data.forEach(rate => {
+                                // Create or reuse the optgroup for the vehicle type
+                                if (!groups[rate.vehicle_type]) {
+                                    const optgroup = document.createElement('optgroup');
+                                    optgroup.label = rate.vehicle_type.charAt(0)
+                                        .toUpperCase() + rate.vehicle_type.slice(1);
+                                    groups[rate.vehicle_type] = optgroup;
+                                    vehicleTypeSelect.appendChild(optgroup);
+                                }
                                 const option = document.createElement('option');
                                 option.value = rate.id;
                                 option.textContent =
                                     `${rate.vehicle_type.charAt(0).toUpperCase() + rate.vehicle_type.slice(1)} (${rate.year} Years)`;
-                                vehicleTypeSelect.appendChild(option);
+                                groups[rate.vehicle_type].appendChild(option);
                             });
                         } else {
                             const option = document.createElement('option');
@@ -493,21 +527,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         });
     }
-});
-</script>
-<script>
-document.getElementById("phone-icon").addEventListener("click", function() {
-    console.log("Phone icon clicked");
-    const phoneContainer = document.getElementById("phone-number-container");
-
-    if (phoneContainer.style.display === "none") {
-        phoneContainer.style.display = "block";
-    } else {
-        phoneContainer.style.display = "none";
-    }
-
-    console.log(phoneContainer.style.display);
-
-
 });
 </script>
