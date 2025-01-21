@@ -39,7 +39,7 @@
                     <h4 class="widget-title ls-sm mb-3">Learn More</h4>
                     <ul class="list-unstyled text-reset mb-0">
                         <li><a href="{{route('home')}}">Leasing</a></li>
-                        <li><a href="{{route('home')}}">Insurace</a></li>
+                        <li><a href="{{route('vehicle-insurance')}}">Insurance</a></li>
                         <li><a href="{{route('vehicle-import')}}">Vehicle Import</a></li>
                         <li><a href="{{route('about-us')}}">About Us</a></li>
                         <li><a href="{{route('contact-us')}}">Contact Us</a></li>
