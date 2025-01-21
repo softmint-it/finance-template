@@ -30,7 +30,7 @@ class HomeController extends Controller
         if(isset($_GET['vfilter'])){
             $vfilter = $_GET['vfilter'];
         }else{
-            $vfilter = 'Motor Car Leasing';
+            $vfilter = 'Motor Vehicle - Registered';
         }
 
         if(isset($_GET['pfilter'])){
@@ -76,6 +76,12 @@ public function vehicleImport(): View
 {
     $banks = Bank::where('status', 1)->get();
     return view('vehicleimport', compact('banks'));
+}
+
+public function vehicleInsurance(): View
+{
+    $banks = Bank::where('status', 1)->get();
+    return view('vehicleinsurance', compact('banks'));
 }
 
 

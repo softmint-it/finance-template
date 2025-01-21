@@ -182,18 +182,18 @@
                         <div class="card-body" id="leasingcalculator">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12 form-group">
-                                    <lable for="leasingcompany">Leasing Company</lable>
+                                    <lable for="leasingcompany">Leasing/Bank</lable>
                                     <select id="leasingcompany" class="form-select" aria-label="Default select example">
-                                        <option selected>Select Leasing Company</option>
+                                        <option selected>Select Leasing/Bank</option>
                                         @foreach ($banks as $bank)
                                         <option value="{{ $bank->id }}">{{ $bank->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12 form-group">
-                                    <label for="vehicleType">Facility Type</label>
+                                    <label for="vehicleType">Facility type & Period</label>
                                     <select id="vehicleType" class="form-select" aria-label="Default select example">
-                                        <option selected>Select Facility Type</option>
+                                        <option selected>Select Facility type & Period</option>
                                     </select>
                                 </div>
                                 <input type="hidden" id="selectedrateid">
@@ -323,7 +323,7 @@
                 <!-- Filter Container -->
                 <div class="d-md-flex d-block justify-content-between align-items-center gap-2">
                     <div class="filter-container d-block align-items-center">
-                        <label for="vehicleTypeFilter" class="me-2 fs-14">Facility Type</label>
+                        <label for="vehicleTypeFilter" class="me-2 fs-14">Facility type & Period</label>
                         <select id="vehicleTypeFilter" class="form-select w-auto typefilter">
                         </select>
                     </div>
@@ -348,7 +348,7 @@
                 <thead>
                     <tr>
                         <th style="width:0px"></th>
-                        <th class="text-center" style="width:10%">Leasing Company</th>
+                        <th class="text-center" style="width:10%">Leasing/Bank</th>
                         <th class="text-center" style="width:20%">Facility per {{ formatLKR(100000) }}</th>
                     </tr>
                 </thead>
@@ -455,7 +455,7 @@
                                 <table class="table table-bordered table-fonts-modal text-center table-responsive">
                                     <thead>
                                         <tr>
-                                            <th>Facility Type</th>
+                                            <th>Facility type & Period</th>
                                             <th>Leasing Period</th>
                                             <th>Rate</th>
                                             <th>Ins Per {{formatLKR(100000)}}</th>
@@ -1025,7 +1025,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('leasingperiod').value = 0;
     document.getElementById('leasingamount').value = 0;
     document.getElementById('installment').value = 0;
-    document.getElementById('leasingcompany').value = 'Select Leasing Company';
+    document.getElementById('leasingcompany').value = 'Select Leasing/Bank';
 
     let bankRates = [];
 
@@ -1121,7 +1121,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <table class="table table-bordered table-striped table-hover text-center table-fonts-modal">
                         <thead class="table-dark">
                             <tr>
-                                <th>Facility Type</th>
+                                <th>Facility type & Period</th>
                                 <th>Leasing Amount</th>
                                 <th>Leasing Rate</th>
                                 <th>Total Payable</th>
@@ -1130,9 +1130,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>${vehicleType}</td>
+                                <td>${vehicleType}<br> (${leasingPeriod} Years)</td>
                                 <td>${formatToLKR(leasingAmount)}</td>
-                                <td>${leasingRate} (${leasingPeriod} Years)</td>
+                                <td>${leasingRate}% </td>
                                 <td>${formatToLKR(capital)}</td>
                                 <td>${formatToLKR(monthlyInstallment)}</td>
                             </tr>
@@ -1156,7 +1156,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <table class="table table-bordered table-striped table-hover text-center table-fonts">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>Facility Type</th>
+                                        <th>Facility type & Period</th>
                                         <th>Leasing Amount</th>
                                         <th>Leasing Rate</th>
                                         <th>Total Payable</th>
@@ -1165,11 +1165,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>${vehicleType}</td>
+                                        <td>${vehicleType}<br>(${leasingPeriod} Years)</td>
                                         <td>${formatToLKR(leasingAmount)}</td>
-                                        <td>${leasingRate} (${leasingPeriod} Years)</td>
+                                        <td>${leasingRate}% </td>
                                         <td>${formatToLKR(capital)}</td>
-                                        <td>${formatToLKR(monthlyInstallment)}</td>
+                                        <td class="fs-16 text-blue text-bold bg-gradient-aqua">${formatToLKR(monthlyInstallment)}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1209,7 +1209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showhidetext.textContent = 'Show Installment Plan';
 
 
-            vehicleTypeSelect.innerHTML = '<option selected>Select Facility Type</option>';
+            vehicleTypeSelect.innerHTML = '<option selected>Select Facility type & Period</option>';
             leasingPeriodInput.value = '';
             leasingRateInput.value = '';
             document.getElementById('leasingamount').value = 0;
@@ -1392,10 +1392,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>${formatToLKR(leasingAmount)}</td>
-                                <td>${leasingRate} (${leasingPeriod} Years)</td>
+                                <td>${formatToLKR(leasingAmount)}<br>(${leasingPeriod} Years)</td>
+                                <td>${leasingRate}%</td>
                                 <td>${formatToLKR(capital)}</td>
-                                <td>${formatToLKR(monthlyInstallment)}</td>
+                                <td class="fs-16 text-blue text-bold bg-gradient-aqua">${formatToLKR(monthlyInstallment)}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1459,7 +1459,7 @@ document.getElementById('requestqt').addEventListener('click', () => {
 
 
 
-    if (leasingCompany === 'Select Leasing Company' || vehicleType === 'Select Facility Type' || !
+    if (leasingCompany === 'Select Leasing/Bank' || vehicleType === 'Select Facility type & Period' || !
         leasingPeriod || !leasingRate || !leasingAmount || !installment || installment === '0' ||
         leasingAmount === '0') {
         Swal.fire({
@@ -1481,7 +1481,7 @@ document.getElementById('requestqt').addEventListener('click', () => {
         const baseUrl = "{{ config('app.url') }}";
         leasingCompanySelect.value = leasingCompany;
         const bankId = leasingCompany;
-        vehicleTypeSelect.innerHTML = '<option selected>Select Facility Type</option>';
+        vehicleTypeSelect.innerHTML = '<option selected>Select Facility type & Period</option>';
         if (bankId) {
             fetch(`${baseUrl}/get-bank-rates/${bankId}`)
                 .then(response => response.json())

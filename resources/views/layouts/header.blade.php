@@ -64,8 +64,8 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown dropdown-mega">
-                            <a class="nav-link custom-nav-link {{ Route::currentRouteName() === 'home' ? 'active' : '' }}"
-                                href="{{ route('home') }}">
+                            <a class="nav-link custom-nav-link {{ Route::currentRouteName() === 'vehicle-insurance' ? 'active' : '' }}"
+                                href="{{ route('vehicle-insurance') }}">
                                 Insurance
                             </a>
                         </li>
@@ -164,7 +164,7 @@
                 <h4 class="widget-title text-white mb-3">Learn More</h4>
                 <ul class="list-unstyled">
                     <li><a href="{{route('home')}}">Leasing</a></li>
-                    <li><a href="{{route('home')}}">Insurace</a></li>
+                    <li><a href="{{route('vehicle-insurance')}}">Insurance</a></li>
                     <li><a href="{{route('vehicle-import')}}">Vehicle Import</a></li>
                     <li><a href="{{route('about-us')}}">About Us</a></li>
                     <li><a href="{{route('contact-us')}}">Contact Us</a></li>
@@ -214,11 +214,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="modelleasingcompany" class="form-label">Leasing Company</label><span
+                                <label for="modelleasingcompany" class="form-label">Leasing/Bank</label><span
                                     class="text-danger">*</span>
                                 <select id="modelleasingcompany" class="form-select" name="leasing_company_id"
                                     aria-label="Default select example">
-                                    <option selected>Select Leasing Company</option>
+                                    <option selected>Select Leasing/Bank</option>
                                     @foreach ($banks as $bank)
                                     <option value="{{ $bank->id }}">{{ $bank->name }}</option>
                                     @endforeach
@@ -230,7 +230,7 @@
                                 <label for="modelvehicleType" class="form-label" name="vehicle_type">Vehicle
                                     Type</label><span class="text-danger">*</span>
                                 <select id="modelvehicleType" class="form-select" aria-label="Default select example">
-                                    <option selected>Select Facility Type</option>
+                                    <option selected>Select Facility type & Period</option>
                                 </select>
                             </div>
                         </div>
@@ -311,8 +311,8 @@ document.addEventListener('click', function(event) {
         document.getElementById('modelleasingperiod').value = 0;
         document.getElementById('modelleasingamount').value = 0;
         document.getElementById('modelinstallment').value = 0;
-        document.getElementById('modelleasingcompany').value = 'Select Leasing Company';
-        vehicleTypeSelect.value = 'Select Facility Type';
+        document.getElementById('modelleasingcompany').value = 'Select Leasing/Bank';
+        vehicleTypeSelect.value = 'Select Facility type & Period';
         applyNowModal.show();
     }
     if (event.target && event.target.id === 'mobile-applynow-button') {
@@ -324,8 +324,8 @@ document.addEventListener('click', function(event) {
         document.getElementById('modelleasingperiod').value = 0;
         document.getElementById('modelleasingamount').value = 0;
         document.getElementById('modelinstallment').value = 0;
-        document.getElementById('modelleasingcompany').value = 'Select Leasing Company';
-        vehicleTypeSelect.value = 'Select Facility Type';
+        document.getElementById('modelleasingcompany').value = 'Select Leasing/Bank';
+        vehicleTypeSelect.value = 'Select Facility type & Period';
         applyNowModal.show();
     }
 });
@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('modelleasingperiod').value = 0;
     document.getElementById('modelleasingamount').value = 0;
     document.getElementById('modelinstallment').value = 0;
-    document.getElementById('modelleasingcompany').value = 'Select Leasing Company';
+    document.getElementById('modelleasingcompany').value = 'Select Leasing/Bank';
 
 
     let bankRates = [];
@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
         leasingCompany.addEventListener('change', function() {
             const bankId = this.value;
 
-            vehicleTypeSelect.innerHTML = '<option selected>Select Facility Type</option>';
+            vehicleTypeSelect.innerHTML = '<option selected>Select Facility type & Period</option>';
             leasingPeriodInput.value = '';
             leasingRateInput.value = '';
             document.getElementById('modelleasingamount').value = 0;
@@ -390,11 +390,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             });
                         } else {
                             const option = document.createElement('option');
-                            option.textContent = 'No Facility Types Available';
+                            option.textContent = 'No Facility type & Period Available';
                             vehicleTypeSelect.appendChild(option);
                         }
                     })
-                    .catch(error => console.error('Error fetching Facility Types:', error));
+                    .catch(error => console.error('Error fetching Facility type & Period:', error));
             }
         });
         vehicleTypeSelect.addEventListener('change', function() {
