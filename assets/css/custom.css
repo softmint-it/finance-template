@@ -205,56 +205,8 @@
         padding-top: 0.3rem !important;
         padding-bottom: 0.3rem !important;
     }
-}
-
-@media screen and (max-width: 768px) {
-    .filter-container {
-        width: 100% !important;
-    }
-    .footer-margins {
-        margin-bottom: -10%;
-        margin-top: 25%;
-    }
-    .table-bank-logo {
-        width: 100%;
-    }
-    .table-bank-name {
-        font-size: 12px;
-    }
-    .leasingtable-reqbtn {
-        font-size: 10px;
-    }
-    .modal-title {
-        font-size: 16px;
-    }
-    .bank-modal-logo {
-        width: 50%;
-    }
-    .bank-modal-title {
-        font-size: 14px;
-    }
-    .sentence-block p {
-        font-size: 12px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .footer-margins {
-        margin-top: 35%;
-    }
-}
-@media screen and (max-width: 576px) {
-    .display-1 {
-        font-size: 1.5rem !important;
-    }
-    .lead {
-        font-size: 0.675rem !important;
-    }
-    .custom-btn {
-        width: 100%;
-    }
-    .floating-button-new {
-        width: 10%;
+    .mobile-bottom-nav {
+        display: block;
     }
     .mobile-bottom-nav {
         display: block;
@@ -309,6 +261,66 @@
 
     .mobile-bottom-nav .nav-link.active i {
         color: #ffaa0b;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .filter-container {
+        width: 100% !important;
+    }
+    .footer-margins {
+        margin-bottom: -10%;
+        margin-top: 25%;
+    }
+    .table-bank-logo {
+        width: 100%;
+    }
+    .table-bank-name {
+        font-size: 12px;
+    }
+    .leasingtable-reqbtn {
+        font-size: 10px;
+    }
+    .modal-title {
+        font-size: 16px;
+    }
+    .bank-modal-logo {
+        width: 50%;
+    }
+    .bank-modal-title {
+        font-size: 14px;
+    }
+    .sentence-block p {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footer-margins {
+        margin-top: 35%;
+    }
+}
+@media screen and (max-width: 576px) {
+    .display-1 {
+        font-size: 1.5rem !important;
+    }
+    .lead {
+        font-size: 0.675rem !important;
+    }
+    .card-header {
+        padding: 0.5rem 1rem !important;
+    }
+    .card-body {
+        padding: 0.5rem 1rem !important;
+    }
+    .cal-font {
+        font-size: 0.8rem !important;
+    }
+    .custom-btn {
+        width: 100%;
+    }
+    .floating-button-new {
+        width: 10%;
     }
 }
 

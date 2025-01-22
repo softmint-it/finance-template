@@ -157,8 +157,9 @@
                         <div class="card-header">
                             <div class="d-lg-flex d-block justify-content-between">
                                 <div class="d-flex justify-lg-content-between gap-3">
-                                    <h6 id="leasingCalculatorTitle" class="cursor-pointer">Leasing Calculator</h6>
-                                    <h6 id="standardCalculatorTitle" class="cursor-pointer">Standard Calculator</h6>
+                                    <h6 id="leasingCalculatorTitle" class="cursor-pointer cal-font">Leasing Calculator
+                                    </h6>
+                                    <h6 id="standardCalculatorTitle" class="cursor-pointer cal-font">EMI Calculator</h6>
                                 </div>
                                 <div class="slider">
                                     <div class="slide-track">
@@ -231,8 +232,8 @@
                             </div>
                             <div class="d-flex justify-content-end">
                                 <div class="">
-                                    <button id="requestqt" class="btn btn-primary mt-2 btn-sm">Request a
-                                        Quotation</button>
+                                    <button id="requestqt" class="btn btn-primary mt-2 btn-sm">Ask for a
+                                        Leasing</button>
                                 </div>
                             </div>
                             <div id="showplan"
