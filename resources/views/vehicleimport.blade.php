@@ -1,6 +1,19 @@
 @extends('layouts.main')
 
-@section('title', 'Eazy Home')
+@section('title', 'Easy Leasing | Sri Lanka Vehicle Import Cost Calculator')
+
+@section('og:title', 'Easy Leasing | Sri Lanka Vehicle Import Cost Calculator')
+@section('og:description', 'Easily calculate the total cost of importing a vehicle to Sri Lanka, including taxes,
+duties, and other fees. Get accurate estimates for your import journey.')
+@section('og:url', 'https://easyleasing.lk')
+@section('og:type', 'website')
+@section('og:image', 'https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg')
+
+@section('twitter:card', 'summary_large_image')
+@section('twitter:title', 'Easy Leasing | Sri Lanka Vehicle Import Cost Calculator')
+@section('twitter:description', 'Easily calculate the total cost of importing a vehicle to Sri Lanka, including taxes,
+duties, and other fees. Get accurate estimates for your import journey.')
+@section('twitter:image', 'https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg')
 
 @section('content')
 <style>

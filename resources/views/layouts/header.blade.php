@@ -163,7 +163,6 @@
             <!-- /.widget -->
             <div class="widget mb-8">
                 <h4 class="widget-title text-white mb-3">Contact Info</h4>
-                <address> {{env('COMPANY_ADDRESS')}} </address>
                 <a href="mailto:first.last@email.com">{{env('COMPANY_EMAIL')}}</a><br /> {{env('COMPANY_PHONE')}}
             </div>
             <!-- /.widget -->
@@ -210,20 +209,20 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="applyNowModalLabel">Request a Quotation</h5>
+                <h5 class="modal-title" id="applyNowModalLabel">Ask For Leasing</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="applyNowForm">
                     @csrf
                     <div class="row">
+                        <p class="bg-dark text-white" style="border-radius: 10px;"><b>Leasing Information</b></p>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="modelleasingcompany" class="form-label">Leasing/Bank</label><span
-                                    class="text-danger">*</span>
+                                <label for="modelleasingcompany" class="form-label">Expected Bank/Leasing</label>
                                 <select id="modelleasingcompany" class="form-select" name="leasing_company_id"
                                     aria-label="Default select example">
-                                    <option selected>Select Leasing/Bank</option>
+                                    <option value="0">Any Bank/Leasing</option>
                                     @foreach ($banks as $bank)
                                     <option value="{{ $bank->id }}">{{ $bank->name }}</option>
                                     @endforeach
@@ -233,69 +232,93 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="modelvehicleType" class="form-label" name="vehicle_type">Vehicle
-                                    Type</label><span class="text-danger">*</span>
-                                <select id="modelvehicleType" class="form-select" aria-label="Default select example">
-                                    <option selected>Select Facility type & Period</option>
-                                </select>
+                                    Make & Model</label>
+                                <input type="text" id="modelvehicleType" class="form-control" name="vehicle_type"
+                                    placeholder="Vehicle Make & Model">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="modelvehicleType" class="form-label" name="vehicle_type">Vehicle Model
+                                    Year</label>
+                                <input type="text" id="modelyear" class="form-control" name="vehicle_year"
+                                    placeholder="Vehicle Model Year">
                             </div>
                         </div>
                         <input type="hidden" name="rate_id" id="rate_id">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="modelleasingperiod" class="form-label
-                                    ">Leasing Period (Years)</label><span class="text-danger">*</span>
-                                <input type="text" class="form-control" id="modelleasingperiod" name=" leasing_period"
-                                    placeholder="Leasing Period" required readonly style="cursor: not-allowed;">
+                                    ">Leasing Period (Years)</label>
+                                <select id="modelleasingperiod" class="form-select" name="leasing_period"
+                                    aria-label="Default select example">
+                                    <option value="8">8 Years</option>
+                                    <option value="7">7 Years</option>
+                                    <option value="6">6 Years</option>
+                                    <option selected value="5">5 Years</option>
+                                    <option value="4">4 Years</option>
+                                    <option value="3">3 Years</option>
+                                    <option value="2">2 Years</option>
+                                    <option value="1">1 Years</option>
+                                </select>
+
 
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <div class="mb-3">
                                 <label for="modelleasingrate" class="form-label
-                                    ">Leasing Rate (%)</label><span class="text-danger">*</span><br><span
-                                    id="modelbankratespan" class="text-danger" style="font-size:8px;"></span>
-                                <input type="number" class="form-control" id="modelleasingrate"
-                                    placeholder="Leasing Rate" step="0.1" name="rate" required>
+                                    ">Leasing Rate (%)</label>
+                                <input type="text" class="form-control" id="modelleasingrate" placeholder="Leasing Rate"
+                                    name="rate">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="modelleasingamount" class="form-label
-                                    ">Leasing Amount</label><span class="text-danger">*</span>
-                                <input type="number" class="form-control" id="modelleasingamount"
-                                    placeholder="Leasing Amount" required name="amount">
+                                    ">Expected Leasing Amount</label>
+                                <div class="input-container">
+                                    <input type="text" class="form-control" id="modelleasingamount"
+                                        placeholder="Leasing Amount" name="amount">
+                                    <span class="currency">{{ getenv('CURRENCY') }}</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <div class="mb-3">
                                 <label for="modelinstallment" class="form-label
-                                    ">Monthly Installment</label><span class="text-danger">*</span>
+                                    ">Monthly Installment</label>
                                 <input type="text" class="form-control" id="modelinstallment"
-                                    placeholder="Monthly Installment" required name="installment" readonly
+                                    placeholder="Monthly Installment" name="installment" readonly
                                     style="cursor: not-allowed;">
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Your Name" name="requester_name">
+                    <div class="row">
+                        <p class="bg-dark text-white" style="border-radius: 10px; margin-top: 20px;"><b>Personal
+                                Information</b>
+                        </p>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Your Name"
+                                name="requester_name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Phone</label><span class="text-danger">*</span>
+                            <input type="text" class="form-control" id="mobile" placeholder="Your Mobile Number"
+                                name="mobile" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Your Email" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="city" class="form-label">Nearest City</label><span class="text-danger">*</span>
+                            <input type="text" class="form-control" id="email" placeholder="Your Nearest City"
+                                name="city" required>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label><span class="text-danger">*</span>
-                        <input type="email" class="form-control" id="email" placeholder="Your Email" name="email"
-                            required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Phone</label><span class="text-danger">*</span>
-                        <input type="text" class="form-control" id="mobile" placeholder="Your Mobile Number"
-                            name="mobile" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Note</label>
-                        <textarea class="form-control" id="leasingnote" rows="3" placeholder="Your Message"
-                            name="note"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Request</button>
+                    <button type="submit" class="btn btn-primary mb-4">Request</button>
                 </form>
             </div>
         </div>
@@ -309,6 +332,14 @@
 <link href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+
+<script>
+const modelleasingAmountInput = document.getElementById('modelleasingamount');
+modelleasingAmountInput.addEventListener('input', function(e) {
+    const value = this.value.replace(/,/g, '');
+    this.value = Number(value).toLocaleString('en-US');
+});
+</script>
 <script>
 document.addEventListener('click', function(event) {
     if (event.target && event.target.id === 'phone-icon') {
@@ -331,27 +362,23 @@ document.addEventListener('click', function(event) {
         const applyNowModal = new bootstrap.Modal(document.getElementById('applyNowModal'));
 
         const vehicleTypeSelect = document.getElementById('modelvehicleType');
-        vehicleTypeSelect.removeAttribute('readonly');
-        vehicleTypeSelect.style.cursor = '';
         document.getElementById('modelleasingrate').value = 0;
-        document.getElementById('modelleasingperiod').value = 0;
+        document.getElementById('modelleasingperiod').value = 5;
         document.getElementById('modelleasingamount').value = 0;
         document.getElementById('modelinstallment').value = 0;
-        document.getElementById('modelleasingcompany').value = 'Select Leasing/Bank';
-        vehicleTypeSelect.value = 'Select Facility type & Period';
+        document.getElementById('modelleasingcompany').value = 0;
+        vehicleTypeSelect.value = '';
         applyNowModal.show();
     }
     if (event.target && event.target.id === 'mobile-applynow-button') {
         const applyNowModal = new bootstrap.Modal(document.getElementById('applyNowModal'));
         const vehicleTypeSelect = document.getElementById('modelvehicleType');
-        vehicleTypeSelect.removeAttribute('readonly');
-        vehicleTypeSelect.style.cursor = '';
         document.getElementById('modelleasingrate').value = 0;
         document.getElementById('modelleasingperiod').value = 0;
         document.getElementById('modelleasingamount').value = 0;
         document.getElementById('modelinstallment').value = 0;
         document.getElementById('modelleasingcompany').value = 'Select Leasing/Bank';
-        vehicleTypeSelect.value = 'Select Facility type & Period';
+        vehicleTypeSelect.value = '';
         applyNowModal.show();
     }
 });
@@ -372,96 +399,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('modelleasingamount').value = 0;
     document.getElementById('modelinstallment').value = 0;
     document.getElementById('modelleasingcompany').value = 'Select Leasing/Bank';
-
-
-    let bankRates = [];
-
-    function modelcalculateInstallment() {
-        const leasingAmount = parseFloat(leasingAmountInput.value) || 0;
-        const leasingRate = parseFloat(leasingRateInput.value) || 0;
-        const leasingPeriod = parseInt(leasingPeriodInput.value) || 0;
-
-        if (leasingAmount && leasingRate && leasingPeriod) {
-            const monthrate = leasingRate / 100 / 12;
-            const installment = (leasingAmount * monthrate) / (1 - Math.pow(1 + monthrate, -leasingPeriod *
-                12));
-            installmentInput.value = installment.toFixed(2);
-        } else {
-            installmentInput.value = '0';
-        }
-    }
-
-    if (leasingCompany && vehicleTypeSelect && leasingPeriodInput && leasingRateInput) {
-        leasingCompany.addEventListener('change', function() {
-            const bankId = this.value;
-
-            vehicleTypeSelect.innerHTML = '<option selected>Select Facility type & Period</option>';
-            leasingPeriodInput.value = '';
-            leasingRateInput.value = '';
-            document.getElementById('modelleasingamount').value = 0;
-            document.getElementById('modelinstallment').value = 0;
-            const baseUrl = "{{ config('app.url') }}";
-            if (bankId) {
-                fetch(`${baseUrl}/get-bank-rates/${bankId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        bankRates = data;
-                        if (data.length > 0) {
-                            const groups = {};
-                            data.forEach(rate => {
-                                // Create or reuse the optgroup for the vehicle type
-                                if (!groups[rate.vehicle_type]) {
-                                    const optgroup = document.createElement('optgroup');
-                                    optgroup.label = rate.vehicle_type.charAt(0)
-                                        .toUpperCase() + rate.vehicle_type.slice(1);
-                                    groups[rate.vehicle_type] = optgroup;
-                                    vehicleTypeSelect.appendChild(optgroup);
-                                }
-                                const option = document.createElement('option');
-                                option.value = rate.id;
-                                option.textContent =
-                                    `${rate.vehicle_type.charAt(0).toUpperCase() + rate.vehicle_type.slice(1)} (${rate.year} Years)`;
-                                groups[rate.vehicle_type].appendChild(option);
-                            });
-                        } else {
-                            const option = document.createElement('option');
-                            option.textContent = 'No Facility type & Period Available';
-                            vehicleTypeSelect.appendChild(option);
-                        }
-                    })
-                    .catch(error => console.error('Error fetching Facility type & Period:', error));
-            }
-        });
-        vehicleTypeSelect.addEventListener('change', function() {
-            const selectedVehicleType = this.value;
-            document.getElementById('modelleasingamount').value = 0;
-            document.getElementById('modelinstallment').value = 0;
-
-            if (selectedVehicleType && bankRates.length > 0) {
-                rateIdInput.value = selectedVehicleType;
-                const selectedRate = bankRates.find(rate => rate.id == selectedVehicleType);
-                if (selectedRate) {
-                    leasingPeriodInput.value = selectedRate.year;
-                    leasingRateInput.value = selectedRate
-                        .default_rate;
-                    leasingRateInput.setAttribute('min', selectedRate.min_rate);
-                    leasingRateInput.setAttribute('max', selectedRate.max_rate);
-                    bankratesspan.textContent =
-                        `*(Min Rate: ${selectedRate.min_rate} - Max Rate: ${selectedRate.max_rate})`;
-                } else {
-                    leasingPeriodInput.value = '';
-                    leasingRateInput.value = '';
-                }
-            } else {
-                leasingPeriodInput.value = '';
-                leasingRateInput.value = '';
-            }
-        });
-
-        leasingAmountInput.addEventListener('input', modelcalculateInstallment);
-        leasingRateInput.addEventListener('input', modelcalculateInstallment);
-        leasingPeriodInput.addEventListener('input', modelcalculateInstallment);
-    }
 });
 </script>
 <script>
@@ -476,8 +413,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(applyNowForm);
             formData.append('_token', document.querySelector('input[name="_token"]').value);
-
-            fetch('/submit-quotation-request', {
+            const baseUrl = "{{ config('app.url') }}";
+            fetch(`${baseUrl}/submit-quotation-request`, {
                     method: 'POST',
                     body: formData,
                 })

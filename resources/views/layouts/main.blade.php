@@ -10,6 +10,26 @@
             content="bootstrap 5, business, corporate, creative, gulp, marketing, minimal, modern, multipurpose, one page, responsive, saas, sass, seo, startup, html5 template, site template">
         <meta name="author" content="elemis">
         <title>@yield('title', 'Eazy Leasings')</title>
+
+        <!-- Open Graph Meta Tags -->
+        <meta property="og:title"
+            content="@yield('og:title', 'Easy Leasing | Compare Vehicle Leasing Rates in Sri Lanka')" />
+        <meta property="og:description"
+            content="@yield('og:description', 'Easy Leasing is your go-to consultant for vehicle leasing rates in Sri Lanka. Compare rates from banks and finance companies to get the best deal.')" />
+        <meta property="og:url" content="@yield('og:url', 'https://easyleasing.lk')" />
+        <meta property="og:type" content="@yield('og:type', 'website')" />
+        <meta property="og:image"
+            content="@yield('og:image', 'https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg')" />
+
+        <!-- Twitter Meta Tags -->
+        <meta name="twitter:card" content="@yield('twitter:card', 'summary_large_image')" />
+        <meta name="twitter:title"
+            content="@yield('twitter:title', 'Easy Leasing | Compare Vehicle Leasing Rates in Sri Lanka')" />
+        <meta name="twitter:description"
+            content="@yield('twitter:description', 'Compare the latest vehicle leasing rates in Sri Lanka from banks and finance companies with Easy Leasing.')" />
+        <meta name="twitter:image"
+            content="@yield('twitter:image', 'https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg')" />
+
         <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
