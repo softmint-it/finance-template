@@ -121,7 +121,7 @@
                     <li class="nav-item w-full d-none d-lg-block">
                         <button id="desktop-applynow-button" class="nav-link btn apply-now text-center">
                             <i class="uil uil-arrow-right"></i>
-                            Request a Quote
+                            Ask for a Leasing
                         </button>
                     </li>
                     <li class="nav-item d-lg-none">
