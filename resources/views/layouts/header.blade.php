@@ -205,14 +205,21 @@
 </header>
 
 <!-- Modal Markup -->
-<div class="modal fade" id="applyNowModal" tabindex="-1" aria-labelledby="applyNowModalLabel" aria-hidden="true">
+<div class="modal fade" id="applyNowModal" tabindex="-1" aria-labelledby="askforleasing" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="applyNowModalLabel">Ask For Leasing</h5>
+
+                <div class="d-flex justify-lg-content-between gap-3">
+                    <h6 class="modal-title  cursor-pointer cal-font" id="askforleasingtitle"
+                        style="cursor: pointer !important;">Ask For Leasing</h6>
+                    <h6 class="modal-title cursor-pointer cal-font" id="requestcalltitle"
+                        style="cursor: pointer !important;">Request a Call</h6>
+                </div>
+
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="askforleasing">
                 <form id="applyNowForm">
                     @csrf
                     <div class="row">
@@ -318,9 +325,30 @@
                                 name="city" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mb-4">Request</button>
+                    <button type="submit" class="btn btn-primary mb-4 btn-sm">Request</button>
                 </form>
             </div>
+            <div class="modal-body" id="requestcall">
+                <h4 class="text-start">Contact Us</h4>
+                <a href="tel:{{env('COMPANY_PHONE')}}" class="link-dark fs-22 fs-md-22 fs-lg-32"
+                    style="padding-left: 20px;">
+                    <i class="uil uil-phone-volume me-2 "></i>{{env('COMPANY_PHONE')}}
+                </a>
+                <br>
+                <h4 class="text-start mt-5">Request a Call</h4>
+                <form id="requestcallForm">
+                    @csrf
+                    <div class="form-floating mb-4">
+                        <input id="phone" type="text" name="mobile" class="form-control"
+                            placeholder="{{getenv('COMPANY_PHONE')}}" required>
+                        <label for="form_email">Phone *</label>
+                        <div class="valid-feedback"> Looks good! </div>
+                        <div class="invalid-feedback"> Please provide a valid mobile number </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-4 btn-sm">Request a Call</button>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>
@@ -332,7 +360,34 @@
 <link href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const askforleasingtitle = document.getElementById('askforleasingtitle');
+    const requestcalltitle = document.getElementById('requestcalltitle');
+    const askforleasing = document.getElementById('askforleasing');
+    const requestcall = document.getElementById('requestcall');
 
+    askforleasing.style.display = 'block';
+    requestcall.style.display = 'none';
+    askforleasingtitle.style.borderBottom = '2px solid blue';
+    requestcalltitle.style.borderBottom = 'none';
+
+    askforleasingtitle.addEventListener('click', () => {
+        askforleasing.style.display = 'block';
+        requestcall.style.display = 'none';
+        askforleasingtitle.style.borderBottom = '2px solid blue';
+        requestcalltitle.style.borderBottom = 'none';
+    });
+
+    requestcalltitle.addEventListener('click', () => {
+        askforleasing.style.display = 'none';
+        requestcall.style.display = 'block';
+        requestcalltitle.style.borderBottom = '2px solid blue';
+        askforleasingtitle.style.borderBottom = 'none';
+
+    });
+});
+</script>
 <script>
 const modelleasingAmountInput = document.getElementById('modelleasingamount');
 modelleasingAmountInput.addEventListener('input', function(e) {
