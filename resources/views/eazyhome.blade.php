@@ -310,7 +310,7 @@
         <div class="row text-center">
             <div class="col-lg-10 col-xl-8 col-xxl-8 mx-auto">
                 <h2 class="fs-15 text uppercase text-muted mb-3">Leasing Comparison</h2>
-                <h3 class="display-3 ls-sm mb-9 px-xl-11">Vehicle Leasing Rates Sri Lanka</h3>
+                <h3 class="display-3 ls-sm mb-9 px-xl-11">Vehicle <span class="underline-3 style-3 yellow" >Leasing Rates</span> Sri Lanka</h3>
             </div>
             <!-- /column -->
         </div>
@@ -508,22 +508,20 @@
 </section>
 
 
-<section class="wrapper bg-light">
+<!--section class="wrapper bg-light">
     <div class="container py-8 py-md-10">
         <div class="row text-center">
             <div class="col-md-10 col-lg-9 col-xxl-8 mx-auto">
                 <h2 class="fs-15 text-uppercase text-muted mb-3">What We Do?</h2>
                 <h3 class="display-3 ls-sm mb-5 px-xl-11">Leasing Made Easy</h3>
             </div>
-            <!-- /column -->
         </div>
     </div>
-    <!-- /.container -->
-</section>
+</section -->
 <!-- /section -->
-<section class="wrapper bg-gray position-relative min-vh-60 d-lg-flex align-items-center">
+<section class="wrapper bg-gray position-relative min-vh-60 d-lg-flex align-items-center" style="margin-top:50px;">
     <div class="col-lg-6 position-lg-absolute top-0 start-0 image-wrapper bg-image bg-cover h-100"
-        data-image-src="./assets/img/photos/bg38.jpg">
+        data-image-src="https://images.netdirector.co.uk/gforces-auto/image/upload/w_1920,h_1440,dpr_2.0,q_auto,c_fill,f_auto,fl_lossy/auto-client/1d990469f32131f968969d5ee116b4a1/banner.jpg">
         <div class="divider text-gray divider-v-end d-none d-lg-block">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54 1200">
                 <g />
@@ -540,8 +538,8 @@
         <div class="row gx-0">
             <div class="col-lg-6 ms-auto">
                 <div class="pt-13 pb-15 pb-md-17 py-lg-16 ps-lg-15 pe-xxl-16">
-                    <h2 class="fs-15 text-uppercase text-muted mb-3">How It Works?</h2>
-                    <h3 class="display-3 ls-sm mb-7">Follow these 3 simple steps to get started with leasing.</h3>
+                    <!--h2 class="fs-15 text-uppercase text-muted mb-3">How It Works ?</h2 -->
+                    <h3 class="display-3 ls-sm mb-7"><span class="underline-3 style-3 yellow" >Leasing Made Easy</span></h3>
 
                     <!-- Step 1 -->
                     <div class="d-flex flex-row mb-5">

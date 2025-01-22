@@ -41,7 +41,7 @@
         <div class="container flex-lg-row flex-nowrap align-items-center">
             <div class="navbar-brand w-50">
                 <a href="{{route('home')}}">
-                    <img src="./assets/img/logo-dark.png" srcset="./assets/img/logo-dark@2x.png 2x" alt="" />
+                    <img src="./assets/img/EASYlogo.png" style="width:300px; max-width:80%;" srcset="./assets/img/EASYlogo.png 2x" alt="" />
                 </a>
                 <button id="mobile-applynow-button" class="nav-link btn apply-now text-center d-lg-none d-block mt-1">
                     <i class="uil uil-arrow-right"></i>
@@ -51,7 +51,7 @@
             </div>
             <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
                 <div class="offcanvas-header d-lg-none">
-                    <h3 class="text-white fs-30 mb-0">{{env('COMPANY_NAME')}}</h3>
+                    <!--h3 class="text-white fs-30 mb-0">{{env('COMPANY_NAME')}}</h3 -->
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
