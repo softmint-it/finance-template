@@ -1,22 +1,22 @@
 <div class="mobile-bottom-nav">
-    <div class="container">
-        <div class="row">
-            <div class="col-4">
-                <a href="{{route('home')}}" class="link-dark fs-22 fs-md-22 fs-lg-32">
-                    <i class="uil uil-home"></i>
-                </a>
-            </div>
-            <div class="col-4">
-                <a href="{{route('vehicle-insurance')}}" class="link-dark fs-22 fs-md-22 fs-lg-32">
-                    <i class="uil uil-sh
-                    ield"></i>
-                </a>
-            </div>
-            <div class="col-4">
-                <a href="{{route('contact-us')}}" class="link-dark fs-22 fs-md-22 fs-lg-32">
-                    <i class="uil uil-phone"></i>
-                </a>
-            </div>
-        </div>
+    <div class="col-4">
+        <a href="{{ route('home') }}" class="nav-link {{ Route::currentRouteName() === 'home' ? 'active' : '' }}">
+            <i class="fas fa-car"></i>
+            <span>Leasing</span>
+        </a>
+    </div>
+    <div class="col-4">
+        <a href="{{ route('vehicle-insurance') }}"
+            class="nav-link {{ Route::currentRouteName() === 'vehicle-insurance' ? 'active' : '' }}">
+            <i class="fas fa-shield-alt"></i>
+            <span>Insurance</span>
+        </a>
+    </div>
+    <div class="col-4">
+        <a href="{{ route('vehicle-import') }}"
+            class="nav-link {{ Route::currentRouteName() === 'vehicle-import' ? 'active' : '' }}">
+            <i class="fas fa-globe"></i>
+            <span>Vehicle Import</span>
+        </a>
     </div>
 </div>
