@@ -41,12 +41,10 @@
         <div class="container flex-lg-row flex-nowrap align-items-center">
             <div class="navbar-brand w-50">
                 <a href="{{route('home')}}">
-                    <img src="./assets/img/EASYlogo.png" style="width:300px; max-width:80%;" srcset="./assets/img/EASYlogo.png 2x" alt="" />
+                    <img src="./assets/img/EASYlogo.png" style="width:300px; max-width:80%;"
+                        srcset="./assets/img/EASYlogo.png 2x" alt="" />
                 </a>
-                <button id="mobile-applynow-button" class="nav-link btn apply-now text-center d-lg-none d-block mt-1">
-                    <i class="uil uil-arrow-right"></i>
-                    Request a Quote
-                </button>
+
 
             </div>
             <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
@@ -97,11 +95,9 @@
                             <a href="mailto:first.last@email.com" class="link-inverse">{{env('COMPANY_EMAIL')}}</a>
                             <br /> {{env('COMPANY_PHONE')}}<br />
                             <nav class="nav social social-white mt-4">
-                                <a href="#"><i class="uil uil-twitter"></i></a>
-                                <a href="#"><i class="uil uil-facebook-f"></i></a>
-                                <a href="#"><i class="uil uil-dribbble"></i></a>
-                                <a href="#"><i class="uil uil-instagram"></i></a>
-                                <a href="#"><i class="uil uil-youtube"></i></a>
+                                <a href="{{getenv('FACEBOOK_LINK')}}"><i class="uil uil-facebook-f"></i></a>
+                                <a href="{{getenv('INSTAGRAM_LINK')}}"><i class="uil uil-instagram"></i></a>
+                                <a href="{{getenv('YOUTUBE_LINK')}}"><i class="uil uil-youtube"></i></a>
                             </nav>
                             <!-- /.social -->
                         </div>
@@ -185,9 +181,9 @@
             <div class="widget">
                 <h4 class="widget-title text-white mb-3">Follow Us</h4>
                 <nav class="nav social social-white">
-                    <a href="#"><i class="uil uil-facebook-f"></i></a>
-                    <a href="#"><i class="uil uil-instagram"></i></a>
-                    <a href="#"><i class="uil uil-youtube"></i></a>
+                    <a href="{{getenv('FACEBOOK_LINK')}}"><i class="uil uil-facebook-f"></i></a>
+                    <a href="{{getenv('INSTAGRAM_LINK')}}"><i class="uil uil-instagram"></i></a>
+                    <a href="{{getenv('YOUTUBE_LINK')}}"><i class="uil uil-youtube"></i></a>
                 </nav>
                 <!-- /.social -->
             </div>
@@ -305,6 +301,11 @@
         </div>
     </div>
 </div>
+<img src="./assets/img/icons/request-btn.png" id="mobile-applynow-button" class="floating-button-new"
+    srcset="./assets/img/icons/request-btn.png" alt="" />
+
+
+</button>
 <link href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>

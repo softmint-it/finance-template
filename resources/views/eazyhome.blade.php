@@ -135,8 +135,8 @@
                 </h2>
                 <p class="lead fs-23 lh-sm mb-7 pe-lg-5 pe-xl-5 pe-xxl-0">We are a creative company that focuses on
                     long term relationships with customers.</p>
-                <div><a href="#leasingcomparisonsection" class="btn btn-lg btn-primary rounded">Find Best Rates</a>
-                    <a href="{{route('vehicle-import')}}" class="btn btn-lg btn-primary rounded">Vehicle Import</a>
+                <div><a href="#leasingcomparisonsection" class="btn btn-sm btn-primary rounded">Find Best Rates</a>
+                    <a href="{{route('vehicle-import')}}" class="btn btn-sm btn-primary rounded">Vehicle Import</a>
                 </div>
             </div>
             <!--/column -->
@@ -310,7 +310,8 @@
         <div class="row text-center">
             <div class="col-lg-10 col-xl-8 col-xxl-8 mx-auto">
                 <h2 class="fs-15 text uppercase text-muted mb-3">Leasing Comparison</h2>
-                <h3 class="display-3 ls-sm mb-9 px-xl-11">Vehicle <span class="underline-3 style-3 yellow" >Leasing Rates</span> Sri Lanka</h3>
+                <h3 class="display-3 ls-sm mb-9 px-xl-11">Vehicle <span class="underline-3 style-3 yellow">Leasing
+                        Rates</span> Sri Lanka</h3>
             </div>
             <!-- /column -->
         </div>
@@ -539,7 +540,8 @@
             <div class="col-lg-6 ms-auto">
                 <div class="pt-13 pb-15 pb-md-17 py-lg-16 ps-lg-15 pe-xxl-16">
                     <!--h2 class="fs-15 text-uppercase text-muted mb-3">How It Works ?</h2 -->
-                    <h3 class="display-3 ls-sm mb-7"><span class="underline-3 style-3 yellow" >Leasing Made Easy</span></h3>
+                    <h3 class="display-3 ls-sm mb-7"><span class="underline-3 style-3 yellow">Leasing Made Easy</span>
+                    </h3>
 
                     <!-- Step 1 -->
                     <div class="d-flex flex-row mb-5">
@@ -566,6 +568,7 @@
                         </div>
                     </div>
 
+                    <!-- Step 3 -->
                     <!-- Step 3 -->
                     <div class="d-flex flex-row">
                         <div>
