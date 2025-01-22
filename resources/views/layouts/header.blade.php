@@ -163,7 +163,6 @@
             <!-- /.widget -->
             <div class="widget mb-8">
                 <h4 class="widget-title text-white mb-3">Contact Info</h4>
-                <address> {{env('COMPANY_ADDRESS')}} </address>
                 <a href="mailto:first.last@email.com">{{env('COMPANY_EMAIL')}}</a><br /> {{env('COMPANY_PHONE')}}
             </div>
             <!-- /.widget -->

@@ -97,6 +97,18 @@ public function vehicleInsurance(): View
         return view('contact-us' , compact('banks'));
     }
 
+    public function terms(): View
+    {
+        $banks = Bank::where('status', 1)->get();
+        return view('terms', compact('banks'));
+    }
+
+    public function privacy(): View
+    {
+        $banks = Bank::where('status', 1)->get();
+        return view('privacypolicy', compact('banks'));
+    }
+
     public function submitQuotationRequest(Request $request)
     {
         $request->validate([

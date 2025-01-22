@@ -69,7 +69,6 @@
                     <div class="col-md-4 col-lg-2">
                         <div class="widget">
                             <h4 class="widget-title text-white mb-3">Get in Touch</h4>
-                            <address>{{env('COMPANY_ADDRESS')}}</address>
                             <a href="mailto:first.last@email.com">{{env('COMPANY_EMAIL')}}</a><br> <a
                                 href="tel:{{env('COMPANY_PHONE')}}">{{env('COMPANY_PHONE')}}</a>
                             <nav class="nav social social-white">
@@ -86,8 +85,8 @@
             </div>
         </div>
         <div class="d-flex justify-content-center w-100 align-items-center gap-2 mb-2">
-            <a href="#" class="text-white fs-12">Privacy Policy</a>
-            <a href="#" class="text-white fs-12">Terms & Conditions</a>
+            <a href="{{route('privacy')}}" class="text-white fs-12">Privacy Policy</a>
+            <a href="{{route('terms')}}" class="text-white fs-12">Terms & Conditions</a>
         </div>
         <p class="justify-content-center w-100 px-4 py-2 align-items-center text-center fs-12">
 
