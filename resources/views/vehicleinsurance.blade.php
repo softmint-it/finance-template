@@ -1,6 +1,19 @@
 @extends('layouts.main')
 
-@section('title', 'Eazy Home')
+@section('title', 'Easy Leasing | Sri Lanka Vehicle Insurance')
+
+@section('og:title', 'Easy Leasing | Sri Lanka Vehicle Insurance')
+@section('og:description', 'Find the best vehicle insurance rates in Sri Lanka with Easy Leasing. Compare policies from
+top providers and secure the best coverage for your vehicle.')
+@section('og:url', 'https://easyleasing.lk')
+@section('og:type', 'website')
+@section('og:image', 'https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg')
+
+@section('twitter:card', 'summary_large_image')
+@section('twitter:title', 'Easy Leasing | Sri Lanka Vehicle Insurance')
+@section('twitter:description', 'Find the best vehicle insurance rates in Sri Lanka with Easy Leasing. Compare policies
+from top providers and secure the best coverage for your vehicle.')
+@section('twitter:image', 'https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg')
 
 @section('content')
 <style>

@@ -1,6 +1,20 @@
 @extends('layouts.main')
 
-@section('title', 'Eazy Home')
+@section('title', 'Easy Leasing | Compare Vehicle Leasing Rates in Sri Lanka')
+
+@section('og:title', 'Easy Leasing | Compare Vehicle Leasing Rates in Sri Lanka')
+@section('og:description', 'Easy Leasing is your go-to consultant for vehicle leasing rates in Sri Lanka. Compare rates
+from banks and finance companies to get the best deal.')
+@section('og:url', 'https://easyleasing.lk')
+@section('og:type', 'website')
+@section('og:image', 'https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg')
+
+@section('twitter:card', 'summary_large_image')
+@section('twitter:title', 'Easy Leasing | Compare Vehicle Leasing Rates in Sri Lanka')
+@section('twitter:description', 'Compare the latest vehicle leasing rates in Sri Lanka from banks and finance companies
+with Easy Leasing.')
+@section('twitter:image', 'https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg')
+
 
 @section('content')
 <style>
@@ -853,7 +867,7 @@ $(document).ready(function() {
     periodjson.forEach((period) => {
         const option = document.createElement('option');
         option.value = period.year;
-        option.text = period.year;
+        option.text = period.year + (period.year == 1 ? " Year" : " Years");
         leasingperiodfilter.appendChild(option);
     });
     const pfiletr = @json($pfilter);
@@ -1393,7 +1407,6 @@ document.getElementById('requestqt').addEventListener('click', () => {
         const leasingRateInput = document.getElementById('modelleasingrate');
         const leasingAmountInput = document.getElementById('modelleasingamount');
         const installmentInput = document.getElementById('modelinstallment');
-        const bankratesspan = document.getElementById('modelbankratespan');
         const rateIdInput = document.getElementById('rate_id');
         const baseUrl = "{{ config('app.url') }}";
         leasingCompanySelect.value = leasingCompany;
@@ -1406,20 +1419,6 @@ document.getElementById('requestqt').addEventListener('click', () => {
                     bankRates = data;
                     if (data.length > 0) {
                         data.forEach(rate => {
-                            const option = document.createElement('option');
-                            option.value = rate.id;
-                            option.textContent =
-                                `${rate.vehicle_type.charAt(0).toUpperCase() + rate.vehicle_type.slice(1)} (${rate.year} Years)`;
-                            vehicleTypeSelect.appendChild(option);
-
-                            vehicleTypeSelect.value = vehicleType;
-
-                            Array.from(vehicleTypeSelect.options).forEach(option => {
-                                if (option.value !== vehicleType) {
-                                    option.hidden = true;
-                                }
-                            });
-
                             rateIdInput.value = vehicleType;
 
                             const selectedVehicleType = vehicleType;
@@ -1428,11 +1427,7 @@ document.getElementById('requestqt').addEventListener('click', () => {
                                     selectedVehicleType);
                                 if (selectedRate) {
                                     leasingRateInput.value = selectedRate
-                                        .min_rate;
-                                    leasingRateInput.setAttribute('min', selectedRate.min_rate);
-                                    leasingRateInput.setAttribute('max', selectedRate.max_rate);
-                                    bankratesspan.textContent =
-                                        `*(Min Rate: ${selectedRate.min_rate} - Max Rate: ${selectedRate.max_rate})`;
+                                        .default_rate;
                                 } else {
                                     leasingPeriodInput.value = '';
                                     leasingRateInput.value = '';
@@ -1444,21 +1439,16 @@ document.getElementById('requestqt').addEventListener('click', () => {
 
                         });
                     } else {
-                        const option = document.createElement('option');
-                        option.textContent = 'No Facility Types Available';
-                        vehicleTypeSelect.appendChild(option);
+
+                        vehicleTypeSelect.value = 'Enter Vehicle Type';
                     }
                 })
                 .catch(error => console.error('Error fetching Facility Types:', error));
         }
 
-        //make Facility Type readonly and cursor not-allowed
-        vehicleTypeSelect.setAttribute('readonly', 'readonly');
-        vehicleTypeSelect.style.cursor = 'not-allowed';
-
         leasingPeriodInput.value = leasingPeriod;
         leasingRateInput.value = leasingRate;
-        leasingAmountInput.value = leasingAmount;
+        leasingAmountInput.value = Number(leasingAmount).toLocaleString();
         installmentInput.value = parseFloat(installment).toFixed(2);
 
 
@@ -1516,7 +1506,6 @@ $(document).ready(function() {
         const vehicleTypeSelect = document.getElementById('modelvehicleType');
         const rateIdInput = document.getElementById('rate_id');
         const leasingRateInput = document.getElementById('modelleasingrate');
-        const bankratesspan = document.getElementById('modelbankratespan');
 
         $('#rate_id').val(rateId);
         console.log(bankId);
@@ -1529,19 +1518,7 @@ $(document).ready(function() {
                     console.log(data);
                     if (data.length > 0) {
                         data.forEach(rate => {
-                            const option = document.createElement('option');
-                            option.value = rate.id;
-                            option.textContent =
-                                `${rate.vehicle_type.charAt(0).toUpperCase() + rate.vehicle_type.slice(1)} (${rate.year} Years)`;
-                            vehicleTypeSelect.appendChild(option);
 
-                            vehicleTypeSelect.value = vehicleType;
-
-                            Array.from(vehicleTypeSelect.options).forEach(option => {
-                                if (option.value !== vehicleType) {
-                                    option.hidden = true;
-                                }
-                            });
 
                             rateIdInput.value = vehicleType;
 
@@ -1551,13 +1528,7 @@ $(document).ready(function() {
                                     selectedVehicleType);
                                 if (selectedRate) {
                                     leasingRateInput.value = selectedRate
-                                        .min_rate;
-                                    leasingRateInput.setAttribute('min', selectedRate
-                                        .min_rate);
-                                    leasingRateInput.setAttribute('max', selectedRate
-                                        .max_rate);
-                                    bankratesspan.textContent =
-                                        `*(Min Rate: ${selectedRate.min_rate} - Max Rate: ${selectedRate.max_rate})`;
+                                        .default_rate;
                                 } else {
                                     $('#modelleasingperiod').val(leasingPeriod);
                                     $('#modelleasingrate').val(leasingminRate);
@@ -1569,15 +1540,12 @@ $(document).ready(function() {
 
                         });
                     } else {
-                        const option = document.createElement('option');
-                        option.textContent = 'No Facility Types Available';
-                        vehicleTypeSelect.appendChild(option);
+
+                        vehicleTypeSelect.value = 'Enter Vehicle Type';
                     }
                 })
                 .catch(error => console.error('Error fetching Facility Types:', error));
         }
-        vehicleTypeSelect.setAttribute('readonly', 'readonly');
-        vehicleTypeSelect.style.cursor = 'not-allowed';
 
         $('#modelleasingcompany').val(bankId);
         $('#modelleasingperiod').val(leasingPeriod);
@@ -1605,10 +1573,8 @@ $(document).ready(function() {
         const vehicleTypeSelect = document.getElementById('modelvehicleType');
         const rateIdInput = document.getElementById('rate_id');
         const leasingRateInput = document.getElementById('modelleasingrate');
-        const bankratesspan = document.getElementById('modelbankratespan');
 
         $('#rate_id').val(rateId);
-        console.log(bankId);
         const baseUrl = "{{ config('app.url') }}";
         if (bankId) {
             fetch(`${baseUrl}/get-bank-rates/${bankId}`)
@@ -1618,20 +1584,6 @@ $(document).ready(function() {
                     console.log(data);
                     if (data.length > 0) {
                         data.forEach(rate => {
-                            const option = document.createElement('option');
-                            option.value = rate.id;
-                            option.textContent =
-                                `${rate.vehicle_type.charAt(0).toUpperCase() + rate.vehicle_type.slice(1)} (${rate.year} Years)`;
-                            vehicleTypeSelect.appendChild(option);
-
-                            vehicleTypeSelect.value = vehicleType;
-
-                            Array.from(vehicleTypeSelect.options).forEach(option => {
-                                if (option.value !== vehicleType) {
-                                    option.hidden = true;
-                                }
-                            });
-
                             rateIdInput.value = vehicleType;
 
                             const selectedVehicleType = vehicleType;
@@ -1640,13 +1592,7 @@ $(document).ready(function() {
                                     selectedVehicleType);
                                 if (selectedRate) {
                                     leasingRateInput.value = selectedRate
-                                        .min_rate;
-                                    leasingRateInput.setAttribute('min', selectedRate
-                                        .min_rate);
-                                    leasingRateInput.setAttribute('max', selectedRate
-                                        .max_rate);
-                                    bankratesspan.textContent =
-                                        `*(Min Rate: ${selectedRate.min_rate} - Max Rate: ${selectedRate.max_rate})`;
+                                        .default_rate;
                                 } else {
                                     $('#modelleasingperiod').val(leasingPeriod);
                                     $('#modelleasingrate').val(leasingminRate);
@@ -1658,15 +1604,12 @@ $(document).ready(function() {
 
                         });
                     } else {
-                        const option = document.createElement('option');
-                        option.textContent = 'No Facility Types Available';
-                        vehicleTypeSelect.appendChild(option);
+
+                        vehicleTypeSelect.value = 'Enter Vehicle Type';
                     }
                 })
                 .catch(error => console.error('Error fetching Facility Types:', error));
         }
-        vehicleTypeSelect.setAttribute('readonly', 'readonly');
-        vehicleTypeSelect.style.cursor = 'not-allowed';
 
         $('#modelleasingcompany').val(bankId);
         $('#modelleasingperiod').val(leasingPeriod);
@@ -1677,25 +1620,4 @@ $(document).ready(function() {
 
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @endsection

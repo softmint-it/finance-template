@@ -100,13 +100,9 @@ public function vehicleInsurance(): View
     public function submitQuotationRequest(Request $request)
     {
         $request->validate([
-            'leasing_company_id' => 'required',
-            'rate_id' => 'required',
-            'rate' => 'required',
-            'amount' => 'required',
-            'installment' => 'required',
             'mobile' => 'required',
-            'email' => 'required|email',
+            'city' => 'required',
+
         ]);
         $regex = "/^([0-9\s\-\+\(\)]*)$/";
         if (!preg_match($regex, $request->mobile)) {
@@ -119,15 +115,18 @@ public function vehicleInsurance(): View
 
 
         $quotationRequest = new QuotationRequest();
-        $quotationRequest->bank_id = $request->leasing_company_id;
-        $quotationRequest->rate_id = $request->rate_id;
-        $quotationRequest->rate = $request->rate;
-        $quotationRequest->amount = $request->amount;
-        $quotationRequest->installment = $request->installment;
+        $quotationRequest->bank_id = $request->leasing_company_id ?? 0;
+        $quotationRequest->rate_id = $request->rate_id ?? 0;
+        $quotationRequest->rate = $request->rate ?? 0;
+        $quotationRequest->amount = $request->amount = str_replace(',', '', $request->amount) ?? 0;
+        $quotationRequest->installment = $request->installment ?? 0;
         $quotationRequest->note = $request->note ?? '';
         $quotationRequest->requester_name = $request->requester_name ?? '';
-        $quotationRequest->email = $request->email;
+        $quotationRequest->email = $request->email ?? '';
         $quotationRequest->mobile = $request->mobile;
+        $quotationRequest->city = $request->city;
+        $quotationRequest->vmodel = $request->vehicle_type ?? '';
+        $quotationRequest->year = $request->vehicle_year ?? '';
 
         $quotationRequest->save();
 
