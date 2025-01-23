@@ -367,8 +367,8 @@
         </div>
     </div>
 </div>
-<img src="./assets/img/icons/request-btn.png" id="mobile-applynow-button" class="floating-button-new"
-    srcset="./assets/img/icons/request-btn.png" alt="request" />
+<img src="./assets/img/icons/request-btn.gif" id="mobile-applynow-button" class="floating-button-new"
+    srcset="./assets/img/icons/request-btn.gif" alt="request" />
 
 
 </button>
