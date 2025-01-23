@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\BankRates;
 use App\Models\Bank;
+use App\Models\Insurance;
 use App\Models\QuotationRequest;
 use App\Helpers\NotifyHelper;
 
@@ -81,7 +82,9 @@ public function vehicleImport(): View
 public function vehicleInsurance(): View
 {
     $banks = Bank::where('status', 1)->get();
-    return view('vehicleinsurance', compact('banks'));
+
+    $insuranceCompanies = Insurance::where('status', 1)->get();
+    return view('vehicleinsurance', compact('banks','insuranceCompanies'));
 }
 
 
