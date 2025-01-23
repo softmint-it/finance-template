@@ -5,10 +5,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description"
-            content="An impressive and flawless site template that includes various UI elements and countless features, attractive ready-made blocks and rich pages, basically everything you need to create a unique and professional website.">
+            content="@yield('description', 'Find and compare the best vehicle leasing rates in Sri Lanka with Easy Leasing. Get leasing options from leading banks and finance companies all in one place.')">
         <meta name="keywords"
-            content="bootstrap 5, business, corporate, creative, gulp, marketing, minimal, modern, multipurpose, one page, responsive, saas, sass, seo, startup, html5 template, site template">
-        <meta name="author" content="elemis">
+            content="@yield('keywords', 'vehicle leasing rates Sri Lanka, car leasing Sri Lanka, bike leasing Sri Lanka, compare leasing rates, bank leasing rates Sri Lanka, finance company leasing, leasing consultant Sri Lanka, Easy Leasing')">
+        <meta name="author" content="@yield('author', 'https://easyleasing.lk/')">
         <title>@yield('title', 'Eazy Leasings')</title>
 
         <!-- Open Graph Meta Tags -->
@@ -99,6 +99,7 @@
 
 
     </body>
+
 
 
 </html>

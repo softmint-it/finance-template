@@ -147,4 +147,30 @@ public function vehicleInsurance(): View
             'message' => 'Quotation request submitted successfully'
         ]);
     }
+
+    public function saveCallbackRequest(Request $request)
+    {
+        $request->validate([
+            'mobile' => 'required',
+        ]);
+        $regex = "/^([0-9\s\-\+\(\)]*)$/";
+        if (!preg_match($regex, $request->mobile)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Mobile number is invalid'
+            ]);
+        }
+
+        $quotationRequest = new QuotationRequest();
+        $quotationRequest->note = $request->note ?? '';
+        $quotationRequest->mobile = $request->mobile;
+        $quotationRequest->callrequest = 1;
+
+        $quotationRequest->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Callback request submitted successfully'
+        ]);
+    }
 }

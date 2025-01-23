@@ -137,7 +137,7 @@ with Easy Leasing.')
     }
 }
 </style>
-<section class="wrapper image-wrapper bg-cover bg-image bg-xs-none bg-gray position-relative"
+<section class="wrapper image-wrapper bg-cover bg-image  bg-gray position-relative"
     data-image-src="./assets/img/photos/easyleasingbanner.jpg" style="padding-bottom: 150px">
     <div class="container pt-17   position-relative">
         <div class="row">
@@ -149,7 +149,8 @@ with Easy Leasing.')
                 </h2>
                 <p class="lead fs-23 lh-sm mb-7 pe-lg-5 pe-xl-5 pe-xxl-0">We are a creative company that focuses on
                     long term relationships with customers.</p>
-                <div><a href="#leasingcomparisonsection" class="btn btn-sm btn-primary rounded">Find Best Rates</a>
+                <div class="top-button-container">
+                    <a href="#leasingcomparisonsection" class="btn btn-sm btn-primary rounded">Find Best Rates</a>
                     <a href="{{route('vehicle-import')}}" class="btn btn-sm btn-primary rounded">Vehicle Import</a>
                 </div>
             </div>
@@ -609,132 +610,129 @@ with Easy Leasing.')
     <div class="container py-8 py-md-10">
         <div class="row text-center">
             <div class="col-lg-10 col-xl-7 col-xxl-6 mx-auto">
-                <h2 class="fs-15 text-uppercase text-muted mb-3">Case Studies</h2>
-                <h3 class="display-3 ls-sm mb-10">Our awesome projects with creative ideas and great design.</h3>
+                <h2 class="fs-15 text-uppercase text-muted mb-3">Blogs</h2>
+                <h3 class="display-3 ls-sm mb-10">Explore our insightful blog posts on vehicle leasing.</h3>
             </div>
-            <!-- /column -->
         </div>
-        <!-- /.row -->
         <div class="swiper-container blog grid-view mb-10" data-margin="30" data-dots="true" data-items-xl="3"
             data-items-md="2" data-items-xs="1">
             <div class="swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <article>
-                            <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="#"> <img
-                                        src="./assets/img/photos/b4.jpg" alt="" /></a>
+                            <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="#calculatorsection">
+                                    <img src="https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg"
+                                        alt="" /></a>
                                 <figcaption>
                                     <h5 class="from-top mb-0">Read More</h5>
                                 </figcaption>
                             </figure>
                             <div class="post-header">
-                                <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark" href="./blog-post.html">Ligula
-                                        tristique quis risus</a></h2>
+                                <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark" href="#calculatorsection">How
+                                        to
+                                        Calculate RMV Charges in Sri Lanka</a></h2>
                             </div>
-                            <!-- /.post-header -->
                             <div class="post-footer">
                                 <ul class="post-meta">
-                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>14 Apr
-                                            2022</span></li>
-                                    <li class="post-comments"><a href="#"><i
-                                                class="uil uil-file-alt fs-15"></i>Coding</a></li>
+                                    <li class="post-date"><i
+                                            class="uil uil-calendar-alt"></i><span>{{ now()->format('d M Y') }}</span>
+                                    </li>
+                                    <li class="post-comments"><a href="#calculatorsection"><i
+                                                class="uil uil-file-alt fs-15"></i>Vehicle
+                                            Regulations</a></li>
                                 </ul>
-                                <!-- /.post-meta -->
                             </div>
-                            <!-- /.post-footer -->
                         </article>
-                        <!-- /article -->
                     </div>
-                    <!--/.swiper-slide -->
                     <div class="swiper-slide">
                         <article>
-                            <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="#"> <img
-                                        src="./assets/img/photos/b5.jpg" alt="" /></a>
-                                <figcaption>
-                                    <h5 class="from-top mb-0">Read More</h5>
-                                </figcaption>
-                            </figure>
-                            <div class="post-header">
-                                <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark" href="./blog-post.html">Nullam
-                                        id dolor elit id nibh</a></h2>
-                            </div>
-                            <!-- /.post-header -->
-                            <div class="post-footer">
-                                <ul class="post-meta">
-                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>29 Mar
-                                            2022</span></li>
-                                    <li class="post-comments"><a href="#"><i
-                                                class="uil uil-file-alt fs-15"></i>Workspace</a></li>
-                                </ul>
-                                <!-- /.post-meta -->
-                            </div>
-                            <!-- /.post-footer -->
-                        </article>
-                        <!-- /article -->
-                    </div>
-                    <!--/.swiper-slide -->
-                    <div class="swiper-slide">
-                        <article>
-                            <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="#"> <img
-                                        src="./assets/img/photos/b6.jpg" alt="" /></a>
+                            <figure class="overlay overlay-1 hover-scale rounded mb-6"><a
+                                    href="{{route('vehicle-import')}}"> <img
+                                        src="https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg"
+                                        alt="" /></a>
                                 <figcaption>
                                     <h5 class="from-top mb-0">Read More</h5>
                                 </figcaption>
                             </figure>
                             <div class="post-header">
                                 <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark"
-                                        href="./blog-post.html">Ultricies fusce porta elit</a></h2>
+                                        href="{{route('vehicle-import')}}">2024
+                                        Vehicle Import Cost Calculation in Sri Lanka</a></h2>
                             </div>
-                            <!-- /.post-header -->
                             <div class="post-footer">
                                 <ul class="post-meta">
-                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>26 Feb
-                                            2022</span></li>
-                                    <li class="post-comments"><a href="#"><i
-                                                class="uil uil-file-alt fs-15"></i>Meeting</a></li>
+                                    <li class="post-date"><i
+                                            class="uil uil-calendar-alt"></i><span>{{ now()->format('d M Y') }}</span>
+                                    </li>
+                                    <li class="post-comments"><a href="{{route('vehicle-import')}}"><i
+                                                class="uil uil-file-alt fs-15"></i>Importation Tips</a></li>
                                 </ul>
-                                <!-- /.post-meta -->
                             </div>
-                            <!-- /.post-footer -->
                         </article>
-                        <!-- /article -->
                     </div>
-                    <!--/.swiper-slide -->
                     <div class="swiper-slide">
                         <article>
-                            <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="#"> <img
-                                        src="./assets/img/photos/b7.jpg" alt="" /></a>
+                            <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="#calculatorsection">
+                                    <img src="https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg"
+                                        alt="" /></a>
                                 <figcaption>
                                     <h5 class="from-top mb-0">Read More</h5>
                                 </figcaption>
                             </figure>
                             <div class="post-header">
-                                <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark" href="./blog-post.html">Morbi
-                                        leo risus porta eget</a></h2>
+                                <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark"
+                                        href="#calculatorsection">Figure
+                                        out Installment Plans for Vehicle Leasing</a>
+                                </h2>
                             </div>
                             <div class="post-footer">
                                 <ul class="post-meta">
-                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>7 Jan
-                                            2022</span></li>
-                                    <li class="post-comments"><a href="#"><i class="uil uil-file-alt fs-15"></i>Business
+                                    <li class="post-date"><i
+                                            class="uil uil-calendar-alt"></i><span>{{ now()->format('d M Y') }}</span>
+                                    </li>
+                                    <li class="post-comments"><a href="#calculatorsection"><i
+                                                class="uil uil-file-alt fs-15"></i>Leasing
                                             Tips</a></li>
                                 </ul>
-                                <!-- /.post-meta -->
                             </div>
-                            <!-- /.post-footer -->
                         </article>
-                        <!-- /article -->
                     </div>
-                    <!--/.swiper-slide -->
+                    <div class="swiper-slide">
+                        <article>
+                            <figure class="overlay overlay-1 hover-scale rounded mb-6"><a
+                                    href="#leasingcomparisonsection"> <img
+                                        src="https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg"
+                                        alt="" /></a>
+                                <figcaption>
+                                    <h5 class="from-top mb-0">Read More</h5>
+                                </figcaption>
+                            </figure>
+                            <div class="post-header">
+                                <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark"
+                                        href="#leasingcomparisonsection">How to
+                                        Choose the Best Leasing Provider for Your Vehicle</a></h2>
+                            </div>
+                            <div class="post-footer">
+                                <ul class="post-meta">
+                                    <li class="post-date"><i
+                                            class="uil uil-calendar-alt"></i><span>{{ now()->format('d M Y') }}</span>
+                                    </li>
+                                    <li class="post-comments"><a href="#leasingcomparisonsection"><i
+                                                class="uil uil-file-alt fs-15"></i>Leasing
+                                            Advice</a></li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
                 </div>
-                <!--/.swiper-wrapper -->
             </div>
-            <!-- /.swiper -->
         </div>
-        <!-- /.swiper-container -->
     </div>
-    <!-- /.container -->
 </section>
+
+
+
+
 <!-- /section -->
 
 <!-- Modal to show intallment plan -->
@@ -1393,11 +1391,17 @@ document.getElementById('requestqt').addEventListener('click', () => {
     if (leasingCompany === 'Select Leasing/Bank' || vehicleType === 'Select Facility type & Period' || !
         leasingPeriod || !leasingRate || !leasingAmount || !installment || installment === '0' ||
         leasingAmount === '0') {
-        Swal.fire({
-            icon: 'warning',
-            title: 'WARNING...',
-            text: 'Please fill all fields before requesting a quotation',
-        });
+
+        const applyNowModal = new bootstrap.Modal(document.getElementById('applyNowModal'));
+
+        const vehicleTypeSelect = document.getElementById('modelvehicleType');
+        document.getElementById('modelleasingrate').value = 0;
+        document.getElementById('modelleasingperiod').value = 5;
+        document.getElementById('modelleasingamount').value = 0;
+        document.getElementById('modelinstallment').value = 0;
+        document.getElementById('modelleasingcompany').value = 0;
+        vehicleTypeSelect.value = '';
+        applyNowModal.show();
     } else {
         const applyNowModal = new bootstrap.Modal(document.getElementById('applyNowModal'));
 
@@ -1558,66 +1562,74 @@ $(document).ready(function() {
 </script>
 <script>
 $(document).ready(function() {
-    // Use event delegation for dynamically created buttons
-    $(document).on('click', '#qtreqbtn', function() {
-        // Get data from the button
-        var rateId = $(this).data('rateid');
-        var bankId = $(this).data('bankid');
-        var vehicleType = rateId;
-        var leasingPeriod = $(this).data('leasingperiod');
-        var leasingminRate = $(this).data('leasingminrate');
-        var leasingmaxRate = $(this).data('leasingmaxrate');
+            // Use event delegation for dynamically created buttons
+            $(document).on('click', '#qtreqbtn', function() {
+                    // Get data from the button
+                    var rateId = $(this).data('rateid');
+                    var bankId = $(this).data('bankid');
+                    var vehicleType = rateId;
+                    var leasingPeriod = $(this).data('leasingperiod');
+                    var leasingminRate = $(this).data('leasingminrate');
+                    var leasingmaxRate = $(this).data('leasingmaxrate');
 
 
 
-        const vehicleTypeSelect = document.getElementById('modelvehicleType');
-        const rateIdInput = document.getElementById('rate_id');
-        const leasingRateInput = document.getElementById('modelleasingrate');
+                    const vehicleTypeSelect = document.getElementById('modelvehicleType');
+                    const rateIdInput = document.getElementById('rate_id');
+                    const leasingRateInput = document.getElementById('modelleasingrate');
 
-        $('#rate_id').val(rateId);
-        const baseUrl = "{{ config('app.url') }}";
-        if (bankId) {
-            fetch(`${baseUrl}/get-bank-rates/${bankId}`)
-                .then(response => response.json())
-                .then(data => {
-                    bankRates = data;
-                    console.log(data);
-                    if (data.length > 0) {
-                        data.forEach(rate => {
-                            rateIdInput.value = vehicleType;
+                    $('#rate_id').val(rateId);
+                    const baseUrl = "{{ config('app.url') }}";
+                    if (bankId) {
+                        fetch(`${baseUrl}/get-bank-rates/${bankId}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                bankRates = data;
+                                console.log(data);
+                                if (data.length > 0) {
+                                    data.forEach(rate => {
+                                        rateIdInput.value = vehicleType;
 
-                            const selectedVehicleType = vehicleType;
-                            if (selectedVehicleType && bankRates.length > 0) {
-                                const selectedRate = bankRates.find(rate => rate.id ==
-                                    selectedVehicleType);
-                                if (selectedRate) {
-                                    leasingRateInput.value = selectedRate
-                                        .default_rate;
+                                        const selectedVehicleType = vehicleType;
+                                        if (selectedVehicleType && bankRates.length > 0) {
+                                            const selectedRate = bankRates.find(rate => rate.id ==
+                                                selectedVehicleType);
+                                            if (selectedRate) {
+                                                leasingRateInput.value = selectedRate
+                                                    .default_rate;
+                                            } else {
+                                                $('#modelleasingperiod').val(leasingPeriod);
+                                                $('#modelleasingrate').val(leasingminRate);
+                                            }
+                                        } else {
+                                            $('#modelleasingperiod').val(leasingPeriod);
+                                            $('#modelleasingrate').val(leasingminRate);
+                                        }
+
+                                    });
                                 } else {
-                                    $('#modelleasingperiod').val(leasingPeriod);
-                                    $('#modelleasingrate').val(leasingminRate);
+
+                                    vehicleTypeSelect.value = 'Enter Vehicle Type';
                                 }
-                            } else {
-                                $('#modelleasingperiod').val(leasingPeriod);
-                                $('#modelleasingrate').val(leasingminRate);
-                            }
-
-                        });
-                    } else {
-
-                        vehicleTypeSelect.value = 'Enter Vehicle Type';
+                            })
+                            .catch(error => console.error('Error fetching Facility Types:', error));
                     }
-                })
-                .catch(error => console.error('Error fetching Facility Types:', error));
-        }
 
-        $('#modelleasingcompany').val(bankId);
-        $('#modelleasingperiod').val(leasingPeriod);
-        $('#modelleasingrate').val(leasingminRate);
-        $('#modelleasingamount').val('');
-        $('#modelinstallment').val('');
-    });
+                    $('#modelleasingcompany').val(bankId);
+                    $('#modelleasingperiod').val(leasingPeriod);
+                    $('#modelleasingrate').val(leasingminRate);
+                    $('#modelleasingamount').val('');
+                    $('
+                        #modelinstallment ').val('
 
-});
+                        ');
+                    });
+
+
+
+           
+ });
 </script>
+
+
 @endsection
