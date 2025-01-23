@@ -137,7 +137,7 @@ with Easy Leasing.')
     }
 }
 </style>
-<section class="wrapper image-wrapper bg-cover bg-image  bg-gray position-relative"
+<section class="wrapper image-wrapper bg-xs-none bg-cover bg-image  bg-gray position-relative"
     data-image-src="./assets/img/photos/easyleasingbanner.jpg" style="padding-bottom: 150px">
     <div class="container pt-17   position-relative">
         <div class="row">
