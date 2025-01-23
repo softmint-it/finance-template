@@ -93,7 +93,7 @@
             <span class=" text-white mb-1">© <script>
                 document.write(new Date().getUTCFullYear());
                 </script> {{env('COMPANY_NAME')}} All rights reserved. &nbsp;</span>
-            <a href="{{getenv('DESIGNER_URL')}}" class=" text-white mb-1"><span> Powered By </span><img
+            <a href="{{getenv('DESIGNER_URL')}}" class=" text-white mb-1" target="_blank"><span> Powered By </span><img
                     src="./assets/img/brands/softmint_logo.png" alt="Logo"
                     width="25"><span>{{getenv('DESIGNER_NAME')}}</span></a>
 

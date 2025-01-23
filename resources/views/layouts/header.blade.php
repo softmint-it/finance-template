@@ -112,8 +112,8 @@
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvas-info"><i class="uil uil-info-circle"></i></a></li>
                     <li class="nav-item">
-                        <a class="nav-link">
-                            <i class="uil uil-phone" id="phone-icon"></i>
+                        <a href="tel:{{env('COMPANY_PHONE')}}" class="nav-link">
+                            <i class="uil uil-phone"></i>
                         </a>
                     </li>
                     <!-- <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas"
@@ -210,11 +210,11 @@
         <div class="modal-content">
             <div class="modal-header">
 
-                <div class="d-flex justify-lg-content-between gap-3">
-                    <h6 class="modal-title  cursor-pointer cal-font" id="askforleasingtitle"
-                        style="cursor: pointer !important;">Ask For Leasing</h6>
-                    <h6 class="modal-title cursor-pointer cal-font" id="requestcalltitle"
-                        style="cursor: pointer !important;">Request a Call</h6>
+                <div class="d-flex justify-lg-content-between gap-3 w-100">
+                    <button type="button" id="askforleasingtitle" class="askforleasbtn w-100 btn-sm">Ask For
+                        Leasing</button>
+                    <button type="button" id="requestcalltitle" class="askforleasbtn w-100 btn-sm">Request a
+                        Call</button>
                 </div>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -223,10 +223,12 @@
                 <form id="applyNowForm">
                     @csrf
                     <div class="row">
-                        <p class="bg-dark text-white" style="border-radius: 10px;"><b>Leasing Information</b></p>
+                        <div class="col-12">
+                            <p class="bg-secondary text-black" style="border-radius: 10px; padding-left:10px"><b>Leasing
+                                    Information</b></p>
+                        </div>
                         <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="modelleasingcompany" class="form-label">Expected Bank/Leasing</label>
+                            <div class="form-floating mb-3">
                                 <select id="modelleasingcompany" class="form-select" name="leasing_company_id"
                                     aria-label="Default select example">
                                     <option value="0">Any Bank/Leasing</option>
@@ -234,29 +236,30 @@
                                     <option value="{{ $bank->id }}">{{ $bank->name }}</option>
                                     @endforeach
                                 </select>
+                                <label for="modelleasingcompany" class="form-label">Expected Bank/Leasing</label>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="modelvehicleType" class="form-label" name="vehicle_type">Vehicle
-                                    Make & Model</label>
+                            <div class="form-floating mb-3">
                                 <input type="text" id="modelvehicleType" class="form-control" name="vehicle_type"
                                     placeholder="Vehicle Make & Model">
+                                <label for="modelvehicleType" class="form-label" name="vehicle_type">Vehicle
+                                    Make & Model</label>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="modelvehicleType" class="form-label" name="vehicle_type">Vehicle Model
-                                    Year</label>
+                            <div class="form-floating mb-3">
+
                                 <input type="text" id="modelyear" class="form-control" name="vehicle_year"
                                     placeholder="Vehicle Model Year">
+                                <label for="modelvehicleType" class="form-label" name="vehicle_type">Vehicle Model
+                                    Year</label>
                             </div>
                         </div>
                         <input type="hidden" name="rate_id" id="rate_id">
                         <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="modelleasingperiod" class="form-label
-                                    ">Leasing Period (Years)</label>
+                            <div class="form-floating mb-3">
+
                                 <select id="modelleasingperiod" class="form-select" name="leasing_period"
                                     aria-label="Default select example">
                                     <option value="8">8 Years</option>
@@ -266,82 +269,94 @@
                                     <option value="4">4 Years</option>
                                     <option value="3">3 Years</option>
                                     <option value="2">2 Years</option>
-                                    <option value="1">1 Years</option>
+                                    <option value="1">1 Year</option>
                                 </select>
+                                <label for="modelleasingperiod" class="form-label
+                                    ">Leasing Period (Years)</label>
 
 
                             </div>
                         </div>
                         <div class="col-md-6 d-none">
-                            <div class="mb-3">
-                                <label for="modelleasingrate" class="form-label
-                                    ">Leasing Rate (%)</label>
+                            <div class="form-floating mb-3">
+
                                 <input type="text" class="form-control" id="modelleasingrate" placeholder="Leasing Rate"
                                     name="rate">
+                                <label for="modelleasingrate" class="form-label
+                                    ">Leasing Rate (%)</label>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="modelleasingamount" class="form-label
-                                    ">Expected Leasing Amount</label>
-                                <div class="input-container">
+                            <div class=" mb-3">
+                                <div class="form-floating input-container">
                                     <input type="text" class="form-control" id="modelleasingamount"
                                         placeholder="Leasing Amount" name="amount">
-                                    <span class="currency">{{ getenv('CURRENCY') }}</span>
+                                    <span class="currencynew">{{ getenv('CURRENCY') }}</span>
+                                    <label for="modelleasingamount" class="form-label
+                                    ">Expected Leasing Amount</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 d-none">
-                            <div class="mb-3">
-                                <label for="modelinstallment" class="form-label
-                                    ">Monthly Installment</label>
+                            <div class="form-floating mb-3">
+
                                 <input type="text" class="form-control" id="modelinstallment"
                                     placeholder="Monthly Installment" name="installment" readonly
                                     style="cursor: not-allowed;">
+                                <label for="modelinstallment" class="form-label
+                                    ">Monthly Installment</label>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <p class="bg-dark text-white" style="border-radius: 10px; margin-top: 20px;"><b>Personal
-                                Information</b>
-                        </p>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <p class="bg-secondary text-black" style="border-radius: 10px; padding-left:10px">
+                                <b>Personal
+                                    Information</b>
+                            </p>
+                        </div>
+                        <div class="form-floating mb-3">
+
                             <input type="text" class="form-control" id="name" placeholder="Your Name"
                                 name="requester_name">
+                            <label for="name" class="form-label">Name</label>
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Phone</label><span class="text-danger">*</span>
+                        <div class="form-floating mb-3">
+
                             <input type="text" class="form-control" id="mobile" placeholder="Your Mobile Number"
                                 name="mobile" required>
+                            <label for="email" class="form-label">Your mobile number<span
+                                    class="text-danger">*</span></label>
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
+                        <div class="form-floating mb-3">
+
                             <input type="email" class="form-control" id="email" placeholder="Your Email" name="email">
+                            <label for="email" class="form-label">Email</label>
                         </div>
-                        <div class="mb-3">
-                            <label for="city" class="form-label">Nearest City</label><span class="text-danger">*</span>
+                        <div class="form-floating mb-3">
+
                             <input type="text" class="form-control" id="email" placeholder="Your Nearest City"
                                 name="city" required>
+                            <label for="city" class="form-label">Nearest City<span class="text-danger">*</span></label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mb-4 btn-sm">Request</button>
+                    <button type="submit" class="btn btn-primary mb-4 btn-sm">Request For A Leasing</button>
                 </form>
             </div>
             <div class="modal-body" id="requestcall">
-                <h4 class="text-start">Contact Us</h4>
-                <a href="tel:{{env('COMPANY_PHONE')}}" class="link-dark fs-22 fs-md-22 fs-lg-32"
+                <h4 class="text-start">Reach Us</h4>
+                <a href="tel:{{env('COMPANY_PHONE')}}"
+                    class="link-dark fs-22 fs-md-22 fs-lg-32 d-flex gap-2 align-items-center justify-content-start"
                     style="padding-left: 20px;">
-                    <i class="uil uil-phone-volume me-2 "></i>{{env('COMPANY_PHONE')}}
+                    <i class="fas fa-headset "></i>{{env('COMPANY_PHONE')}}
                 </a>
-                <br>
                 <h4 class="text-start mt-5">Request a Call</h4>
                 <form id="requestcallForm">
                     @csrf
                     <div class="form-floating mb-4">
                         <input id="phone" type="text" name="mobile" class="form-control"
-                            placeholder="{{getenv('COMPANY_PHONE')}}" required>
-                        <label for="form_email">Phone *</label>
+                            placeholder="{{env('COMPANY_PHONE')}}" required>
+                        <label for="form_mobile">Your mobile number <span class="text-danger">*</span></label>
                         <div class="valid-feedback"> Looks good! </div>
                         <div class="invalid-feedback"> Please provide a valid mobile number </div>
                     </div>
@@ -353,7 +368,7 @@
     </div>
 </div>
 <img src="./assets/img/icons/request-btn.png" id="mobile-applynow-button" class="floating-button-new"
-    srcset="./assets/img/icons/request-btn.png" alt="" />
+    srcset="./assets/img/icons/request-btn.png" alt="request" />
 
 
 </button>
@@ -369,21 +384,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     askforleasing.style.display = 'block';
     requestcall.style.display = 'none';
-    askforleasingtitle.style.borderBottom = '2px solid blue';
-    requestcalltitle.style.borderBottom = 'none';
+    askforleasingtitle.style.backgroundColor = 'var(--bs-primary)';
+    askforleasingtitle.style.color = 'white';
+    requestcalltitle.style.backgroundColor = 'white';
+    requestcalltitle.style.color = 'var(--bs-primary)';
+
 
     askforleasingtitle.addEventListener('click', () => {
         askforleasing.style.display = 'block';
         requestcall.style.display = 'none';
-        askforleasingtitle.style.borderBottom = '2px solid blue';
-        requestcalltitle.style.borderBottom = 'none';
+        askforleasingtitle.style.backgroundColor = 'var(--bs-primary)';
+        askforleasingtitle.style.color = 'white';
+        requestcalltitle.style.backgroundColor = 'white';
+        requestcalltitle.style.color = 'var(--bs-primary)';
     });
 
     requestcalltitle.addEventListener('click', () => {
         askforleasing.style.display = 'none';
         requestcall.style.display = 'block';
-        requestcalltitle.style.borderBottom = '2px solid blue';
-        askforleasingtitle.style.borderBottom = 'none';
+        askforleasingtitle.style.backgroundColor = 'white';
+        askforleasingtitle.style.color = 'var(--bs-primary)';
+        requestcalltitle.style.backgroundColor = 'var(--bs-primary)';
+        requestcalltitle.style.color = 'white';
 
     });
 });
@@ -520,5 +542,73 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         });
     }
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const requestcallForm = document.getElementById('requestcallForm');
+    const requestcallModal = document.getElementById('applyNowModal');
+    const requestcallModalInstance = new bootstrap.Modal(requestcallModal);
+
+    if (requestcallForm) {
+        requestcallForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(requestcallForm);
+            formData.append('_token', document.querySelector('input[name="_token"]').value);
+            const baseUrl = "{{ config('app.url') }}";
+            fetch(`${baseUrl}/submit-request-call`, {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: 'Request call submitted successfully.',
+                                confirmButtonText: 'OK',
+                            })
+                            .then(() => {
+                                requestcallModalInstance.hide();
+                                requestcallForm.reset();
+                                window.location.reload();
+                            });
+                    } else if (data.status === 'error') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message,
+                        });
+                    } else {
+                        // Handle validation errors here
+                        if (data.hasOwnProperty('errors')) {
+                            let errorMessages = Object.values(data.errors).flat().join('<br>');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Validation Error',
+                                html: errorMessages,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'An error occurred. Please try again later.',
+                            });
+                        }
+                    }
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'An error occurred. Please try again later.',
+                    });
+                });
+        });
+    }
+
 });
 </script>

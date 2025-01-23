@@ -1,5 +1,13 @@
 @extends('layouts.main')
 
+@section('description', 'Calculate the total cost of importing a vehicle to Sri Lanka. Get accurate cost estimates
+including taxes, duties, and shipping charges with Easy Leasing’s vehicle import calculator.')
+
+@section('keywords', 'vehicle import cost calculator Sri Lanka, car import cost Sri Lanka, import vehicle taxes Sri
+Lanka, vehicle import duty Sri Lanka, Sri Lanka car taxes, Easy Leasing import calculator')
+
+
+
 @section('title', 'Easy Leasing | Sri Lanka Vehicle Import Cost Calculator')
 
 @section('og:title', 'Easy Leasing | Sri Lanka Vehicle Import Cost Calculator')
@@ -403,5 +411,6 @@ function calculatecost() {
     `;
 }
 </script>
+
 
 @endsection

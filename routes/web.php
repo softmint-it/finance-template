@@ -16,6 +16,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/contact-us', 'contactUs')->name('contact-us');
     Route::get('/get-bank-rates/{bankId}', 'getBankRates')->name('get-bank-rates');
     Route::post('/submit-quotation-request', 'submitQuotationRequest')->name('submit-quotation-request');
+    Route::post('/submit-request-call','saveCallbackRequest')->name('submit-request-call');
     Route::get('/vehicle-import-cost-calculator', 'vehicleImport')->name('vehicle-import');
     Route::get('/vehicle-insurance', 'vehicleInsurance')->name('vehicle-insurance');
 

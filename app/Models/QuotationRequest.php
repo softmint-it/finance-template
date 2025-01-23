@@ -11,6 +11,6 @@ class QuotationRequest extends Model
 
     protected $table = 'quotation_requests';
 
-    protected $fillable = ['bank_id', 'rate_id', 'rate', 'amount', 'installment','requester_name','email','mobile','city','vmodel','year','note'];
+    protected $fillable = ['bank_id', 'rate_id', 'rate', 'amount', 'installment','requester_name','email','mobile','city','vmodel','year','note','callrequest'];
 
 }
