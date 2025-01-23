@@ -611,7 +611,7 @@ with Easy Leasing.')
         <div class="row text-center">
             <div class="col-lg-10 col-xl-7 col-xxl-6 mx-auto">
                 <h2 class="fs-15 text-uppercase text-muted mb-3">Blogs</h2>
-                <h3 class="display-3 ls-sm mb-10">Explore our insightful blog posts on vehicle leasing.</h3>
+                <h3 class="display-3 ls-sm mb-10">Explore our insightful articles on vehicle leasing.</h3>
             </div>
         </div>
         <div class="swiper-container blog grid-view mb-10" data-margin="30" data-dots="true" data-items-xl="3"
@@ -1562,73 +1562,67 @@ $(document).ready(function() {
 </script>
 <script>
 $(document).ready(function() {
-            // Use event delegation for dynamically created buttons
-            $(document).on('click', '#qtreqbtn', function() {
-                    // Get data from the button
-                    var rateId = $(this).data('rateid');
-                    var bankId = $(this).data('bankid');
-                    var vehicleType = rateId;
-                    var leasingPeriod = $(this).data('leasingperiod');
-                    var leasingminRate = $(this).data('leasingminrate');
-                    var leasingmaxRate = $(this).data('leasingmaxrate');
+    // Use event delegation for dynamically created buttons
+    $(document).on('click', '#qtreqbtn', function() {
+        // Get data from the button
+        var bankId = $(this).data('bankid');
+        var vehicleType = rateId;
+        var leasingPeriod = $(this).data('leasingperiod');
 
 
 
-                    const vehicleTypeSelect = document.getElementById('modelvehicleType');
-                    const rateIdInput = document.getElementById('rate_id');
-                    const leasingRateInput = document.getElementById('modelleasingrate');
+        const vehicleTypeSelect = document.getElementById('modelvehicleType');
+        const rateIdInput = document.getElementById('rate_id');
+        const leasingRateInput = document.getElementById('modelleasingrate');
 
-                    $('#rate_id').val(rateId);
-                    const baseUrl = "{{ config('app.url') }}";
-                    if (bankId) {
-                        fetch(`${baseUrl}/get-bank-rates/${bankId}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                bankRates = data;
-                                console.log(data);
-                                if (data.length > 0) {
-                                    data.forEach(rate => {
-                                        rateIdInput.value = vehicleType;
+        $('#rate_id').val(rateId);
+        const baseUrl = "{{ config('app.url') }}";
+        if (bankId) {
+            fetch(`${baseUrl}/get-bank-rates/${bankId}`)
+                .then(response => response.json())
+                .then(data => {
+                    bankRates = data;
+                    console.log(data);
+                    if (data.length > 0) {
+                        data.forEach(rate => {
+                            rateIdInput.value = vehicleType;
 
-                                        const selectedVehicleType = vehicleType;
-                                        if (selectedVehicleType && bankRates.length > 0) {
-                                            const selectedRate = bankRates.find(rate => rate.id ==
-                                                selectedVehicleType);
-                                            if (selectedRate) {
-                                                leasingRateInput.value = selectedRate
-                                                    .default_rate;
-                                            } else {
-                                                $('#modelleasingperiod').val(leasingPeriod);
-                                                $('#modelleasingrate').val(leasingminRate);
-                                            }
-                                        } else {
-                                            $('#modelleasingperiod').val(leasingPeriod);
-                                            $('#modelleasingrate').val(leasingminRate);
-                                        }
-
-                                    });
+                            const selectedVehicleType = vehicleType;
+                            if (selectedVehicleType && bankRates.length > 0) {
+                                const selectedRate = bankRates.find(rate => rate.id ==
+                                    selectedVehicleType);
+                                if (selectedRate) {
+                                    leasingRateInput.value = selectedRate
+                                        .default_rate;
                                 } else {
-
-                                    vehicleTypeSelect.value = 'Enter Vehicle Type';
+                                    $('#modelleasingperiod').val(leasingPeriod);
+                                    $('#modelleasingrate').val(leasingminRate);
                                 }
-                            })
-                            .catch(error => console.error('Error fetching Facility Types:', error));
+                            } else {
+                                $('#modelleasingperiod').val(leasingPeriod);
+                                $('#modelleasingrate').val(leasingminRate);
+                            }
+
+                        });
+                    } else {
+
+                        vehicleTypeSelect.value = 'Enter Vehicle Type';
                     }
+                })
+                .catch(error => console.error('Error fetching Facility Types:', error));
+        }
 
-                    $('#modelleasingcompany').val(bankId);
-                    $('#modelleasingperiod').val(leasingPeriod);
-                    $('#modelleasingrate').val(leasingminRate);
-                    $('#modelleasingamount').val('');
-                    $('
-                        #modelinstallment ').val('
-
-                        ');
-                    });
+        $('#modelleasingcompany').val(bankId);
+        $('#modelleasingperiod').val(leasingPeriod);
+        $('#modelleasingrate').val(leasingminRate);
+        $('#modelleasingamount').val('');
+        $('#modelinstallment').val('');
+    });
 
 
 
-           
- });
+
+});
 </script>
 
 
