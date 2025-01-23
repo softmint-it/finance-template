@@ -1565,9 +1565,12 @@ $(document).ready(function() {
     // Use event delegation for dynamically created buttons
     $(document).on('click', '#qtreqbtn', function() {
         // Get data from the button
+        var rateId = $(this).data('rateid');
         var bankId = $(this).data('bankid');
         var vehicleType = rateId;
         var leasingPeriod = $(this).data('leasingperiod');
+        var leasingminRate = $(this).data('leasingminrate');
+        var leasingmaxRate = $(this).data('leasingmaxrate');
 
 
 
@@ -1616,7 +1619,7 @@ $(document).ready(function() {
         $('#modelleasingperiod').val(leasingPeriod);
         $('#modelleasingrate').val(leasingminRate);
         $('#modelleasingamount').val('');
-        $('#modelinstallment').val('');
+        $('#modelinstallment ').val('');
     });
 
 

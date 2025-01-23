@@ -175,7 +175,8 @@
     align-items: center !important;
     justify-content: center !important;
     border: none;
-    width: 4%;
+    width: 5%;
+    cursor: pointer;
 }
 
 .mobile-bottom-nav {
@@ -212,10 +213,7 @@
         width: 45% !important;
     }
     .floating-button-new {
-        width: 8%;
-    }
-    .floating-button-new {
-        width: 5%;
+        width: 6%;
     }
 }
 
@@ -224,7 +222,7 @@
         margin-top: 20%;
     }
     .floating-button-new {
-        width: 8%;
+        width: 9%;
     }
     .navbar-expand-lg .navbar-brand {
         padding-top: 0.3rem !important;
@@ -321,6 +319,9 @@
     .sentence-block p {
         font-size: 12px;
     }
+    .floating-button-new {
+        width: 12%;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -348,7 +349,7 @@
         width: 100%;
     }
     .floating-button-new {
-        width: 10%;
+        width: 15%;
     }
     .top-button-container {
         width: 100%;
@@ -357,7 +358,7 @@
 
 @media screen and (max-width: 475px) {
     .floating-button-new {
-        width: 15%;
+        width: 20%;
     }
 }
 @media screen and (max-width: 395px) {
@@ -365,6 +366,6 @@
         margin-top: 45%;
     }
     .floating-button-new {
-        width: 15%;
+        width: 20%;
     }
 }
