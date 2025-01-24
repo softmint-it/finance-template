@@ -180,22 +180,6 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                     <h6 id="cifCalculatorTitle" class="cursor-pointer">Sri Lanka Vehicle Import Cost
                                         Calculator</h6>
                                 </div>
-                                <!-- <div class="slider">
-                                    <div class="slide-track">
-                                        @foreach ($banks as $bank)
-                                        <div class="slide">
-                                            <img src="{{env('BASE_URL')}}{{ $bank->logo }}" height="50" width="150"
-                                                alt="" />
-                                        </div>
-                                        @endforeach
-                                        @foreach ($banks as $bank)
-                                        <div class="slide">
-                                            <img src="{{env('BASE_URL')}}{{ $bank->logo }}" height="50" width="150"
-                                                alt="" />
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                </div> -->
 
                             </div>
                         </div>

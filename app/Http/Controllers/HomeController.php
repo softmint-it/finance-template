@@ -12,6 +12,7 @@ use App\Models\Blog;
 use App\Models\Insurance;
 use App\Models\QuotationRequest;
 use App\Helpers\NotifyHelper;
+use App\Helpers\SMSGateway;
 
 class HomeController extends Controller
 {
@@ -174,6 +175,11 @@ public function blogDetail($slug)
 
         $quotationRequest->save();
 
+        $mobilenumber = $request->mobile;
+        $msg = "Hi! 😊 Thanks for reaching out to EasyLeasing.lk. We’ll call you soon. Need help sooner? Call us at 011-3175444";
+
+        $messagesend = SMSGateway::send($mobilenumber, $msg);
+
         return response()->json([
             'status' => 'success',
             'message' => 'Quotation request submitted successfully'
@@ -193,6 +199,8 @@ public function blogDetail($slug)
             ]);
         }
 
+
+
         $quotationRequest = new QuotationRequest();
         $quotationRequest->note = $request->note ?? '';
         $quotationRequest->mobile = $request->mobile;
@@ -200,9 +208,14 @@ public function blogDetail($slug)
 
         $quotationRequest->save();
 
+        $mobilenumber = $request->mobile;
+        $msg = "Hi! 😊 Thanks for reaching out to EasyLeasing.lk. We’ll call you soon. Need help sooner? Call us at 011-3175444";
+
+        $messagesend = SMSGateway::send($mobilenumber, $msg);
+
         return response()->json([
             'status' => 'success',
-            'message' => 'Callback request submitted successfully'
+            'message' => 'Call request submitted successfully'
         ]);
     }
 }

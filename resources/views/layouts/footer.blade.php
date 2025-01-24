@@ -6,7 +6,7 @@
                 data-image-src="{{env('BASE_URL')}}/assets/img/photos/easyleasingfooterbanner.jpg">
                 <div class=" card-body p-6 p-md-11 d-lg-flex flex-row align-items-lg-center justify-content-md-between
                 text-center text-lg-start">
-                    <h3 class="display-2 mb-6 mb-lg-0 pe-lg-10 pe-xl-5 pe-xxl-18 text-white">
+                    <h3 class="display-2 mb-6 mb-lg-0 pe-lg-10 pe-xl-5 pe-xxl-18 text-white footer-main-text">
                         Discover the Perfect Leasing Solution for Your Dream Vehicle</h3>
                     <span id="findbestdeals" class="btn btn-lg btn-white rounded-xl mb-0 text-nowrap">Find Best
                         Leasing Deal</span>

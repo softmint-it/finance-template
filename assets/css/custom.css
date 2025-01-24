@@ -410,6 +410,9 @@
     .floating-button-new {
         width: 20%;
     }
+    .footer-main-text {
+        font-size: 20px;
+    }
 }
 @media screen and (max-width: 395px) {
     .footer-margins {
