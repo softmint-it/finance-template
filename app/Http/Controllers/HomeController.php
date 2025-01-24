@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Blade;
 use App\Models\BankRates;
 use App\Models\Bank;
+use App\Models\Blog;
 use App\Models\Insurance;
 use App\Models\QuotationRequest;
 use App\Helpers\NotifyHelper;
@@ -27,6 +29,8 @@ class HomeController extends Controller
 
         $vehicle_types = BankRates::select('vehicle_type')->distinct()->get();
         $leasing_periods = BankRates::select('year')->distinct()->orderBy('year','asc')->get();
+        $blogs = Blog::where('status', 1)->get();
+
 
         if(isset($_GET['vfilter'])){
             $vfilter = $_GET['vfilter'];
@@ -63,7 +67,7 @@ class HomeController extends Controller
         if ($noFilteredRates) {
             $notify[] = ['error', 'No rates found for your request in any leasing company'];
         }
-        return view('eazyhome', compact('banks', 'vehicle_types','leasing_periods','filterdbanks' ,'vfilter','pfilter','notify'));
+        return view('eazyhome', compact('banks','blogs', 'vehicle_types','leasing_periods','filterdbanks' ,'vfilter','pfilter','notify'));
     }
 
     public function getBankRates($bankId)
@@ -112,6 +116,20 @@ public function vehicleInsurance(): View
         return view('privacypolicy', compact('banks'));
     }
 
+    public function blog(): View
+    {
+        $blogs = Blog::where('status', 1)->get();
+        $banks = Bank::where('status', 1)->get();
+        return view('blog.index', compact('blogs','banks'));
+    }
+
+    public function blogDetail($slug): View
+    {
+        $blog = Blog::where('slug', $slug)->firstOrFail();
+        $banks = Bank::where('status', 1)->get();
+        return view('blogpost', compact('blog','banks'));
+    }
+
     public function submitQuotationRequest(Request $request)
     {
         $request->validate([
@@ -135,7 +153,8 @@ public function vehicleInsurance(): View
         $quotationRequest->rate = $request->rate ?? 0;
         $quotationRequest->amount = $request->amount = str_replace(',', '', $request->amount) ?? 0;
         $quotationRequest->installment = $request->installment ?? 0;
-        $quotationRequest->note = $request->note ?? '';
+        $quotationRequest->note = $request->leasing_period ?? '';
+        $quotationRequest->leasing_period = $request->leasing_period ?? '';
         $quotationRequest->requester_name = $request->requester_name ?? '';
         $quotationRequest->email = $request->email ?? '';
         $quotationRequest->mobile = $request->mobile;

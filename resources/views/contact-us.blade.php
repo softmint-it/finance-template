@@ -27,15 +27,17 @@
                 <div class="row gx-md-5 gy-5">
                     <div class="col-md-6">
                         <figure class="rounded mt-md-10 position-relative d-none d-md-block"><img
-                                src="./assets/img/bmw-aboutus.jpg" srcset="./assets/img/bmw-aboutus.jpg 2x" alt="">
+                                src="{{env('BASE_URL')}}/assets/img/bmw-aboutus.jpg"
+                                srcset="{{env('BASE_URL')}}/assets/img/bmw-aboutus.jpg 2x" alt="">
                         </figure>
                     </div>
                     <!--/column -->
                     <div class="col-md-6">
                         <div class="row gx-md-5 gy-5">
                             <div class="col-md-12 order-md-2">
-                                <figure class="rounded d-none d-md-block"><img src="./assets/img/key-contactus.jpg.jpg"
-                                        srcset="./assets/img/key-contactus.jpg 2x" alt=""></figure>
+                                <figure class="rounded d-none d-md-block"><img
+                                        src="{{env('BASE_URL')}}/assets/img/key-contactus.jpg.jpg"
+                                        srcset="{{env('BASE_URL')}}/assets/img/key-contactus.jpg 2x" alt=""></figure>
                             </div>
                             <!--/column -->
                             <div class="col-md-10">
@@ -98,7 +100,8 @@
                 <h2 class="display-4 mb-3 text-center">Drop Us a Line</h2>
                 <p class="lead text-center mb-10">Reach out to us from our contact form and we will get back to you
                     shortly.</p>
-                <form class="contact-form needs-validation" method="post" action="./assets/php/contact.php" novalidate>
+                <form class="contact-form needs-validation" method="post"
+                    action="{{env('BASE_URL')}}/assets/php/contact.php" novalidate>
                     <div class="messages"></div>
                     <div class="row gx-4">
                         <div class="col-md-6">
@@ -172,6 +175,7 @@
     </div>
     <!-- /.container -->
 </section>
+
 
 
 

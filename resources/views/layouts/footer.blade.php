@@ -1,9 +1,9 @@
 <div>
     <footer class="wrapper pattern-wrapper bg-image section-frame footer-margins"
-        data-image-src="./assets/img/pattern.png">
+        data-image-src="{{env('BASE_URL')}}/assets/img/pattern.png">
         <div class="container pb-8 pb-md-10">
             <div class="card image-wrapper bg-full bg-image bg-overlay mt-n50p mx-md-5 rounded-xl overflow-hidden"
-                data-image-src="./assets/img/photos/easyleasingfooterbanner.jpg">
+                data-image-src="{{env('BASE_URL')}}/assets/img/photos/easyleasingfooterbanner.jpg">
                 <div class=" card-body p-6 p-md-11 d-lg-flex flex-row align-items-lg-center justify-content-md-between
                 text-center text-lg-start">
                     <h3 class="display-2 mb-6 mb-lg-0 pe-lg-10 pe-xl-5 pe-xxl-18 text-white">
@@ -19,8 +19,9 @@
                     <div class="col-lg-4">
                         <div class="widget">
                             <a href="{{route('home')}}">
-                                <img src="./assets/img/EASYlogo.png" style="width:300px; max-width:80%;"
-                                    srcset="./assets/img/EASYlogo.png 2x" alt="" />
+                                <img src="{{env('BASE_URL')}}/assets/img/EASYlogo.png"
+                                    style="width:300px; max-width:80%;"
+                                    srcset="{{env('BASE_URL')}}/assets/img/EASYlogo.png 2x" alt="" />
                             </a>
                             <a href="tel:{{env('COMPANY_PHONE')}}" class="link-dark fs-22 fs-md-22 fs-lg-32"
                                 style="padding-left: 20px;">
@@ -29,12 +30,12 @@
                             <br>
                             <div class="mt-2">
                                 <a href="{{env('COMPANY_PLAYSTORE_LINK')}}" class="link-dark fs-22 fs-md-22 fs-lg-32">
-                                    <img src="./assets/img/play-store.png" alt="Google Play Store" width="150"
-                                        class="download-img">
+                                    <img src="{{env('BASE_URL')}}/assets/img/play-store.png" alt="Google Play Store"
+                                        width="150" class="download-img">
                                 </a>
 
                                 <a href="{{env('COMPANY_APPSTORE_LINK')}}" class="link-dark fs-22 fs-md-22 fs-lg-32">
-                                    <img src="./assets/img/app-store.png" alt="App Store" width="150"
+                                    <img src="{{env('BASE_URL')}}/assets/img/app-store.png" alt="App Store" width="150"
                                         class="download-img">
                                 </a>
                             </div>
@@ -94,7 +95,7 @@
                 document.write(new Date().getUTCFullYear());
                 </script> {{env('COMPANY_NAME')}} All rights reserved. &nbsp;</span>
             <a href="{{getenv('DESIGNER_URL')}}" class=" text-white mb-1" target="_blank"><span> Powered By </span><img
-                    src="./assets/img/brands/softmint_logo.png" alt="Logo"
+                    src="{{env('BASE_URL')}}/assets/img/brands/softmint_logo.png" alt="Logo"
                     width="25"><span>{{getenv('DESIGNER_NAME')}}</span></a>
 
         </p>
