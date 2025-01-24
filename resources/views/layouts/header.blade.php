@@ -93,8 +93,9 @@
                     <div class="offcanvas-footer d-lg-none">
                         <div>
                             <a href="https://easyleasing.lk/privacy-policy" class="link-inverse">Privacy Policy</a> <br>
-                            <a href="https://easyleasing.lk/terms-and-conditions" class="link-inverse">Terms & Conditions</a> <br> <br>
-                            
+                            <a href="https://easyleasing.lk/terms-and-conditions" class="link-inverse">Terms &
+                                Conditions</a> <br> <br>
+
                             <a href="mailto:{{env('COMPANY_EMAIL')}}" class="link-inverse">{{env('COMPANY_EMAIL')}}</a>
                             <br /> {{env('COMPANY_PHONE')}}<br />
                             <nav class="nav social social-white mt-4">
@@ -568,6 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
+                        console.log(data);
                         Swal.fire({
                                 icon: 'success',
                                 title: 'Success!',
@@ -614,4 +616,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
 </script>

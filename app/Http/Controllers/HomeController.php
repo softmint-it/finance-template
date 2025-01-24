@@ -12,6 +12,7 @@ use App\Models\Blog;
 use App\Models\Insurance;
 use App\Models\QuotationRequest;
 use App\Helpers\NotifyHelper;
+use App\Helpers\SMSGateway;
 
 class HomeController extends Controller
 {
@@ -193,6 +194,8 @@ public function blogDetail($slug)
             ]);
         }
 
+
+
         $quotationRequest = new QuotationRequest();
         $quotationRequest->note = $request->note ?? '';
         $quotationRequest->mobile = $request->mobile;
@@ -200,9 +203,29 @@ public function blogDetail($slug)
 
         $quotationRequest->save();
 
+        $mobilenumber = $request->mobile;
+            if(strlen($mobilenumber) == 9){
+                $mobilenumber = "94".$mobilenumber;
+            }else if(strlen($mobilenumber) == 13){
+                $mobilenumber = substr($mobilenumber, 4);
+                $mobilenumber = "94".$mobilenumber;
+            }else{
+                $mobilenumber = $mobilenumber;
+            }
+
+            $msg = "Hello! You have a call back request from EasyLease.lk. Our team will contact you soon.";
+
+            $messagesend = SMSGateway::send($mobilenumber, $msg);
+
+
+
+
+
+
+
         return response()->json([
             'status' => 'success',
-            'message' => 'Callback request submitted successfully'
+            'message' => $messagesend
         ]);
     }
 }

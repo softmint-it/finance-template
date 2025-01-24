@@ -448,19 +448,6 @@ with Easy Leasing.')
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <!-- Image Carousel -->
-
-                            <!-- @php
-                                $sentences = explode('.', $bank->description);
-                                @endphp
-
-                                @foreach ($sentences as $sentence)
-                                @if(trim($sentence))
-                                <div class="sentence-block">
-                                    <p class="sentence">{{ trim($sentence) }}.</p>
-                                </div>
-                                @endif
-                                @endforeach -->
                             {!! $bank->description !!}
 
                             <p><strong>Website:</strong> <a href="{{ $bank->website }}" target="_blank"
@@ -509,34 +496,9 @@ with Easy Leasing.')
             </div>
             @endforeach
         </div>
-
-        <!-- <div class="swiper-container blog grid-view mb-10" data-margin="30" data-dots="true" data-items-xl="3" -->
-        <!-- data-items-md="2" data-items-xs="1"> -->
-        <!-- <div class="swiper"> -->
-        <!-- <div class="swiper-wrapper"> -->
-
-        <!-- </div> -->
-        <!--/.swiper-wrapper -->
-        <!-- </div> -->
-        <!-- /.swiper -->
-        <!-- </div> -->
-        <!-- /.swiper-container -->
     </div>
     <!-- /.container -->
 </section>
-
-
-<!--section class="wrapper bg-light">
-    <div class="container py-8 py-md-10">
-        <div class="row text-center">
-            <div class="col-md-10 col-lg-9 col-xxl-8 mx-auto">
-                <h2 class="fs-15 text-uppercase text-muted mb-3">What We Do?</h2>
-                <h3 class="display-3 ls-sm mb-5 px-xl-11">Leasing Made Easy</h3>
-            </div>
-        </div>
-    </div>
-</section -->
-<!-- /section -->
 <section class="wrapper bg-gray position-relative min-vh-60 d-lg-flex align-items-center" style="margin-top:50px;">
     <div class="col-lg-6 position-lg-absolute top-0 start-0 image-wrapper bg-image bg-cover h-100"
         data-image-src="https://images.netdirector.co.uk/gforces-auto/image/upload/w_1920,h_1440,dpr_2.0,q_auto,c_fill,f_auto,fl_lossy/auto-client/1d990469f32131f968969d5ee116b4a1/banner.jpg">
