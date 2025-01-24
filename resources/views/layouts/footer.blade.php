@@ -28,7 +28,7 @@
                                 <i class="uil uil-phone-volume me-2 "></i>{{env('COMPANY_PHONE')}}
                             </a>
                             <br>
-                            <div class="mt-2">
+                            <!-- div class="mt-2">
                                 <a href="{{env('COMPANY_PLAYSTORE_LINK')}}" class="link-dark fs-22 fs-md-22 fs-lg-32">
                                     <img src="{{env('BASE_URL')}}/assets/img/play-store.png" alt="Google Play Store"
                                         width="150" class="download-img">
@@ -38,7 +38,7 @@
                                     <img src="{{env('BASE_URL')}}/assets/img/app-store.png" alt="App Store" width="150"
                                         class="download-img">
                                 </a>
-                            </div>
+                            </div -->
 
                         </div>
                         <!-- /.widget -->
