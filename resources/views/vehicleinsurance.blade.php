@@ -136,7 +136,7 @@ from top providers and secure the best coverage for your vehicle.')
     }
 }
 </style>
-<section class="wrapper image-wrapper bg-cover bg-image bg-gray position-relative"
+<section id="easyleasinginsmainbanner" class="wrapper image-wrapper bg-cover bg-image bg-gray position-relative"
     data-image-src="./assets/img/photos/insuarancebanner.jpg" style="padding-bottom: 150px;">
     <div class="container pt-17   position-relative">
         <div class="row">
@@ -234,6 +234,25 @@ from top providers and secure the best coverage for your vehicle.')
 <!-- DataTables Responsive JS -->
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 
+<script>
+    function updateBannerImage() {
+        const banner = document.getElementById('easyleasinginsmainbanner');
+        const mobileImageSrc = "./assets/img/photos/easyleasinginsuarancemobilebanner2.jpg";
+        const desktopImageSrc = "assets/img/photos/insuarancebanner.jpg";
+
+        if (window.innerWidth < 500) {
+            banner.setAttribute('data-image-src', mobileImageSrc);
+        } else {
+            banner.setAttribute('data-image-src', desktopImageSrc);
+        }
+    }
+
+    // Run on page load
+    updateBannerImage();
+
+    // Run on window resize
+    window.addEventListener('resize', updateBannerImage);
+</script>
 
 
 
