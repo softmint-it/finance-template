@@ -344,7 +344,8 @@
                             <label for="city" class="form-label">Nearest City<span class="text-danger">*</span></label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mb-4 btn-sm">Request For A Leasing</button>
+                    <button type="submit" class="btn btn-primary mb-4 btn-sm" id="requestleasebtn">Request For A
+                        Leasing</button>
                 </form>
             </div>
             <div class="modal-body" id="requestcall">
@@ -364,7 +365,8 @@
                         <div class="valid-feedback"> Looks good! </div>
                         <div class="invalid-feedback"> Please provide a valid mobile number </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mb-4 btn-sm">Request a Call</button>
+                    <button type="submit" class="btn btn-primary mb-4 btn-sm" id="requestcallbtn">Request a
+                        Call</button>
                 </form>
             </div>
 
@@ -487,6 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const applyNowForm = document.getElementById('applyNowForm');
     const applyNowModal = document.getElementById('applyNowModal');
     const applyNowModalInstance = new bootstrap.Modal(applyNowModal);
+    const applyNowButton = document.getElementById('requestleasebtn');
 
     if (applyNowForm) {
         applyNowForm.addEventListener('submit', function(event) {
@@ -494,7 +497,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(applyNowForm);
             formData.append('_token', document.querySelector('input[name="_token"]').value);
+
             const baseUrl = "{{ config('app.url') }}";
+
+            // Disable the button and show loading animation
+            applyNowButton.disabled = true;
+            applyNowButton.innerHTML =
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...`;
+
             fetch(`${baseUrl}/submit-quotation-request`, {
                     method: 'POST',
                     body: formData,
@@ -543,17 +553,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         title: 'Oops...',
                         text: 'An error occurred. Please try again later.',
                     });
+                })
+                .finally(() => {
+                    // Re-enable the button and reset text
+                    applyNowButton.disabled = false;
+                    applyNowButton.innerHTML = 'Submit';
                 });
         });
     }
 });
 </script>
 
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const requestcallForm = document.getElementById('requestcallForm');
     const requestcallModal = document.getElementById('applyNowModal');
     const requestcallModalInstance = new bootstrap.Modal(requestcallModal);
+    const requestcallButton = document.getElementById('requestcallbtn');
 
     if (requestcallForm) {
         requestcallForm.addEventListener('submit', function(event) {
@@ -561,7 +578,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(requestcallForm);
             formData.append('_token', document.querySelector('input[name="_token"]').value);
+
             const baseUrl = "{{ config('app.url') }}";
+
+            // Disable the button and show loading animation
+            requestcallButton.disabled = true;
+            requestcallButton.innerHTML =
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...`;
+
             fetch(`${baseUrl}/submit-request-call`, {
                     method: 'POST',
                     body: formData,
@@ -569,11 +593,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        console.log(data);
                         Swal.fire({
                                 icon: 'success',
                                 title: 'Success!',
-                                text: 'Request call submitted successfully.',
+                                text: data.message,
                                 confirmButtonText: 'OK',
                             })
                             .then(() => {
@@ -611,10 +634,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         title: 'Oops...',
                         text: 'An error occurred. Please try again later.',
                     });
+                })
+                .finally(() => {
+                    // Re-enable the button and reset text
+                    requestcallButton.disabled = false;
+                    requestcallButton.innerHTML = 'Submit';
                 });
         });
     }
-
 });
-
 </script>

@@ -175,6 +175,11 @@ public function blogDetail($slug)
 
         $quotationRequest->save();
 
+        $mobilenumber = $request->mobile;
+        $msg = "Hi! 😊 Thanks for reaching out to EasyLeasing.lk. We’ll call you soon. Need help sooner? Call us at 011-3175444";
+
+        $messagesend = SMSGateway::send($mobilenumber, $msg);
+
         return response()->json([
             'status' => 'success',
             'message' => 'Quotation request submitted successfully'
@@ -204,28 +209,13 @@ public function blogDetail($slug)
         $quotationRequest->save();
 
         $mobilenumber = $request->mobile;
-            if(strlen($mobilenumber) == 9){
-                $mobilenumber = "94".$mobilenumber;
-            }else if(strlen($mobilenumber) == 13){
-                $mobilenumber = substr($mobilenumber, 4);
-                $mobilenumber = "94".$mobilenumber;
-            }else{
-                $mobilenumber = $mobilenumber;
-            }
+        $msg = "Hi! 😊 Thanks for reaching out to EasyLeasing.lk. We’ll call you soon. Need help sooner? Call us at 011-3175444";
 
-            $msg = "Hello! You have a call back request from EasyLease.lk. Our team will contact you soon.";
-
-            $messagesend = SMSGateway::send($mobilenumber, $msg);
-
-
-
-
-
-
+        $messagesend = SMSGateway::send($mobilenumber, $msg);
 
         return response()->json([
             'status' => 'success',
-            'message' => $messagesend
+            'message' => 'Call request submitted successfully'
         ]);
     }
 }
