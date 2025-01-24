@@ -13,7 +13,7 @@ Lanka, vehicle import duty Sri Lanka, Sri Lanka car taxes, Easy Leasing import c
 @section('og:title', 'Easy Leasing | Sri Lanka Vehicle Import Cost Calculator')
 @section('og:description', 'Easily calculate the total cost of importing a vehicle to Sri Lanka, including taxes,
 duties, and other fees. Get accurate estimates for your import journey.')
-@section('og:url', 'https://easyleasing.lk')
+@section('og:url', 'https://easyleasing.lk/vehicle-import-cost-calculator-sri-lanaka')
 @section('og:type', 'website')
 @section('og:image', 'https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg')
 
@@ -278,23 +278,24 @@ duties, and other fees. Get accurate estimates for your import journey.')
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 
 <script>
-    function updateBannerImage() {
-        const banner = document.getElementById('easyleasingimportmainbanner');
-        const mobileImageSrc = "./assets/img/photos/vehicleimportmobilebanner.jpg";
-        const desktopImageSrc = "https://di-uploads-pod47.dealerinspire.com/toyotaofwestohio/uploads/2023/12/2019-Toyota-Muilti-Vechile-Banner.png";
+function updateBannerImage() {
+    const banner = document.getElementById('easyleasingimportmainbanner');
+    const mobileImageSrc = "{{env('BASE_URL')}}/assets/img/photos/vehicleimportmobilebanner.jpg";
+    const desktopImageSrc =
+        "https://di-uploads-pod47.dealerinspire.com/toyotaofwestohio/uploads/2023/12/2019-Toyota-Muilti-Vechile-Banner.png";
 
-        if (window.innerWidth < 500) {
-            banner.setAttribute('data-image-src', mobileImageSrc);
-        } else {
-            banner.setAttribute('data-image-src', desktopImageSrc);
-        }
+    if (window.innerWidth < 500) {
+        banner.setAttribute('data-image-src', mobileImageSrc);
+    } else {
+        banner.setAttribute('data-image-src', desktopImageSrc);
     }
+}
 
-    // Run on page load
-    updateBannerImage();
+// Run on page load
+updateBannerImage();
 
-    // Run on window resize
-    window.addEventListener('resize', updateBannerImage);
+// Run on window resize
+window.addEventListener('resize', updateBannerImage);
 </script>
 
 <script>
@@ -432,6 +433,7 @@ function calculatecost() {
     `;
 }
 </script>
+
 
 
 @endsection

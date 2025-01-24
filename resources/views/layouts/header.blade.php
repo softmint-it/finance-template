@@ -41,8 +41,8 @@
         <div class="container flex-lg-row flex-nowrap align-items-center">
             <div class="navbar-brand w-50">
                 <a href="{{route('home')}}">
-                    <img src="./assets/img/EASYlogo.png" style="width:300px; max-width:80%;"
-                        srcset="./assets/img/EASYlogo.png 2x" alt="" />
+                    <img src="{{env('BASE_URL')}}/assets/img/EASYlogo.png" style="width:300px; max-width:80%;"
+                        srcset="{{env('BASE_URL')}}/assets/img/EASYlogo.png 2x" alt="" />
                 </a>
 
 
@@ -367,8 +367,8 @@
         </div>
     </div>
 </div>
-<img src="./assets/img/icons/request-btn.gif" id="mobile-applynow-button" class="floating-button-new"
-    srcset="./assets/img/icons/request-btn.gif" alt="request" />
+<img src="{{env('BASE_URL')}}/assets/img/icons/request-btn.gif" id="mobile-applynow-button" class="floating-button-new"
+    srcset="{{env('BASE_URL')}}/assets/img/icons/request-btn.gif" alt="request" />
 
 
 </button>

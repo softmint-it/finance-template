@@ -17,6 +17,7 @@ with Easy Leasing.')
 
 
 @section('content')
+
 <style>
 .calculator-block {
     width: 100%;
@@ -138,7 +139,7 @@ with Easy Leasing.')
 }
 </style>
 <section id="easyleasingmainbanner" class="wrapper image-wrapper bg-cover bg-image  bg-gray position-relative"
-    data-image-src="./assets/img/photos/easyleasingbanner.jpg" style="padding-bottom: 150px">
+    data-image-src="{{env('BASE_URL')}}/assets/img/photos/easyleasingbanner.jpg" style="padding-bottom: 150px">
     <div class="container pt-17   position-relative">
         <div class="row">
             <div class="col-sm-6 col-xxl-5 text-center text-sm-start" data-cues="slideInDown" data-group="page-title"
@@ -562,7 +563,7 @@ with Easy Leasing.')
                     <!-- Step 1 -->
                     <div class="d-flex flex-row mb-5">
                         <div>
-                            <img src="./assets/img/icons/lineal/compare-icon.png"
+                            <img src="{{env('BASE_URL')}}/assets/img/icons/lineal/compare-icon.png"
                                 class="svg-inject icon-svg icon-svg-md text-blue me-5 mt-1" alt="Compare Rates Icon" />
                         </div>
                         <div>
@@ -574,7 +575,7 @@ with Easy Leasing.')
                     <!-- Step 2 -->
                     <div class="d-flex flex-row mb-5">
                         <div>
-                            <img src="./assets/img/icons/lineal/handshake.svg"
+                            <img src="{{env('BASE_URL')}}/assets/img/icons/lineal/handshake.svg"
                                 class="svg-inject icon-svg icon-svg-md text-green me-5 mt-1"
                                 alt="Choose Best Company Icon" />
                         </div>
@@ -588,7 +589,7 @@ with Easy Leasing.')
                     <!-- Step 3 -->
                     <div class="d-flex flex-row">
                         <div>
-                            <img src="./assets/img/icons/lineal/application-icon.png"
+                            <img src="{{env('BASE_URL')}}/assets/img/icons/lineal/application-icon.png"
                                 class="svg-inject icon-svg icon-svg-md text-yellow me-5 mt-1"
                                 alt="Apply for Leasing Icon" />
                         </div>
@@ -618,112 +619,38 @@ with Easy Leasing.')
             data-items-md="2" data-items-xs="1">
             <div class="swiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <article>
-                            <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="#calculatorsection">
-                                    <img src="https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg"
-                                        alt="" /></a>
-                                <figcaption>
-                                    <h5 class="from-top mb-0">Read More</h5>
-                                </figcaption>
-                            </figure>
-                            <div class="post-header">
-                                <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark" href="#calculatorsection">How
-                                        to
-                                        Calculate RMV Charges in Sri Lanka</a></h2>
-                            </div>
-                            <div class="post-footer">
-                                <ul class="post-meta">
-                                    <li class="post-date"><i
-                                            class="uil uil-calendar-alt"></i><span>{{ now()->format('d M Y') }}</span>
-                                    </li>
-                                    <li class="post-comments"><a href="#calculatorsection"><i
-                                                class="uil uil-file-alt fs-15"></i>Vehicle
-                                            Regulations</a></li>
-                                </ul>
-                            </div>
-                        </article>
-                    </div>
+                    @foreach ($blogs as $blog)
                     <div class="swiper-slide">
                         <article>
                             <figure class="overlay overlay-1 hover-scale rounded mb-6"><a
-                                    href="{{route('vehicle-import')}}"> <img
-                                        src="https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg"
-                                        alt="" /></a>
+                                    href="{{route('blog', $blog->slug)}}">
+                                    <img src="{{env('BASE_URL')}}{{ $blog->temp_img }}" alt="" /></a>
                                 <figcaption>
                                     <h5 class="from-top mb-0">Read More</h5>
                                 </figcaption>
                             </figure>
                             <div class="post-header">
                                 <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark"
-                                        href="{{route('vehicle-import')}}">2024
-                                        Vehicle Import Cost Calculation in Sri Lanka</a></h2>
+                                        href="{{route('blog', $blog->slug)}}">{{$blog->title}}</a></h2>
                             </div>
                             <div class="post-footer">
                                 <ul class="post-meta">
                                     <li class="post-date"><i
-                                            class="uil uil-calendar-alt"></i><span>{{ now()->format('d M Y') }}</span>
+                                            class="uil uil-calendar-alt"></i><span>{{ $blog->published_at->format('Y-m-d') }}</span>
                                     </li>
-                                    <li class="post-comments"><a href="{{route('vehicle-import')}}"><i
-                                                class="uil uil-file-alt fs-15"></i>Importation Tips</a></li>
+                                    @if($blog->custom_page == 1)
+                                    <li class="post-comments"><a href="{{$blog->url}}"><i
+                                                class="uil uil-file-alt fs-15"></i>{{$blog->category}}</a></li>
+
+                                    @else
+                                    <li class="post-comments"><a href="{{route('blog', $blog->slug)}}"><i
+                                                class="uil uil-file-alt fs-15"></i>{{$blog->category}}</a></li>
+                                    @endif
                                 </ul>
                             </div>
                         </article>
                     </div>
-                    <div class="swiper-slide">
-                        <article>
-                            <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="#calculatorsection">
-                                    <img src="https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg"
-                                        alt="" /></a>
-                                <figcaption>
-                                    <h5 class="from-top mb-0">Read More</h5>
-                                </figcaption>
-                            </figure>
-                            <div class="post-header">
-                                <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark"
-                                        href="#calculatorsection">Figure
-                                        out Installment Plans for Vehicle Leasing</a>
-                                </h2>
-                            </div>
-                            <div class="post-footer">
-                                <ul class="post-meta">
-                                    <li class="post-date"><i
-                                            class="uil uil-calendar-alt"></i><span>{{ now()->format('d M Y') }}</span>
-                                    </li>
-                                    <li class="post-comments"><a href="#calculatorsection"><i
-                                                class="uil uil-file-alt fs-15"></i>Leasing
-                                            Tips</a></li>
-                                </ul>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="swiper-slide">
-                        <article>
-                            <figure class="overlay overlay-1 hover-scale rounded mb-6"><a
-                                    href="#leasingcomparisonsection"> <img
-                                        src="https://easyleasing.lk/assets/img/easyleasing-compare-best-leasing-rates.jpg"
-                                        alt="" /></a>
-                                <figcaption>
-                                    <h5 class="from-top mb-0">Read More</h5>
-                                </figcaption>
-                            </figure>
-                            <div class="post-header">
-                                <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark"
-                                        href="#leasingcomparisonsection">How to
-                                        Choose the Best Leasing Provider for Your Vehicle</a></h2>
-                            </div>
-                            <div class="post-footer">
-                                <ul class="post-meta">
-                                    <li class="post-date"><i
-                                            class="uil uil-calendar-alt"></i><span>{{ now()->format('d M Y') }}</span>
-                                    </li>
-                                    <li class="post-comments"><a href="#leasingcomparisonsection"><i
-                                                class="uil uil-file-alt fs-15"></i>Leasing
-                                            Advice</a></li>
-                                </ul>
-                            </div>
-                        </article>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -787,23 +714,23 @@ with Easy Leasing.')
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 
 <script>
-    function updateBannerImage() {
-        const banner = document.getElementById('easyleasingmainbanner');
-        const mobileImageSrc = "./assets/img/photos/easyleasingmobilebanner.jpg";
-        const desktopImageSrc = "./assets/img/photos/easyleasingbanner.jpg";
+function updateBannerImage() {
+    const banner = document.getElementById('easyleasingmainbanner');
+    const mobileImageSrc = "{{env('BASE_URL')}}/assets/img/photos/easyleasingmobilebanner.jpg";
+    const desktopImageSrc = "{{env('BASE_URL')}}/assets/img/photos/easyleasingbanner.jpg";
 
-        if (window.innerWidth < 500) {
-            banner.setAttribute('data-image-src', mobileImageSrc);
-        } else {
-            banner.setAttribute('data-image-src', desktopImageSrc);
-        }
+    if (window.innerWidth < 500) {
+        banner.setAttribute('data-image-src', mobileImageSrc);
+    } else {
+        banner.setAttribute('data-image-src', desktopImageSrc);
     }
+}
 
-    // Run on page load
-    updateBannerImage();
+// Run on page load
+updateBannerImage();
 
-    // Run on window resize
-    window.addEventListener('resize', updateBannerImage);
+// Run on window resize
+window.addEventListener('resize', updateBannerImage);
 </script>
 
 
@@ -1649,6 +1576,7 @@ $(document).ready(function() {
 
 });
 </script>
+
 
 
 @endsection

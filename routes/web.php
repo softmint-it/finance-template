@@ -22,6 +22,9 @@ Route::controller(HomeController::class)->group(function () {
 
     Route::get('/terms-and-conditions', 'terms')->name('terms');
     Route::get('/privacy-policy', 'privacy')->name('privacy');
+
+    Route::get('/blogs', 'blog')->name('blogs');
+    Route::get('/article/{slug}', 'blogDetail')->name('blog');
 });
 
 
