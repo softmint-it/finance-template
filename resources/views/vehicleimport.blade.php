@@ -144,7 +144,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
     }
 }
 </style>
-<section class="wrapper image-wrapper bg-cover bg-image bg-gray position-relative"
+<section id="easyleasingimportmainbanner" class="wrapper image-wrapper bg-cover bg-image bg-gray position-relative"
     data-image-src="https://di-uploads-pod47.dealerinspire.com/toyotaofwestohio/uploads/2023/12/2019-Toyota-Muilti-Vechile-Banner.png"
     style="padding-bottom: 150px;">
     <div class="container pt-17   position-relative">
@@ -276,6 +276,27 @@ duties, and other fees. Get accurate estimates for your import journey.')
 
 <!-- DataTables Responsive JS -->
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+
+<script>
+    function updateBannerImage() {
+        const banner = document.getElementById('easyleasingimportmainbanner');
+        const mobileImageSrc = "./assets/img/photos/vehicleimportmobilebanner.jpg";
+        const desktopImageSrc = "https://di-uploads-pod47.dealerinspire.com/toyotaofwestohio/uploads/2023/12/2019-Toyota-Muilti-Vechile-Banner.png";
+
+        if (window.innerWidth < 500) {
+            banner.setAttribute('data-image-src', mobileImageSrc);
+        } else {
+            banner.setAttribute('data-image-src', desktopImageSrc);
+        }
+    }
+
+    // Run on page load
+    updateBannerImage();
+
+    // Run on window resize
+    window.addEventListener('resize', updateBannerImage);
+</script>
+
 <script>
 const yearSelect = document.getElementById('yearOfManufacture');
 const currentYear = new Date().getFullYear();
