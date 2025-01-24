@@ -74,16 +74,32 @@
         <!-- helper js -->
         <script src="{{ asset('assets/js/helper.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
-
         <script>
-        const notify = @json($notify ?? []);
+        const notify = @json(session('notify', []));
 
         if (notify.length > 0) {
             notify.forEach(function(notification) {
                 const type = notification[0];
                 const message = notification[1];
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: type,
+                    title: message,
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true
+                });
+            });
+        }
+        </script>
+        <script>
+        const notifyn = @json($notify ?? []);
 
-                // Show SweetAlert2 Toast Notification
+        if (notifyn.length > 0) {
+            notifyn.forEach(function(notification) {
+                const type = notification[0];
+                const message = notification[1];
                 Swal.fire({
                     toast: true,
                     position: 'top-end',

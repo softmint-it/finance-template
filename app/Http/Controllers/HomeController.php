@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Blade;
@@ -123,12 +124,21 @@ public function vehicleInsurance(): View
         return view('blog.index', compact('blogs','banks'));
     }
 
-    public function blogDetail($slug): View
-    {
+public function blogDetail($slug)
+{
+    $notify = [];
+    try {
         $blog = Blog::where('slug', $slug)->firstOrFail();
-        $banks = Bank::where('status', 1)->get();
-        return view('blogpost', compact('blog','banks'));
+    } catch (ModelNotFoundException $e) {
+        $notify[] = ['error', 'Blog not found'];
+        return back()->with('notify', $notify);
     }
+    $banks = Bank::where('status', 1)->get();
+    $otherBlogs = Blog::where('status', 1)->where('id', '!=', $blog->id)->get();
+    return view('blogpost', compact('blog', 'banks', 'notify','otherBlogs'));
+}
+
+
 
     public function submitQuotationRequest(Request $request)
     {

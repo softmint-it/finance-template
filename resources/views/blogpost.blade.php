@@ -19,6 +19,8 @@
 
 @section('content')
 
+
+
 <section class="wrapper mt-14">
     <div class="container pt-14 pb-12 pt-md-8 pb-md-12">
         <div class="row">
@@ -55,8 +57,55 @@
                     </div>
                 </div>
                 <!-- /.row -->
+                <!-- other blog posts -->
+                <div class="col-md-12 col-xl-10 col-xxl-10 mx-auto">
+                    <h5 class="display-5 mt-5 mb-5 w-100 text-center">Other Articles</h5>
+
+                    <div class="swiper-container blog grid-view mb-10" data-margin="30" data-dots="true"
+                        data-items-xl="3" data-items-md="2" data-items-xs="1">
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                                @foreach ($otherBlogs as $blog)
+                                <div class="swiper-slide">
+                                    <article>
+                                        <figure class="overlay overlay-1 hover-scale rounded mb-6"><a
+                                                href="{{route('blog', $blog->slug)}}">
+                                                <img src="{{env('BASE_URL')}}{{ $blog->temp_img }}" alt="" /></a>
+                                            <figcaption>
+                                                <h5 class="from-top mb-0">Read More</h5>
+                                            </figcaption>
+                                        </figure>
+                                        <div class="post-header">
+                                            <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark"
+                                                    href="{{route('blog', $blog->slug)}}">{{$blog->title}}</a></h2>
+                                        </div>
+                                        <div class="post-footer">
+                                            <ul class="post-meta">
+                                                <li class="post-date"><i
+                                                        class="uil uil-calendar-alt"></i><span>{{ $blog->published_at->format('Y-m-d') }}</span>
+                                                </li>
+                                                @if($blog->custom_page == 1)
+                                                <li class="post-comments"><a href="{{$blog->url}}"><i
+                                                            class="uil uil-file-alt fs-15"></i>{{$blog->category}}</a>
+                                                </li>
+
+                                                @else
+                                                <li class="post-comments"><a href="{{route('blog', $blog->slug)}}"><i
+                                                            class="uil uil-file-alt fs-15"></i>{{$blog->category}}</a>
+                                                </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </article>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container -->
             </div>
-            <!-- /.container -->
 </section>
+
 
 @endsection

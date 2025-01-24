@@ -17,6 +17,7 @@ with Easy Leasing.')
 
 
 @section('content')
+
 <style>
 .calculator-block {
     width: 100%;
@@ -637,8 +638,14 @@ with Easy Leasing.')
                                     <li class="post-date"><i
                                             class="uil uil-calendar-alt"></i><span>{{ $blog->published_at->format('Y-m-d') }}</span>
                                     </li>
-                                    <li class="post-comments"><a href="{{env('BASE_URL')}}{{$blog->url}}"><i
+                                    @if($blog->custom_page == 1)
+                                    <li class="post-comments"><a href="{{$blog->url}}"><i
                                                 class="uil uil-file-alt fs-15"></i>{{$blog->category}}</a></li>
+
+                                    @else
+                                    <li class="post-comments"><a href="{{route('blog', $blog->slug)}}"><i
+                                                class="uil uil-file-alt fs-15"></i>{{$blog->category}}</a></li>
+                                    @endif
                                 </ul>
                             </div>
                         </article>
