@@ -39,9 +39,9 @@ Read our privacy policy for full details.')
                             <li><strong>Personal Information:</strong> Name, email address, phone number, and any other
                                 details you provide when signing up or contacting us.</li>
                             <li><strong>Usage Data:</strong> Information on how you interact with our website, including
-                                IP addresses, browser type, pages visited, and time spent on the site.</li>
-                            <li><strong>Cookies:</strong> Data collected through cookies to enhance your browsing
-                                experience and provide personalized content.</li>
+                                IP addresses, browser type, pages visited, and time spent on the website & our mobile app.</li>
+                            <!-- li><strong>Cookies:</strong> Data collected through cookies to enhance your browsing
+                                experience and provide personalized content.</li -->
                         </ul>
 
                         <h3>2. How We Use Your Information</h3>
