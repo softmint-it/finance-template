@@ -162,7 +162,7 @@ public function blogDetail($slug)
         $quotationRequest->bank_id = $request->leasing_company_id ?? 0;
         $quotationRequest->rate_id = $request->rate_id ?? 0;
         $quotationRequest->rate = $request->rate ?? 0;
-        $quotationRequest->amount = $request->amount = str_replace(',', '', $request->amount) ?? 0;
+        $quotationRequest->amount = str_replace(',', '', $request->amount) ?? 0;
         $quotationRequest->installment = $request->installment ?? 0;
         $quotationRequest->note = $request->leasing_period ?? '';
         $quotationRequest->leasing_period = $request->leasing_period ?? '';
@@ -174,11 +174,20 @@ public function blogDetail($slug)
         $quotationRequest->year = $request->vehicle_year ?? '';
 
         $quotationRequest->save();
-
+        
+        $bankname = "";
+        $bank = Bank::find($quotationRequest->bank_id);
+        if($bank) {
+            $bankname = $bank->name;
+        }
+        
         $mobilenumber = $request->mobile;
-        $msg = "Hi! 😊 Thanks for reaching out to EasyLeasing.lk. We’ll call you soon. Need help sooner? Call us at 011-3175444";
+        $msg = "Hi! Thanks for reaching out to EasyLeasing.lk. We’ll call you soon. Need help sooner? Call us at 011-3175444";
 
+        $adminmsg = "New Inquiry! \nCustomer : ".$quotationRequest->requester_name. " ( ".$quotationRequest->mobile. " ) from ".$quotationRequest->city. " has send a inquiry for ".$quotationRequest->vmodel." ".$quotationRequest->year. " requested LKR ".$request->amount. " ( ". $quotationRequest->rate ."% - ".$quotationRequest->leasing_period." Years ) from ".$bankname ;
+        
         $messagesend = SMSGateway::send($mobilenumber, $msg);
+        $messagesend = SMSGateway::send('0777261026', $adminmsg);
 
         return response()->json([
             'status' => 'success',
@@ -198,9 +207,7 @@ public function blogDetail($slug)
                 'message' => 'Mobile number is invalid'
             ]);
         }
-
-
-
+        
         $quotationRequest = new QuotationRequest();
         $quotationRequest->note = $request->note ?? '';
         $quotationRequest->mobile = $request->mobile;
@@ -209,9 +216,11 @@ public function blogDetail($slug)
         $quotationRequest->save();
 
         $mobilenumber = $request->mobile;
-        $msg = "Hi! 😊 Thanks for reaching out to EasyLeasing.lk. We’ll call you soon. Need help sooner? Call us at 011-3175444";
-
+        $msg = "Hi! Thanks for reaching out to EasyLeasing.lk. We will call you soon. Need help sooner? Call us at 011-3175444";
+        $adminmsg = "New Inquiry! \nCustomer Call request from ".$quotationRequest->mobile;
+        
         $messagesend = SMSGateway::send($mobilenumber, $msg);
+        $messagesend = SMSGateway::send('0777261026', $adminmsg);
 
         return response()->json([
             'status' => 'success',

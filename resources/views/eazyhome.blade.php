@@ -139,7 +139,7 @@ with Easy Leasing.')
 }
 </style>
 <section id="easyleasingmainbanner" class="wrapper image-wrapper bg-cover bg-image  bg-gray position-relative"
-    data-image-src="{{env('BASE_URL')}}/assets/img/photos/easyleasingbanner.jpg" style="padding-bottom: 150px">
+    data-image-src="" style="padding-bottom: 150px">
     <div class="container pt-17   position-relative">
         <div class="row">
             <div class="col-sm-6 col-xxl-5 text-center text-sm-start" data-cues="slideInDown" data-group="page-title"

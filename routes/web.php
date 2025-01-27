@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ApiController;
 
 // Route::get('/', function () {
 
@@ -17,7 +18,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/get-bank-rates/{bankId}', 'getBankRates')->name('get-bank-rates');
     Route::post('/submit-quotation-request', 'submitQuotationRequest')->name('submit-quotation-request');
     Route::post('/submit-request-call','saveCallbackRequest')->name('submit-request-call');
-    Route::get('/vehicle-import-cost-calculator-sri-lanaka', 'vehicleImport')->name('vehicle-import');
+    Route::get('/vehicle-import-cost-calculator-sri-lanka', 'vehicleImport')->name('vehicle-import');
     Route::get('/vehicle-insurance', 'vehicleInsurance')->name('vehicle-insurance');
 
     Route::get('/terms-and-conditions', 'terms')->name('terms');
@@ -27,6 +28,9 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/article/{slug}', 'blogDetail')->name('blog');
 });
 
+Route::controller(ApiController::class)->group(function () {
+    Route::get('api/getgooglereviews', 'getGoogleReviews')->name('get-google-reviews');
+});
 
 
 
