@@ -205,12 +205,12 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                             </div>
                                         </div>
                                         <div class="form-group col-lg-4 col-md-6 col-12 mt-2">
-                                            <label for="vehicleType">Vehicle Type:</label>
-                                            <select id="vehicleType" required class="form-select">
+                                            <label for="fuletype">Fuel Type:</label>
+                                            <select id="fuletype" required class="form-select">
                                                 <option value="petrol">Petrol</option>
                                                 <option value="diesel">Diesel</option>
-                                                <option value="hybrid">Hybrid</option>
-                                                <option value="pluginhybrid">Plugin Hybrid</option>
+                                                <option value="petrolhybrid">Petrol Hybrid</option>
+                                                <option value="dieselhybrid">Diesel Hybrid</option>
                                                 <option value="electric">Electric</option>
                                             </select>
                                         </div>
@@ -283,140 +283,113 @@ window.addEventListener('resize', updateBannerImage);
 </script>
 
 <script>
-const yearSelect = document.getElementById('yearOfManufacture');
-const currentYear = new Date().getFullYear();
+document.addEventListener("DOMContentLoaded", function() {
+    const importForm = document.getElementById("importForm");
+    const resultsDiv = document.getElementById("results");
+    const yearSelect = document.getElementById("yearOfManufacture");
 
-// Add the current year and the previous 5 years
-for (let i = 0; i <= 5; i++) {
-    const year = currentYear - i;
-    const option = document.createElement('option');
-    option.value = year;
-    option.textContent = year;
-    yearSelect.appendChild(option);
-}
-</script>
-<script>
-const cifPriceUSDInput = document.getElementById('cifPriceUSD');
-cifPriceUSDInput.addEventListener('input', function(e) {
-    const value = this.value.replace(/,/g, '');
-    this.value = Number(value).toLocaleString('en-US');
-});
-
-const exchangeRateInput = document.getElementById('exchangeRate');
-exchangeRateInput.addEventListener('input', function(e) {
-    const value = this.value.replace(/,/g, '');
-    this.value = Number(value).toLocaleString('en-US');
-});
-
-
-
-const engineCapacityInput = document.getElementById('engineCapacity');
-engineCapacityInput.addEventListener('input', function(e) {
-    this.value = this.value.replace(/[^0-9.]/g, '');
-});
-</script>
-<script>
-//clear form
-document.getElementById('importForm').reset();
-
-
-document.getElementById('importForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    calculatecost();
-});
-
-
-document.getElementById('cifPriceUSD').addEventListener('input', calculatecost);
-document.getElementById('exchangeRate').addEventListener('input', calculatecost);
-document.getElementById('vehicleType').addEventListener('change', calculatecost);
-document.getElementById('yearOfManufacture').addEventListener('input', calculatecost);
-document.getElementById('engineCapacity').addEventListener('input', calculatecost);
-
-
-function calculatecost() {
-    const exchangeRate = parseFloat(document.getElementById('exchangeRate').value.replace(/,/g, ''));
-    const cifPriceUSD = parseFloat(document.getElementById('cifPriceUSD').value.replace(/,/g, ''));
-    const vehicleType = document.getElementById('vehicleType').value;
-    const yearOfManufacture = parseInt(document.getElementById('yearOfManufacture').value);
-    const engineCapacity = parseFloat(document.getElementById('engineCapacity').value);
-    const resultsDiv = document.getElementById('results');
-
-    console.log(exchangeRate, cifPriceUSD, vehicleType, yearOfManufacture, engineCapacity);
-
-    if (isNaN(exchangeRate) || isNaN(cifPriceUSD) || isNaN(yearOfManufacture) || isNaN(engineCapacity)) {
-        resultsDiv.classList.remove('d-grid');
-        resultsDiv.classList.add('d-none');
-        return;
-    }
-    const cifPriceLKR = cifPriceUSD * exchangeRate;
-
-    let generalDutyRate, exciseTaxRate;
-
-    switch (vehicleType) {
-        case 'petrol':
-            generalDutyRate = 0.2;
-            exciseTaxRate = engineCapacity > 2000 ? 0.25 : 0.15;
-            break;
-        case 'diesel':
-            generalDutyRate = 0.25;
-            exciseTaxRate = engineCapacity > 2000 ? 0.30 : 0.20;
-            break;
-        case 'hybrid':
-            generalDutyRate = 0.15;
-            exciseTaxRate = 0.10;
-            break;
-        case 'pluginhybrid':
-            generalDutyRate = 0.10;
-            exciseTaxRate = 0.08;
-            break;
-        case 'electric':
-            generalDutyRate = 0.05;
-            exciseTaxRate = 0;
-            break;
-        default:
-            generalDutyRate = 0;
-            exciseTaxRate = 0;
+    // Populate Year of Manufacture Dropdown
+    const currentYear = new Date().getFullYear();
+    for (let year = currentYear; year >= 2000; year--) {
+        const option = document.createElement("option");
+        option.value = year;
+        option.textContent = year;
+        yearSelect.appendChild(option);
     }
 
-    const vatRate = 0.12;
-    const luxuryTaxThreshold = 10000000;
-    const luxuryTaxRate = 0.25;
+    importForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        calculateImportCost();
+    });
 
-    const generalDuty = cifPriceLKR * generalDutyRate;
-    const exciseTax = cifPriceLKR * exciseTaxRate;
-    const vat = (cifPriceLKR + generalDuty + exciseTax) * vatRate;
-    const luxuryTax = cifPriceLKR > luxuryTaxThreshold ? (cifPriceLKR - luxuryTaxThreshold) * luxuryTaxRate : 0;
+    function calculateImportCost() {
+        const cifUSD = parseFloat(document.getElementById("cifPriceUSD").value.replace(/,/g, ""));
+        const exchangeRate = parseFloat(document.getElementById("exchangeRate").value);
+        const fuelType = document.getElementById("fuletype").value;
+        const yearOfManufacture = parseInt(document.getElementById("yearOfManufacture").value);
+        const engineCapacity = parseFloat(document.getElementById("engineCapacity").value);
 
-    const totalCost = cifPriceLKR + generalDuty + exciseTax + vat + luxuryTax;
+        if (isNaN(cifUSD) || cifUSD <= 0 || isNaN(exchangeRate) || exchangeRate <= 0 || isNaN(engineCapacity) ||
+            engineCapacity <= 0) {
+            alert("Please enter valid values.");
+            return;
+        }
 
-    resultsDiv.classList.remove('d-none');
-    resultsDiv.classList.add('d-grid');
-    resultsDiv.innerHTML = `
-        <h3 class="modal-title mb-2">Vehicle Import Cost</h3>
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-4">
-                <p>CIF Price<br> <b>${formatToLKR(cifPriceLKR)}</b></p>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <p>General Duty<br> <b>${formatToLKR(generalDuty)}</b></p>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <p>Excise Tax<br> <b>${formatToLKR(exciseTax)}</b></p>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <p>VAT<br> <b>${formatToLKR(vat)}</b></p>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <p>Luxury Tax <br> <b>${formatToLKR(luxuryTax)}</b></p>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <h4 class="text-blue"><strong>Total Cost<br> <b>${formatToLKR(totalCost)}</b></strong></h4>
-            </div>
-        </div>
-    `;
-}
+        const age = currentYear - yearOfManufacture;
+        const cifLKR = cifUSD * exchangeRate;
+
+        let exciseDuty = 0;
+        if (fuelType === "electric") {
+            exciseDuty = getElectricExciseDuty(engineCapacity);
+        } else if (fuelType.includes("hybrid")) {
+            exciseDuty = getHybridExciseDuty(fuelType, engineCapacity);
+        } else {
+            const baseExcise = engineCapacity * getExciseDutyPerCC(engineCapacity);
+            exciseDuty = baseExcise * getAgeMultiplier(age);
+        }
+
+        const customsDuty = cifLKR * 0.30;
+        const pal = cifLKR * 0.10;
+        const baseForVAT = cifLKR + exciseDuty + customsDuty + pal;
+        const vat = baseForVAT * 0.18;
+
+        const luxuryTaxThreshold = 5000000;
+        const luxuryTax = baseForVAT > luxuryTaxThreshold ? (baseForVAT - luxuryTaxThreshold) * 0.25 : 0;
+
+        const totalCost = cifLKR + exciseDuty + customsDuty + pal + vat + luxuryTax;
+
+        resultsDiv.innerHTML = `
+            <h4>Calculation Breakdown</h4>
+            <p><strong>CIF Value:</strong> USD ${formatCurrency(cifUSD)} × ${exchangeRate} = LKR ${formatCurrency(cifLKR)}</p>
+            <p><strong>Excise Duty:</strong> LKR ${formatCurrency(exciseDuty)}</p>
+            <p><strong>Customs Duty (30% of CIF):</strong> LKR ${formatCurrency(customsDuty)}</p>
+            <p><strong>PAL (10% of CIF):</strong> LKR ${formatCurrency(pal)}</p>
+            <p><strong>VAT (18%):</strong> LKR ${formatCurrency(vat)}</p>
+            <p><strong>Luxury Tax:</strong> LKR ${luxuryTax > 0 ? formatCurrency(luxuryTax) : "Not Applicable"}</p>
+            <h4>Total Cost: LKR ${formatCurrency(totalCost)}</h4>
+        `;
+        resultsDiv.classList.remove("d-none");
+    }
+
+    function getExciseDutyPerCC(cc) {
+        if (cc <= 1500) return 4200;
+        if (cc <= 2000) return 6850;
+        if (cc <= 2500) return 8000;
+        if (cc <= 2750) return 9100;
+        if (cc <= 3000) return 10500;
+        if (cc <= 4000) return 12050;
+        return 13300;
+    }
+
+    function getElectricExciseDuty(kw) {
+        if (kw < 50) return 1000000;
+        if (kw <= 100) return 1500000;
+        if (kw <= 200) return 2500000;
+        return 4000000;
+    }
+
+    function getHybridExciseDuty(type, cc) {
+        if (type === "petrolhybrid") {
+            return cc <= 1500 ? 1500000 : 2500000;
+        } else {
+            return cc <= 1500 ? 2000000 : 3500000;
+        }
+    }
+
+    function getAgeMultiplier(age) {
+        if (age <= 3) return 1;
+        if (age <= 10) return 1 + (0.05 * (age - 3));
+        return 2;
+    }
+
+    function formatCurrency(amount) {
+        return amount.toLocaleString(undefined, {
+            maximumFractionDigits: 2
+        });
+    }
+});
 </script>
+
 
 
 
