@@ -203,7 +203,13 @@ with Easy Leasing.')
                                     <select id="leasingcompany" class="form-select" aria-label="Default select example">
                                         <option selected>Select Leasing/Bank</option>
                                         @foreach ($banks as $bank)
-                                        <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                            <?php
+                                            if($bank->hasrates){
+                                            ?>
+                                            <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                            <?php
+                                            }
+                                            ?>
                                         @endforeach
                                     </select>
                                 </div>
