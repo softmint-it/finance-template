@@ -499,6 +499,26 @@ duties, and other fees. Get accurate estimates for your import journey.')
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 
 <script>
+async function updateExchangeRate() {
+    try {
+        let response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=usd&vs_currencies=lkr');
+        let data = await response.json();
+
+        if (data.usd && data.usd.lkr) {
+            document.getElementById('exchangeRate').value = data.usd.lkr;
+        } else {
+            document.getElementById('exchangeRate').value = 300;
+        }
+    } catch (error) {
+        console.error("Error fetching exchange rate:", error);
+        document.getElementById('exchangeRate').value = 300;
+    }
+}
+
+updateExchangeRate();
+</script>
+
+<script>
 function updateBannerImage() {
     const banner = document.getElementById('easyleasingimportmainbanner');
     const mobileImageSrc = "{{env('BASE_URL')}}/assets/img/photos/vehicleimportmobilebanner.jpg";
