@@ -151,12 +151,12 @@ duties, and other fees. Get accurate estimates for your import journey.')
         <div class="row">
             <div class="col-12 text-center text-sm-start" data-cues="slideInDown" data-group="page-title"
                 data-interval="-200" data-delay="500">
-                <h2 class="display-1 fs-56 mb-4 mt-0 mt-lg-5 ls-xs pe-xl-5 pe-xxl-0 text-white"
+                <h1 class="display-1 fs-56 mb-4 mt-0 mt-lg-5 ls-xs pe-xl-5 pe-xxl-0 text-white"
                     style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">
                     Sri Lanka Vehicle Import
                     <br>
                     <span class="underline-3 style-3 yellow">Cost Calculator</span>
-                </h2>
+                </h1>
                 <!-- <div><a href="#leasingcomparisonsection" class="btn btn-lg btn-primary rounded">Best Rates</a></div> -->
             </div>
             <!--/column -->
@@ -177,8 +177,9 @@ duties, and other fees. Get accurate estimates for your import journey.')
                         <div class="card-header">
                             <div class="d-lg-flex d-block justify-content-between">
                                 <div class="d-flex justify-lg-content-between gap-3">
-                                    <h6 id="cifCalculatorTitle" class="cursor-pointer">Sri Lanka Vehicle Import Cost
-                                        Calculator</h6>
+                                    <h2 id="cifCalculatorTitle" class="cursor-pointer fs-16">Sri Lanka Vehicle Import
+                                        Cost
+                                        Calculator</h2>
                                 </div>
 
                             </div>
@@ -233,7 +234,74 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                 </form>
 
                             </div>
-                            <div id="results" class="d-none justify-content-center align-items-center mt-5"></div>
+                            <div id="results" class="d-none justify-content-center align-items-center mt-5">
+
+
+                            </div>
+
+
+                            <div class="row mt-2">
+                                <div class="alert alert-warning mt-3  fs-12 col-12">
+                                    <strong>Disclaimer:</strong> The above calculations are based on official documents
+                                    issued by the Sri Lankan government. The duties and taxes applied are as of
+                                    <strong>January 31, 2025</strong>.
+                                    Please note that these values are for reference purposes only and may be subject to
+                                    change without prior notice. Always consult the relevant authorities for the most
+                                    up-to-date and accurate information.
+                                </div>
+                                <!-- Customs Duty and VAT -->
+                                <div class="col-lg-3 col-6">
+                                    <div class="card text-center shadow-sm">
+                                        <div class="card-body">
+                                            <p class="card-title pdfcard_p text-center">Customs Duty and VAT</p>
+                                            <a href="{{ env('BASE_URL')}}/assets/uploads/taxdocs/Customs-Duty-and-VAT.pdf"
+                                                target="_blank" class="btn btn-primary text-center btn-sm pdfcard_a">
+                                                View
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Electric Vehicle Tax -->
+                                <div class="col-lg-3 col-6">
+                                    <div class="card text-center shadow-sm">
+                                        <div class="card-body ">
+                                            <p class="card-title text-center pdfcard_p">Electric Vehicle Tax</p>
+                                            <a href="{{ env('BASE_URL')}}/assets/uploads/taxdocs/Electric-Vehicle-Tax.pdf"
+                                                target="_blank" class="btn btn-primary text-center btn-sm pdfcard_a">
+                                                View
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Excise Duty Rates -->
+                                <div class="col-lg-3 col-6">
+                                    <div class="card text-center shadow-sm">
+                                        <div class="card-body">
+                                            <p class="card-title text-center pdfcard_p">Excise Duty Rates</p>
+                                            <a href="{{ env('BASE_URL')}}/assets/uploads/taxdocs/Excise-Duty-rates.pdf"
+                                                target="_blank" class="btn btn-primary text-center btn-sm pdfcard_a">
+                                                View
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Luxury Tax Gazette -->
+                                <div class="col-lg-3 col-6">
+                                    <div class="card text-center shadow-sm">
+                                        <div class="card-body">
+                                            <p class="card-title text-center pdfcard_p">Luxury Tax Gazette</p>
+                                            <a href="{{ env('BASE_URL')}}/assets/uploads/taxdocs/Luxury-tax-gazette.pdf"
+                                                target="_blank" class="btn btn-primary text-center btn-sm pdfcard_a">
+                                                View
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -283,112 +351,251 @@ window.addEventListener('resize', updateBannerImage);
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const importForm = document.getElementById("importForm");
-    const resultsDiv = document.getElementById("results");
-    const yearSelect = document.getElementById("yearOfManufacture");
+document.getElementById('cifPriceUSD').addEventListener('input', function(e) {
+    var value = e.target.value;
+    value = value.replace(/,/g, '');
+    value = value.replace(/[^\d.]/g, '');
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    e.target.value = value;
+});
+</script>
 
-    // Populate Year of Manufacture Dropdown
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const cifInput = document.getElementById("cifPriceUSD");
+    const exchangeRateInput = document.getElementById("exchangeRate");
+    const fuelTypeSelect = document.getElementById("fuletype");
+    const yearOfManufactureSelect = document.getElementById("yearOfManufacture");
+    const engineCapacityInput = document.getElementById("engineCapacity");
+    const resultsDiv = document.getElementById("results");
+    const importForm = document.getElementById("importForm");
+
+    const generalDutyPercentage = 30;
+    const vatPercentage = 18;
+    const luxuryTaxThreshold = 5000000;
+    const hybridLuxuryTaxThreshold = 5500000;
+    const electricLuxuryTaxThreshold = 6000000;
+
+    const dutyRates = {
+        petrol: [2450, 3850, 4450, 5150, 6400, 7700, 8450, 9650, 10850, 12050, 13300],
+        diesel: [5550, 6950, 8300, 9650, 9650, 10850, 12050, 13300, 14500],
+        petrolhybrid: [2750, 3450, 4800, 6300, 6900, 7250, 8450, 9650, 10850, 12050],
+        dieselhybrid: [4150, 4150, 5550, 6900, 8350, 8450, 9650, 10850, 12050],
+        electric: [0]
+    };
+
+    const electricrate = [{
+            min: 0,
+            max: 49,
+            "1Y": 18100,
+            "2Y": 36200,
+            "3Y": 48300
+        },
+        {
+            min: 50,
+            max: 99,
+            "1Y": 24100,
+            "2Y": 36200,
+            "3Y": 72400
+        },
+        {
+            min: 100,
+            max: 199,
+            "1Y": 36200,
+            "2Y": 60400,
+            "3Y": 108700
+        },
+        {
+            min: 200,
+            max: Infinity,
+            "1Y": 96600,
+            "2Y": 132800,
+            "3Y": 144900
+        }
+    ];
+
     const currentYear = new Date().getFullYear();
-    for (let year = currentYear; year >= 2000; year--) {
+    for (let year = currentYear; year >= 2022; year--) {
         const option = document.createElement("option");
         option.value = year;
         option.textContent = year;
-        yearSelect.appendChild(option);
+        yearOfManufactureSelect.appendChild(option);
     }
-
     importForm.addEventListener("submit", function(event) {
         event.preventDefault();
         calculateImportCost();
+
+        resultsDiv.scrollIntoView({
+            behavior: "smooth"
+        });
     });
 
+
+    cifInput.addEventListener("input", calculateImportCost);
+    exchangeRateInput.addEventListener("input", calculateImportCost);
+    fuelTypeSelect.addEventListener("change", calculateImportCost);
+    yearOfManufactureSelect.addEventListener("change", calculateImportCost);
+    engineCapacityInput.addEventListener("input", calculateImportCost);
+
+
+
     function calculateImportCost() {
-        const cifUSD = parseFloat(document.getElementById("cifPriceUSD").value.replace(/,/g, ""));
-        const exchangeRate = parseFloat(document.getElementById("exchangeRate").value);
-        const fuelType = document.getElementById("fuletype").value;
-        const yearOfManufacture = parseInt(document.getElementById("yearOfManufacture").value);
-        const engineCapacity = parseFloat(document.getElementById("engineCapacity").value);
+        const cifInUsd = parseFloat(cifInput.value.replace(/,/g, '').replace(/[^\d.]/g, ''));
+        const exchangeRate = parseFloat(exchangeRateInput.value);
+        const engineCapacity = parseInt(engineCapacityInput.value);
+        const fuelType = fuelTypeSelect.value;
+        const yearOfManufacture = yearOfManufactureSelect.value;
 
-        if (isNaN(cifUSD) || cifUSD <= 0 || isNaN(exchangeRate) || exchangeRate <= 0 || isNaN(engineCapacity) ||
-            engineCapacity <= 0) {
-            alert("Please enter valid values.");
-            return;
-        }
+        const cifInLkr = cifInUsd * exchangeRate;
+        const pal = cifInLkr * 10 / 100;
+        const generalDuty = (cifInLkr * generalDutyPercentage) / 100;
+        const ccduty = calculateExciseDuty(engineCapacity, fuelType, yearOfManufacture);
+        const capacity = ccduty[1];
+        const dutyPerCC = ccduty[0];
+        const exciseDuty = capacity * dutyPerCC;
+        const luxuryTax = calculateLuxuryTax(cifInLkr, fuelType);
+        const totalDuty = cifInLkr + generalDuty + exciseDuty + pal;
+        const vat = (totalDuty * vatPercentage) / 100;
+        const totalPrice = totalDuty + vat + luxuryTax;
+        displayResults(cifInLkr, generalDuty, exciseDuty, luxuryTax, vat, totalPrice, pal, capacity, dutyPerCC,
+            fuelType);
+    }
 
-        const age = currentYear - yearOfManufacture;
-        const cifLKR = cifUSD * exchangeRate;
-
-        let exciseDuty = 0;
+    function calculateExciseDuty(engineCapacity, fuelType, yearOfManufacture) {
         if (fuelType === "electric") {
-            exciseDuty = getElectricExciseDuty(engineCapacity);
-        } else if (fuelType.includes("hybrid")) {
-            exciseDuty = getHybridExciseDuty(fuelType, engineCapacity);
+            const electricc = calculateElectricExciseDuty(engineCapacity, yearOfManufacture);
+            return electricc;
+        }
+        let dutyPerCC = 0;
+        if (engineCapacity < 1000) {
+            dutyPerCC = dutyRates[fuelType][0];
+        } else if (engineCapacity < 1500) {
+            dutyPerCC = dutyRates[fuelType][1];
+        } else if (engineCapacity < 2000) {
+            dutyPerCC = dutyRates[fuelType][2];
+        } else if (engineCapacity < 2500) {
+            dutyPerCC = dutyRates[fuelType][3];
         } else {
-            const baseExcise = engineCapacity * getExciseDutyPerCC(engineCapacity);
-            exciseDuty = baseExcise * getAgeMultiplier(age);
+            dutyPerCC = dutyRates[fuelType][4];
+        }
+        let ccduty = [dutyPerCC, engineCapacity]
+        return ccduty;
+    }
+
+    function calculateElectricExciseDuty(engineCapacity, yearOfManufacture) {
+        let yearIndex = currentYear - yearOfManufacture;
+
+        if (yearIndex <= 0) {
+            yearIndex = 1;
         }
 
-        const customsDuty = cifLKR * 0.30;
-        const pal = cifLKR * 0.10;
-        const baseForVAT = cifLKR + exciseDuty + customsDuty + pal;
-        const vat = baseForVAT * 0.18;
+        let duty = 0;
 
-        const luxuryTaxThreshold = 5000000;
-        const luxuryTax = baseForVAT > luxuryTaxThreshold ? (baseForVAT - luxuryTaxThreshold) * 0.25 : 0;
-
-        const totalCost = cifLKR + exciseDuty + customsDuty + pal + vat + luxuryTax;
-
-        resultsDiv.innerHTML = `
-            <h4>Calculation Breakdown</h4>
-            <p><strong>CIF Value:</strong> USD ${formatCurrency(cifUSD)} × ${exchangeRate} = LKR ${formatCurrency(cifLKR)}</p>
-            <p><strong>Excise Duty:</strong> LKR ${formatCurrency(exciseDuty)}</p>
-            <p><strong>Customs Duty (30% of CIF):</strong> LKR ${formatCurrency(customsDuty)}</p>
-            <p><strong>PAL (10% of CIF):</strong> LKR ${formatCurrency(pal)}</p>
-            <p><strong>VAT (18%):</strong> LKR ${formatCurrency(vat)}</p>
-            <p><strong>Luxury Tax:</strong> LKR ${luxuryTax > 0 ? formatCurrency(luxuryTax) : "Not Applicable"}</p>
-            <h4>Total Cost: LKR ${formatCurrency(totalCost)}</h4>
-        `;
-        resultsDiv.classList.remove("d-none");
-    }
-
-    function getExciseDutyPerCC(cc) {
-        if (cc <= 1500) return 4200;
-        if (cc <= 2000) return 6850;
-        if (cc <= 2500) return 8000;
-        if (cc <= 2750) return 9100;
-        if (cc <= 3000) return 10500;
-        if (cc <= 4000) return 12050;
-        return 13300;
-    }
-
-    function getElectricExciseDuty(kw) {
-        if (kw < 50) return 1000000;
-        if (kw <= 100) return 1500000;
-        if (kw <= 200) return 2500000;
-        return 4000000;
-    }
-
-    function getHybridExciseDuty(type, cc) {
-        if (type === "petrolhybrid") {
-            return cc <= 1500 ? 1500000 : 2500000;
-        } else {
-            return cc <= 1500 ? 2000000 : 3500000;
+        for (const rate of electricrate) {
+            if (engineCapacity >= rate.min && engineCapacity <= rate.max) {
+                duty = rate[`${yearIndex}Y`] || 0;
+                break;
+            }
         }
+        let ccduty = [duty, engineCapacity]
+        return ccduty;
     }
 
-    function getAgeMultiplier(age) {
-        if (age <= 3) return 1;
-        if (age <= 10) return 1 + (0.05 * (age - 3));
-        return 2;
+    function calculateLuxuryTax(cifInLkr, fuelType) {
+        let luxuryTax = 0;
+        if (cifInLkr > luxuryTaxThreshold) {
+            if (fuelType === "petrolhybrid" || fuelType === "dieselhybrid") {
+                luxuryTax = ((cifInLkr - hybridLuxuryTaxThreshold) * 100) / 100;
+            } else if (fuelType === "electric") {
+                luxuryTax = ((cifInLkr - electricLuxuryTaxThreshold) * 60) / 100;
+            } else {
+                luxuryTax = ((cifInLkr - luxuryTaxThreshold) * 100) / 100;
+            }
+        }
+        if (luxuryTax < 0) {
+            luxuryTax = 0;
+        }
+        return luxuryTax;
     }
 
-    function formatCurrency(amount) {
-        return amount.toLocaleString(undefined, {
+    function formatNumber(value) {
+        return value.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
     }
+
+    function displayResults(cifInLkr, generalDuty, exciseDuty, luxuryTax, vat, totalPrice, pal, capacity,
+        dutyPerCC, fuelType) {
+        if (!resultsDiv) {
+            console.error("Error: resultsDiv is not defined.");
+            return;
+        }
+
+        let capacityunit = "";
+        if (fuelType === "electric") {
+            capacityunit = "kW";
+        } else {
+            capacityunit = "cc";
+        }
+
+        //isNAN for all values
+        if (isNaN(cifInLkr) || isNaN(generalDuty) || isNaN(exciseDuty) || isNaN(luxuryTax) || isNaN(vat) ||
+            isNaN(totalPrice) || isNaN(pal) || isNaN(capacity) || isNaN(dutyPerCC)) {
+            resultsDiv.classList.add("d-none");
+            return;
+        }
+
+        resultsDiv.classList.remove("d-none");
+        resultsDiv.innerHTML = `
+        <div class="card shadow-lg pt-4 pb-4">
+            <p class="underline-3 style-3 yellow text-center text-primary mb-4 costresult_t">Total Cost(LKR) : ${formatNumber(totalPrice)} </p>
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    ${generateBox("CIF in LKR", cifInLkr)}
+                </div>
+                <div class="col-md-3 col-6">
+                    ${generateBox("General Duty", generalDuty)}
+                </div>
+                <div class="col-md-3 col-6">
+                    <lable class="badge bg-dark mb-1 fs-14">Duty Per CC/kW</lable>
+                    <div class="border p-3 rounded text-md-center text-left">
+                        <p class="m-0 genbox_p fw-bold">${capacity}${capacityunit} X ${formatToLKR(dutyPerCC)}</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    ${generateBox("Excise Duty", exciseDuty)}
+                </div>
+                <div class="col-md-3 col-6">
+                    ${generateBox("Luxury Tax", luxuryTax)}
+                </div>
+                <div class="col-md-3 col-6">
+                    ${generateBox("VAT", vat)}
+                </div>
+                <div class="col-md-3 col-6">
+                    ${generateBox("Ports and Airport Levy", pal)}
+                </div>
+                <div class="col-md-3 col-6">
+                    ${generateBox("Total Price", totalPrice, "bg-yellow text-white fw-bold")}
+                </div>
+            </div>
+        </div>
+    `;
+    }
+
+
+    function generateBox(label, value, extraClasses = "bg-light") {
+        return `
+            <lable class="badge bg-dark mb-1 genbox_lable">${label}</lable>
+            <div class="border p-3 rounded text-md-center text-left ${extraClasses}">
+                <p class="m-0 genbox_p fw-bold">${formatToLKR(value)}</p>
+            </div>
+    `;
+    }
 });
 </script>
+
+
 
 
 
