@@ -173,9 +173,9 @@ with Easy Leasing.')
                         <div class="card-header">
                             <div class="d-lg-flex d-block justify-content-between">
                                 <div class="d-flex justify-lg-content-between gap-3">
-                                    <h6 id="leasingCalculatorTitle" class="cursor-pointer cal-font">Leasing Calculator
-                                    </h6>
-                                    <h6 id="standardCalculatorTitle" class="cursor-pointer cal-font">EMI Calculator</h6>
+                                    <p id="leasingCalculatorTitle" class="cursor-pointer cal-font">Leasing Calculator
+                                    </p>
+                                    <p id="standardCalculatorTitle" class="cursor-pointer cal-font">EMI Calculator</p>
                                 </div>
                                 <div class="slider">
                                     <div class="slide-track">
@@ -203,11 +203,11 @@ with Easy Leasing.')
                                     <select id="leasingcompany" class="form-select" aria-label="Default select example">
                                         <option selected>Select Leasing/Bank</option>
                                         @foreach ($banks as $bank)
-                                            <?php
+                                        <?php
                                             if($bank->hasrates){
                                             ?>
-                                            <option value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                            <?php
+                                        <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                        <?php
                                             }
                                             ?>
                                         @endforeach
@@ -332,9 +332,10 @@ with Easy Leasing.')
     <div class="container py-8 py-md-10">
         <div class="row text-center">
             <div class="col-lg-10 col-xl-8 col-xxl-8 mx-auto">
-                <h2 class="fs-15 text uppercase text-muted mb-3">Leasing Comparison</h2>
-                <h3 class="display-3 ls-sm mb-9 px-xl-11">Vehicle <span class="underline-3 style-3 yellow">Leasing
-                        Rates</span> Sri Lanka</h3>
+                <p class="fs-15 text uppercase text-muted mb-3">Leasing Comparison</p>
+                <h1 class="display-3 ls-sm mb-9 px-xl-11">Vehicle <span class="underline-3 style-3 yellow">Leasing
+                        Rates</span> Sri Lanka</h1>
+                sp
             </div>
             <!-- /column -->
         </div>
@@ -384,7 +385,7 @@ with Easy Leasing.')
                                 <div class="me-3 justify-content-center text-center align-items-center">
                                     <img src="{{env('BASE_URL')}}{{ $bank->logo }}" alt="{{ $bank->name }}"
                                         class="img-fluid table-bank-logo" margin-right:10px" />
-                                    <h2 class="text-uppercase text-muted mb-3 table-bank-name">{{ $bank->name }}</h2>
+                                    <p class="text-uppercase text-muted mb-3 table-bank-name">{{ $bank->name }}</p>
                                     <a href="javascript:void(0);" data-bs-toggle="modal"
                                         data-bs-target="#bankModal{{ $bank->id }}">
                                         <i class="uil uil-file-alt fs-15"></i>View Details
@@ -445,10 +446,10 @@ with Easy Leasing.')
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header" style="padding-bottom: 0;">
-                            <h5 class="modal-title bank-modal-title" id="bankModalLabel{{ $bank->id }}">
+                            <p class="modal-title bank-modal-title" id="bankModalLabel{{ $bank->id }}">
                                 {{ $bank->name }} - Leasing
                                 Details
-                            </h5>
+                            </p>
                             <img src="{{env('BASE_URL')}}{{ $bank->logo }}" alt="{{ $bank->name }}"
                                 class="img-fluid bank-modal-logo" />
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -460,7 +461,7 @@ with Easy Leasing.')
                                     class="gap-2">{{ $bank->website }}<i class="uil uil-external-link-alt"
                                         style="margin-left:10px;"></i></a>
                             </p>
-                            <h6>Available Facility Types and Rates</h6>
+                            <p>Available Facility Types and Rates</p>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-fonts-modal text-center table-responsive">
                                     <thead>
@@ -524,9 +525,8 @@ with Easy Leasing.')
         <div class="row gx-0">
             <div class="col-lg-6 ms-auto">
                 <div class="pt-13 pb-15 pb-md-17 py-lg-16 ps-lg-15 pe-xxl-16">
-                    <!--h2 class="fs-15 text-uppercase text-muted mb-3">How It Works ?</h2 -->
-                    <h3 class="display-3 ls-sm mb-7"><span class="underline-3 style-3 yellow">Leasing Made Easy</span>
-                    </h3>
+                    <p class="display-3 ls-sm mb-7"><span class="underline-3 style-3 yellow">Leasing Made Easy</span>
+                    </p>
 
                     <!-- Step 1 -->
                     <div class="d-flex flex-row mb-5">
@@ -535,7 +535,7 @@ with Easy Leasing.')
                                 class="svg-inject icon-svg icon-svg-md text-blue me-5 mt-1" alt="Compare Rates Icon" />
                         </div>
                         <div>
-                            <h4 class="fs-20 ls-sm">Tell Us Your Needs</h4>
+                            <p class="fs-20 ls-sm">Tell Us Your Needs</p>
                             <p class="mb-0">Share your requirements, and we’ll handle the rest.</p>
                         </div>
                     </div>
@@ -548,7 +548,7 @@ with Easy Leasing.')
                                 alt="Choose Best Company Icon" />
                         </div>
                         <div>
-                            <h4 class="fs-20 ls-sm">Compare & Select</h4>
+                            <p class="fs-20 ls-sm">Compare & Select</p>
                             <p class="mb-0">Review and choose the best leasing facility tailored to your needs.</p>
                         </div>
                     </div>
@@ -562,7 +562,7 @@ with Easy Leasing.')
                                 alt="Apply for Leasing Icon" />
                         </div>
                         <div>
-                            <h4 class="fs-20 ls-sm">Drive Your Dream Car</h4>
+                            <p class="fs-20 ls-sm">Drive Your Dream Car</p>
                             <p class="mb-0">Turn your dream into reality with the perfect leasing solution!</p>
                         </div>
                     </div>
@@ -579,8 +579,8 @@ with Easy Leasing.')
     <div class="container py-8 py-md-10">
         <div class="row text-center">
             <div class="col-lg-10 col-xl-7 col-xxl-6 mx-auto">
-                <h2 class="fs-15 text-uppercase text-muted mb-3">Blogs</h2>
-                <h3 class="display-3 ls-sm mb-10">Explore our insightful articles on vehicle leasing.</h3>
+                <p class="fs-15 text-uppercase text-muted mb-3">Blogs</p>
+                <p class="display-3 ls-sm mb-10">Explore our insightful articles on vehicle leasing.</p>
             </div>
         </div>
         <div class="swiper-container blog grid-view mb-10" data-margin="30" data-dots="true" data-items-xl="3"
@@ -594,12 +594,12 @@ with Easy Leasing.')
                                     href="{{route('blog', $blog->slug)}}">
                                     <img src="{{env('BASE_URL')}}{{ $blog->temp_img }}" alt="" /></a>
                                 <figcaption>
-                                    <h5 class="from-top mb-0">Read More</h5>
+                                    <p class="from-top mb-0">Read More</p>
                                 </figcaption>
                             </figure>
                             <div class="post-header">
-                                <h2 class="post-title h3 ls-sm mb-3"><a class="link-dark"
-                                        href="{{route('blog', $blog->slug)}}">{{$blog->title}}</a></h2>
+                                <p class="post-title h3 ls-sm mb-3"><a class="link-dark"
+                                        href="{{route('blog', $blog->slug)}}">{{$blog->title}}</a></p>
                             </div>
                             <div class="post-footer">
                                 <ul class="post-meta">
@@ -636,14 +636,14 @@ with Easy Leasing.')
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header" style="padding-bottom: 0;">
-                <h4 class="modal-title" id="installmentPlanModalLabel">Installment Plan</h4>
+                <p class="modal-title" id="installmentPlanModalLabel">Installment Plan</p>
                 <button id="downloadPdf" class="btn btn-primary btn-sm">Download as PDF</button>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div id="bank-name-logo" class="d-none justify-content-between w-100 mb-2"></div>
                 <div id="modal-leasing-info" class="d-none justify-content-center align-items-center w-100"></div>
-                <h3 class="modal-title">Installment Schedule</h3>
+                <p class="modal-title">Installment Schedule</p>
                 <div class="table-responsive">
                     <table class="table table-bordered table-fonts">
                         <thead>
@@ -1035,7 +1035,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modal_leasing_info_div.classList.add('d-flex');
 
             if (bankDetails) {
-                modla_bank_name_logo.innerHTML = `<h4>${bankDetails.name}</h4>
+                modla_bank_name_logo.innerHTML = `<p>${bankDetails.name}</p>
                     <img src="${bankDetails.logo}" alt="${bankDetails.name}" class="img-fluid" style="width: 20%;" />
                 `;
             }

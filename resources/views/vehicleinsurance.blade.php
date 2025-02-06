@@ -142,11 +142,11 @@ from top providers and secure the best coverage for your vehicle.')
         <div class="row">
             <div class="col-12 text-center text-sm-start" data-cues="slideInDown" data-group="page-title"
                 data-interval="-200" data-delay="500">
-                <h2 class="display-1 fs-56 mb-4 mt-0 mt-lg-5 ls-xs pe-xl-5 pe-xxl-0 text-black" style="">
+                <h1 class="display-1 fs-56 mb-4 mt-0 mt-lg-5 ls-xs pe-xl-5 pe-xxl-0 text-black" style="">
                     Compare Best
                     <br>
                     <span class="underline-3 style-3 yellow">Motor Insurance Sri Lanka</span>
-                </h2>
+                </h1>
                 <!-- <div><a href="#leasingcomparisonsection" class="btn btn-lg btn-primary rounded">Best Rates</a></div> -->
             </div>
             <!--/column -->
@@ -167,7 +167,7 @@ from top providers and secure the best coverage for your vehicle.')
                         <div class="card-header">
                             <div class="d-lg-flex d-block justify-content-between">
                                 <div class="d-flex justify-lg-content-between gap-3">
-                                    <h6 id="cifCalculatorTitle" class="cursor-pointer">Motor Insurance Sri Lanka</h6>
+                                    <h4 id="cifCalculatorTitle" class="cursor-pointer">Motor Insurance Sri Lanka</h4>
                                 </div>
                             </div>
                         </div>
@@ -193,9 +193,9 @@ from top providers and secure the best coverage for your vehicle.')
                                 <!-- generate a text that syaing if you want w motor inusrace feel free to contact us -->
                                 <div
                                     class="col-md-12 text-center mt-3 d-grid justify-content-center align-items-center">
-                                    <h5 class="text-center mt-5">If you want to get a motor insurance, feel free to
+                                    <p class="text-center mt-5">If you want to get a motor insurance, feel free to
                                         contact
-                                        us.</h5>
+                                        us.</p>
                                     <a href="tel:{{env('COMPANY_PHONE')}}"
                                         class="link-dark fs-22 fs-md-22 fs-lg-32  gap-2 align-items-center justify-content-center"
                                         style="padding: 0;">
