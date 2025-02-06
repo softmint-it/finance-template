@@ -281,6 +281,11 @@
     font-size: 14px !important;
 }
 
+.card-img-top {
+    width: 120px;
+    object-fit: cover;
+}
+
 @media screen and (max-width: 1400px) {
     .pdfcard_p {
         font-size: 13px !important;

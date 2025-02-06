@@ -156,8 +156,11 @@ duties, and other fees. Get accurate estimates for your import journey.')
                     Sri Lanka Vehicle Import
                     <br>
                     <span class="underline-3 style-3 yellow">Cost Calculator</span>
+
                 </h1>
-                <!-- <div><a href="#leasingcomparisonsection" class="btn btn-lg btn-primary rounded">Best Rates</a></div> -->
+                <div class="top-button-container">
+                    <div id="showvehiclelistbtn" class="btn btn-sm btn-primary rounded">Vehicle List</div>
+                </div>
             </div>
             <!--/column -->
         </div>
@@ -302,12 +305,180 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                 </div>
                             </div>
 
+                            <!-- sample vehicle list -->
+                            <div class="mt-4" id="vehiclelistdiv">
+                                <div class="row">
+                                    <p class="fs-32 fw-bold text-center underline-3 style-3 yellow mb-4">Vehicle List
+                                    </p>
+                                    <!-- Row 1 -->
+                                    <div id="vehicle1" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/prius-2024.png"
+                                                class="card-img-top" alt="Toyota Prius 2024">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>TOYOTA Prius 2024</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="vehicle2" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/wagonr-2024.png"
+                                                class="card-img-top" alt="Suzuki WagonR 2024">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>SUZUKI WagonR 2024</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="vehicle3" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/alto-2024.png"
+                                                class="card-img-top" alt="Maruti Suzuki Alto">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>MARUTI Suzuki Alto</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 2 -->
+                                    <div id="vehicle4" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/audi-a3-hybrid.png"
+                                                class="card-img-top" alt="Audi A3 Hybrid 1000cc">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>AUDI A3 Hybrid 1000cc</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="vehicle5" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/bmw-3-2024.png"
+                                                class="card-img-top" alt="BMW 3 Series Diesel">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>BMW 3 Series Diesel</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="vehicle6" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/banz-c-2024.png"
+                                                class="card-img-top" alt="Mercedes Benz C Class Petrol">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>MERCEDES Benz C Class Petrol</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="vehicle7" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/cx-5-2024.png"
+                                                class="card-img-top" alt="Mazda CX-5 Petrol">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>MAZDA CX-5 Petrol</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 3 -->
+                                    <div id="vehicle8" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/vezel-petrol-2024.png"
+                                                class="card-img-top" alt="Honda Vezel Petrol">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>HONDA Vezel Petrol</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="vehicle9" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/atto-3-2024.png"
+                                                class="card-img-top" alt="BYD Atto 3">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>BYD Atto 3</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="vehicle10" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/xtrail-2024.png"
+                                                class="card-img-top" alt="Nissan Xtrail Petrol">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>NISSAN Xtrail Petrol</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="vehicle11" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/tesla-y-2024.png"
+                                                class="card-img-top" alt="Tesla Model Y">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>Tesla Model Y</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 4 -->
+                                    <div id="vehicle12" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/aqua-2024.png"
+                                                class="card-img-top" alt="Toyota Aqua Hybrid">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>TOYOTA Aqua Hybrid</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="vehicle13" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/camry-hybrid-2024.png"
+                                                class="card-img-top" alt="Toyota Camry Petrol Hybrid">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>TOYOTA Camry Petrol Hybrid</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto btn-sm">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="vehicle14" class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100">
+                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/forester-2024.png"
+                                                class="card-img-top" alt="Subaru Forester Petrol">
+                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
+                                                <p>SUBARU Forester Petrol</p>
+                                                <button class="btn btn-primary w-100 btn-sm mt-auto btn-sm">Tap to see
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>
 @endsection
 
@@ -348,6 +519,14 @@ updateBannerImage();
 
 // Run on window resize
 window.addEventListener('resize', updateBannerImage);
+</script>
+
+<script>
+document.getElementById('showvehiclelistbtn').addEventListener('click', function() {
+    document.getElementById('vehiclelistdiv').scrollIntoView({
+        behavior: "smooth"
+    });
+});
 </script>
 
 <script>
@@ -438,6 +617,108 @@ document.addEventListener("DOMContentLoaded", function() {
     engineCapacityInput.addEventListener("input", calculateImportCost);
 
 
+    const vehiclelist = [{
+            cifUsd: 23662,
+            engineCapacity: 1800,
+            fuletype: "petrolhybrid",
+            year: '2024'
+        },
+        {
+            cifUsd: 10200,
+            engineCapacity: 660,
+            fuletype: "petrol",
+            year: '2024'
+        },
+        {
+            cifUsd: 5500,
+            engineCapacity: 800,
+            fuletype: "petrol",
+            year: '2024'
+        },
+        {
+            cifUsd: 23510,
+            engineCapacity: 1000,
+            fuletype: "petrolhybrid",
+            year: '2024'
+        },
+        {
+            cifUsd: 45800,
+            engineCapacity: 2000,
+            fuletype: "diesel",
+            year: '2024'
+        },
+        {
+            cifUsd: 53000,
+            engineCapacity: 2000,
+            fuletype: "petrol",
+            year: '2024'
+        },
+        {
+            cifUsd: 22283,
+            engineCapacity: 2000,
+            fuletype: "petrol",
+            year: '2024'
+        },
+        {
+            cifUsd: 17627,
+            engineCapacity: 1500,
+            fuletype: "petrol",
+            year: '2024'
+        },
+        {
+            cifUsd: 30546,
+            engineCapacity: 150,
+            fuletype: "electric",
+            year: '2024'
+        },
+        {
+            cifUsd: 28270,
+            engineCapacity: 1500,
+            fuletype: "petrol",
+            year: '2024'
+        },
+        {
+            cifUsd: 45000,
+            engineCapacity: 202,
+            fuletype: "electric",
+            year: '2024'
+        },
+        {
+            cifUsd: 16629,
+            engineCapacity: 1500,
+            fuletype: "petrolhybrid",
+            year: '2024'
+        },
+        {
+            cifUsd: 28270,
+            engineCapacity: 2500,
+            fuletype: "petrolhybrid",
+            year: '2024'
+        },
+        {
+            cifUsd: 24611,
+            engineCapacity: 2500,
+            fuletype: "petrol",
+            year: '2024'
+        },
+    ];
+
+    for (let i = 0; i < vehiclelist.length; i++) {
+        const vehicle = vehiclelist[i];
+        const vehicleElement = document.getElementById(`vehicle${i + 1}`);
+        vehicleElement.addEventListener("click", () => loadListedPrice(vehicle));
+    }
+
+    function loadListedPrice(vehicle) {
+        cifInput.value = vehicle.cifUsd;
+        engineCapacityInput.value = vehicle.engineCapacity;
+        fuelTypeSelect.value = vehicle.fuletype;
+        yearOfManufactureSelect.value = vehicle.year;
+        document.getElementById('cifCalculatorTitle').scrollIntoView({
+            behavior: "smooth"
+        });
+        calculateImportCost();
+    }
 
     function calculateImportCost() {
         const cifInUsd = parseFloat(cifInput.value.replace(/,/g, '').replace(/[^\d.]/g, ''));
@@ -529,6 +810,7 @@ document.addEventListener("DOMContentLoaded", function() {
         dutyPerCC, fuelType) {
         if (!resultsDiv) {
             console.error("Error: resultsDiv is not defined.");
+
             return;
         }
 
@@ -594,6 +876,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 </script>
+
+
+
+
+
 
 
 
