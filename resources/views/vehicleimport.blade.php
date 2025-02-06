@@ -244,7 +244,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
 
 
                             <div class="row mt-2">
-                                <div class="alert alert-warning mt-3  fs-12 col-12">
+                                <div class="alert alert-warning mt-3 fs-12 col-12">
                                     <strong>Disclaimer:</strong> The above calculations are based on official documents
                                     issued by the Sri Lankan government. The duties and taxes applied are as of
                                     <strong>January 31, 2025</strong>.
@@ -252,53 +252,51 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                     change without prior notice. Always consult the relevant authorities for the most
                                     up-to-date and accurate information.
                                 </div>
-                                <!-- Customs Duty and VAT -->
+
+                                <!-- Tax Information Cards -->
                                 <div class="col-lg-3 col-6">
-                                    <div class="card text-center shadow-sm">
-                                        <div class="card-body">
-                                            <p class="card-title pdfcard_p text-center">Customs Duty and VAT</p>
+                                    <div class="card text-center shadow-sm h-100 d-flex flex-column">
+                                        <div class="card-body d-flex flex-column">
+                                            <p class="pdfcard_p flex-grow-1">Customs Duty and VAT</p>
                                             <a href="{{ env('BASE_URL')}}/assets/uploads/taxdocs/Customs-Duty-and-VAT.pdf"
-                                                target="_blank" class="btn btn-primary text-center btn-sm pdfcard_a">
-                                                View
+                                                target="_blank" class="btn custom-btn2 mt-auto">
+                                                <i class="fas fa-file-pdf"></i> View PDF
                                             </a>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Electric Vehicle Tax -->
                                 <div class="col-lg-3 col-6">
-                                    <div class="card text-center shadow-sm">
-                                        <div class="card-body ">
-                                            <p class="card-title text-center pdfcard_p">Electric Vehicle Tax</p>
+                                    <div class="card text-center shadow-sm h-100 d-flex flex-column">
+                                        <div class="card-body d-flex flex-column">
+                                            <p class="pdfcard_p flex-grow-1">Electric Vehicle Tax</p>
                                             <a href="{{ env('BASE_URL')}}/assets/uploads/taxdocs/Electric-Vehicle-Tax.pdf"
-                                                target="_blank" class="btn btn-primary text-center btn-sm pdfcard_a">
-                                                View
+                                                target="_blank" class="btn custom-btn2 mt-auto">
+                                                <i class="fas fa-file-pdf"></i> View PDF
                                             </a>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Excise Duty Rates -->
                                 <div class="col-lg-3 col-6">
-                                    <div class="card text-center shadow-sm">
-                                        <div class="card-body">
-                                            <p class="card-title text-center pdfcard_p">Excise Duty Rates</p>
+                                    <div class="card text-center shadow-sm h-100 d-flex flex-column">
+                                        <div class="card-body d-flex flex-column">
+                                            <p class="pdfcard_p flex-grow-1">Excise Duty Rates</p>
                                             <a href="{{ env('BASE_URL')}}/assets/uploads/taxdocs/Excise-Duty-rates.pdf"
-                                                target="_blank" class="btn btn-primary text-center btn-sm pdfcard_a">
-                                                View
+                                                target="_blank" class="btn custom-btn2 mt-auto">
+                                                <i class="fas fa-file-pdf"></i> View PDF
                                             </a>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Luxury Tax Gazette -->
                                 <div class="col-lg-3 col-6">
-                                    <div class="card text-center shadow-sm">
-                                        <div class="card-body">
-                                            <p class="card-title text-center pdfcard_p">Luxury Tax Gazette</p>
+                                    <div class="card text-center shadow-sm h-100 d-flex flex-column">
+                                        <div class="card-body d-flex flex-column">
+                                            <p class="pdfcard_p flex-grow-1">Luxury Tax Gazette</p>
                                             <a href="{{ env('BASE_URL')}}/assets/uploads/taxdocs/Luxury-tax-gazette.pdf"
-                                                target="_blank" class="btn btn-primary text-center btn-sm pdfcard_a">
-                                                View
+                                                target="_blank" class="btn custom-btn2 mt-auto">
+                                                <i class="fas fa-file-pdf"></i> View PDF
                                             </a>
                                         </div>
                                     </div>
@@ -311,7 +309,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                     <p class="fs-32 fw-bold text-center underline-3 style-3 yellow mb-4">Vehicle List
                                     </p>
                                     <!-- Row 1 -->
-                                    <div id="vehicle1" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle1" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/prius-2024.png"
                                                 class="card-img-top" alt="Toyota Prius 2024">
@@ -322,7 +320,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="vehicle2" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle2" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/wagonr-2024.png"
                                                 class="card-img-top" alt="Suzuki WagonR 2024">
@@ -333,7 +331,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="vehicle3" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle3" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/alto-2024.png"
                                                 class="card-img-top" alt="Maruti Suzuki Alto">
@@ -346,7 +344,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                     </div>
 
                                     <!-- Row 2 -->
-                                    <div id="vehicle4" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle4" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/audi-a3-hybrid.png"
                                                 class="card-img-top" alt="Audi A3 Hybrid 1000cc">
@@ -357,7 +355,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="vehicle5" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle5" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/bmw-3-2024.png"
                                                 class="card-img-top" alt="BMW 3 Series Diesel">
@@ -368,7 +366,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="vehicle6" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle6" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/banz-c-2024.png"
                                                 class="card-img-top" alt="Mercedes Benz C Class Petrol">
@@ -379,7 +377,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="vehicle7" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle7" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/cx-5-2024.png"
                                                 class="card-img-top" alt="Mazda CX-5 Petrol">
@@ -392,7 +390,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                     </div>
 
                                     <!-- Row 3 -->
-                                    <div id="vehicle8" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle8" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/vezel-petrol-2024.png"
                                                 class="card-img-top" alt="Honda Vezel Petrol">
@@ -403,7 +401,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="vehicle9" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle9" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/atto-3-2024.png"
                                                 class="card-img-top" alt="BYD Atto 3">
@@ -414,7 +412,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="vehicle10" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle10" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/xtrail-2024.png"
                                                 class="card-img-top" alt="Nissan Xtrail Petrol">
@@ -425,7 +423,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="vehicle11" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle11" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/tesla-y-2024.png"
                                                 class="card-img-top" alt="Tesla Model Y">
@@ -438,7 +436,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                     </div>
 
                                     <!-- Row 4 -->
-                                    <div id="vehicle12" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle12" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/aqua-2024.png"
                                                 class="card-img-top" alt="Toyota Aqua Hybrid">
@@ -449,7 +447,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="vehicle13" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle13" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/camry-hybrid-2024.png"
                                                 class="card-img-top" alt="Toyota Camry Petrol Hybrid">
@@ -460,7 +458,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="vehicle14" class="col-md-3 col-sm-6 mb-4">
+                                    <div id="vehicle14" class="col-md-3 col-6 mb-4">
                                         <div class="card d-flex flex-column align-items-center h-100">
                                             <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/forester-2024.png"
                                                 class="card-img-top" alt="Subaru Forester Petrol">
