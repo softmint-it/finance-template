@@ -145,7 +145,7 @@ from top providers and secure the best coverage for your vehicle.')
                 <h1 class="display-1 fs-56 mb-4 mt-0 mt-lg-5 ls-xs pe-xl-5 pe-xxl-0 text-black" style="">
                     Compare Best
                     <br>
-                    <span class="underline-3 style-3 yellow">Motor Insurance Sri Lanka</span>
+                    <span class="underline-3 style-3 orange">Motor Insurance Sri Lanka</span>
                 </h1>
                 <!-- <div><a href="#leasingcomparisonsection" class="btn btn-lg btn-primary rounded">Best Rates</a></div> -->
             </div>

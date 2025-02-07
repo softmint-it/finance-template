@@ -81,7 +81,32 @@ class HomeController extends Controller
 public function vehicleImport(): View
 {
     $banks = Bank::where('status', 1)->get();
-    return view('vehicleimport', compact('banks'));
+
+    $vehicles = [
+    ['id' => 1, 'name' => 'TOYOTA Prius 2024', 'image' => 'prius-2024.png'],
+    ['id' => 2, 'name' => 'SUZUKI WagonR 2024', 'image' => 'wagonr-2024.png'],
+    ['id' => 3, 'name' => 'MARUTI Suzuki Alto', 'image' => 'alto-2024.png'],
+    ['id' => 4, 'name' => 'AUDI A3 Hybrid 1000cc', 'image' => 'audi-a3-hybrid.png'],
+    ['id' => 5, 'name' => 'BMW 3 Series Diesel', 'image' => 'bmw-3-2024.png'],
+    ['id' => 6, 'name' => 'MERCEDES Benz C Class Petrol', 'image' => 'banz-c-2024.png'],
+    ['id' => 7, 'name' => 'MAZDA CX-5 Petrol', 'image' => 'cx-5-2024.png'],
+    ['id' => 8, 'name' => 'HONDA Vezel Petrol', 'image' => 'vezel-petrol-2024.png'],
+    ['id' => 9, 'name' => 'BYD Atto 3', 'image' => 'atto-3-2024.png'],
+    ['id' => 10, 'name' => 'NISSAN Xtrail Petrol', 'image' => 'xtrail-2024.png'],
+    ['id' => 11, 'name' => 'Tesla Model Y', 'image' => 'tesla-y-2024.png'],
+    ['id' => 12, 'name' => 'TOYOTA Aqua Hybrid', 'image' => 'aqua-2024.png'],
+    ['id' => 13, 'name' => 'TOYOTA Camry Petrol Hybrid', 'image' => 'camry-hybrid-2024.png'],
+    ['id' => 14, 'name' => 'SUBARU Forester Petrol', 'image' => 'forester-2024.png'],
+];
+
+$pdfDocuments = [
+    ['title' => 'Customs Duty and VAT', 'file' => 'Customs-Duty-and-VAT.pdf'],
+    ['title' => 'Electric Vehicle Tax', 'file' => 'Electric-Vehicle-Tax.pdf'],
+    ['title' => 'Excise Duty Rates', 'file' => 'Excise-Duty-rates.pdf'],
+    ['title' => 'Luxury Tax Gazette', 'file' => 'Luxury-tax-gazette.pdf'],
+];
+
+    return view('vehicleimport', compact('banks', 'vehicles', 'pdfDocuments'));
 }
 
 public function vehicleInsurance(): View
@@ -173,18 +198,18 @@ public function blogDetail($slug)
         $quotationRequest->year = $request->vehicle_year ?? '';
 
         $quotationRequest->save();
-        
+
         $bankname = "";
         $bank = Bank::find($quotationRequest->bank_id);
         if($bank) {
             $bankname = $bank->name;
         }
-        
+
         $mobilenumber = $request->mobile;
         $msg = "Hi! Thanks for reaching out to EasyLeasing.lk. We’ll call you soon. Need help sooner? Call us at 011-3175444";
 
         $adminmsg = "New Inquiry! \nCustomer : ".$quotationRequest->requester_name. " ( ".$quotationRequest->mobile. " ) from ".$quotationRequest->city. " has send a inquiry for ".$quotationRequest->vmodel." ".$quotationRequest->year. " requested LKR ".$request->amount. " ( ". $quotationRequest->rate ."% - ".$quotationRequest->leasing_period." Years ) from ".$bankname ;
-        
+
         $messagesend = SMSGateway::send($mobilenumber, $msg);
         $messagesend = SMSGateway::send('0777261026', $adminmsg);
 
@@ -206,7 +231,7 @@ public function blogDetail($slug)
                 'message' => 'Mobile number is invalid'
             ]);
         }
-        
+
         $quotationRequest = new QuotationRequest();
         $quotationRequest->note = $request->note ?? '';
         $quotationRequest->mobile = $request->mobile;
@@ -217,7 +242,7 @@ public function blogDetail($slug)
         $mobilenumber = $request->mobile;
         $msg = "Hi! Thanks for reaching out to EasyLeasing.lk. We will call you soon. Need help sooner? Call us at 011-3175444";
         $adminmsg = "New Inquiry! \nCustomer Call request from ".$quotationRequest->mobile;
-        
+
         $messagesend = SMSGateway::send($mobilenumber, $msg);
         $messagesend = SMSGateway::send('0777261026', $adminmsg);
 
