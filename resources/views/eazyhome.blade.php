@@ -146,7 +146,7 @@ with Easy Leasing.')
                 data-interval="-200" data-delay="500">
                 <h2 class="display-1 fs-56 mb-4 mt-0 mt-lg-5 ls-xs pe-xl-5 pe-xxl-0">We bring leasing solutions to make
                     life
-                    <span class="underline-3 style-3 yellow">easier</span>
+                    <span class="underline-3 style-3 orange">easier</span>
                 </h2>
                 <p class="lead fs-23 lh-sm mb-7 pe-lg-5 pe-xl-5 pe-xxl-0">We are a creative company that focuses on
                     long term relationships with customers.</p>
@@ -333,7 +333,7 @@ with Easy Leasing.')
         <div class="row text-center">
             <div class="col-lg-10 col-xl-8 col-xxl-8 mx-auto">
                 <p class="fs-15 text uppercase text-muted mb-3">Leasing Comparison</p>
-                <h1 class="display-3 ls-sm mb-9 px-xl-11">Vehicle <span class="underline-3 style-3 yellow">Leasing
+                <h1 class="display-3 ls-sm mb-9 px-xl-11">Vehicle <span class="underline-3 style-3 orange">Leasing
                         Rates</span> Sri Lanka</h1>
                 sp
             </div>
@@ -525,7 +525,7 @@ with Easy Leasing.')
         <div class="row gx-0">
             <div class="col-lg-6 ms-auto">
                 <div class="pt-13 pb-15 pb-md-17 py-lg-16 ps-lg-15 pe-xxl-16">
-                    <p class="display-3 ls-sm mb-7"><span class="underline-3 style-3 yellow">Leasing Made Easy</span>
+                    <p class="display-3 ls-sm mb-7"><span class="underline-3 style-3 orange">Leasing Made Easy</span>
                     </p>
 
                     <!-- Step 1 -->

@@ -155,7 +155,7 @@ duties, and other fees. Get accurate estimates for your import journey.')
                     style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">
                     Sri Lanka Vehicle Import
                     <br>
-                    <span class="underline-3 style-3 yellow">Cost Calculator</span>
+                    <span class="underline-3 style-3 orange">Cost Calculator</span>
 
                 </h1>
                 <div class="top-button-container">
@@ -254,224 +254,45 @@ duties, and other fees. Get accurate estimates for your import journey.')
                                 </div>
 
                                 <!-- Tax Information Cards -->
+                                @foreach ($pdfDocuments as $doc)
                                 <div class="col-lg-3 col-6">
                                     <div class="card text-center shadow-sm h-100 d-flex flex-column">
                                         <div class="card-body d-flex flex-column">
-                                            <p class="pdfcard_p flex-grow-1">Customs Duty and VAT</p>
-                                            <a href="{{ env('BASE_URL')}}/assets/uploads/taxdocs/Customs-Duty-and-VAT.pdf"
+                                            <p class="pdfcard_p flex-grow-1">{{ $doc['title'] }}</p>
+                                            <a href="{{ env('BASE_URL') }}/assets/uploads/taxdocs/{{ $doc['file'] }}"
                                                 target="_blank" class="btn custom-btn2 mt-auto">
                                                 <i class="fas fa-file-pdf"></i> View PDF
                                             </a>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-lg-3 col-6">
-                                    <div class="card text-center shadow-sm h-100 d-flex flex-column">
-                                        <div class="card-body d-flex flex-column">
-                                            <p class="pdfcard_p flex-grow-1">Electric Vehicle Tax</p>
-                                            <a href="{{ env('BASE_URL')}}/assets/uploads/taxdocs/Electric-Vehicle-Tax.pdf"
-                                                target="_blank" class="btn custom-btn2 mt-auto">
-                                                <i class="fas fa-file-pdf"></i> View PDF
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-6">
-                                    <div class="card text-center shadow-sm h-100 d-flex flex-column">
-                                        <div class="card-body d-flex flex-column">
-                                            <p class="pdfcard_p flex-grow-1">Excise Duty Rates</p>
-                                            <a href="{{ env('BASE_URL')}}/assets/uploads/taxdocs/Excise-Duty-rates.pdf"
-                                                target="_blank" class="btn custom-btn2 mt-auto">
-                                                <i class="fas fa-file-pdf"></i> View PDF
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-6">
-                                    <div class="card text-center shadow-sm h-100 d-flex flex-column">
-                                        <div class="card-body d-flex flex-column">
-                                            <p class="pdfcard_p flex-grow-1">Luxury Tax Gazette</p>
-                                            <a href="{{ env('BASE_URL')}}/assets/uploads/taxdocs/Luxury-tax-gazette.pdf"
-                                                target="_blank" class="btn custom-btn2 mt-auto">
-                                                <i class="fas fa-file-pdf"></i> View PDF
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
 
                             <!-- sample vehicle list -->
                             <div class="mt-4" id="vehiclelistdiv">
                                 <div class="row">
-                                    <p class="fs-32 fw-bold text-center underline-3 style-3 yellow mb-4">Vehicle List
+                                    <p class="fs-32 fw-bold text-center underline-3 style-3 orange mb-4">Vehicle List
                                     </p>
-                                    <!-- Row 1 -->
-                                    <div id="vehicle1" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/prius-2024.png"
-                                                class="card-img-top" alt="Toyota Prius 2024">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>TOYOTA Prius 2024</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="vehicle2" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/wagonr-2024.png"
-                                                class="card-img-top" alt="Suzuki WagonR 2024">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>SUZUKI WagonR 2024</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="vehicle3" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/alto-2024.png"
-                                                class="card-img-top" alt="Maruti Suzuki Alto">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>MARUTI Suzuki Alto</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <!-- Row 2 -->
-                                    <div id="vehicle4" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/audi-a3-hybrid.png"
-                                                class="card-img-top" alt="Audi A3 Hybrid 1000cc">
+                                    @foreach ($vehicles as $vehicle)
+                                    <div id="vehicle{{ $vehicle['id'] }}" class="col-md-3 col-6 mb-4">
+                                        <div class="card d-flex flex-column align-items-center h-100 vlistcard">
+                                            <img src="{{ env('BASE_URL') }}/assets/uploads/vehiclelist/{{ $vehicle['image'] }}"
+                                                class="card-img-top" alt="{{ $vehicle['name'] }}">
                                             <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>AUDI A3 Hybrid 1000cc</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
-                                                    Price</button>
+                                                <p>{{ strtoupper($vehicle['name']) }}</p>
+                                                <div
+                                                    class="mt-auto d-flex gap-1 taptosee text-center justify-content-center">
+                                                    <span class="mr-2">View Price</span>
+                                                    <span><i class="uil uil-external-link-alt"></i></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="vehicle5" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/bmw-3-2024.png"
-                                                class="card-img-top" alt="BMW 3 Series Diesel">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>BMW 3 Series Diesel</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="vehicle6" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/banz-c-2024.png"
-                                                class="card-img-top" alt="Mercedes Benz C Class Petrol">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>MERCEDES Benz C Class Petrol</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="vehicle7" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/cx-5-2024.png"
-                                                class="card-img-top" alt="Mazda CX-5 Petrol">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>MAZDA CX-5 Petrol</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Row 3 -->
-                                    <div id="vehicle8" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/vezel-petrol-2024.png"
-                                                class="card-img-top" alt="Honda Vezel Petrol">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>HONDA Vezel Petrol</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="vehicle9" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/atto-3-2024.png"
-                                                class="card-img-top" alt="BYD Atto 3">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>BYD Atto 3</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="vehicle10" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/xtrail-2024.png"
-                                                class="card-img-top" alt="Nissan Xtrail Petrol">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>NISSAN Xtrail Petrol</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="vehicle11" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/tesla-y-2024.png"
-                                                class="card-img-top" alt="Tesla Model Y">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>Tesla Model Y</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Row 4 -->
-                                    <div id="vehicle12" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/aqua-2024.png"
-                                                class="card-img-top" alt="Toyota Aqua Hybrid">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>TOYOTA Aqua Hybrid</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="vehicle13" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/camry-hybrid-2024.png"
-                                                class="card-img-top" alt="Toyota Camry Petrol Hybrid">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>TOYOTA Camry Petrol Hybrid</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto btn-sm">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="vehicle14" class="col-md-3 col-6 mb-4">
-                                        <div class="card d-flex flex-column align-items-center h-100">
-                                            <img src="{{env('BASE_URL')}}/assets/uploads/vehiclelist/forester-2024.png"
-                                                class="card-img-top" alt="Subaru Forester Petrol">
-                                            <div class="card-body text-center flex-grow-1 d-flex flex-column">
-                                                <p>SUBARU Forester Petrol</p>
-                                                <button class="btn btn-primary w-100 btn-sm mt-auto btn-sm">Tap to see
-                                                    Price</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -849,7 +670,7 @@ document.addEventListener("DOMContentLoaded", function() {
         resultsDiv.classList.remove("d-none");
         resultsDiv.innerHTML = `
         <div class="card shadow-lg pt-4 pb-4">
-            <p class="underline-3 style-3 yellow text-center text-primary mb-4 costresult_t">Total Cost(LKR) : ${formatNumber(totalPrice)} </p>
+            <p class="totalcost_p text-center text-primary mb-4 costresult_t">Total Cost(LKR) : ${formatNumber(totalPrice)} </p>
             <div class="row g-3">
                 <div class="col-md-3 col-6">
                     ${generateBox("CIF in LKR", cifInLkr)}
@@ -887,13 +708,16 @@ document.addEventListener("DOMContentLoaded", function() {
     function generateBox(label, value, extraClasses = "bg-light") {
         return `
             <lable class="badge bg-dark mb-1 genbox_lable">${label}</lable>
-            <div class="border p-3 rounded text-md-center text-left ${extraClasses}">
+            <div class="border genbox-card p-3 rounded text-md-center text-left ${extraClasses}">
                 <p class="m-0 genbox_p fw-bold">${formatToLKR(value)}</p>
             </div>
     `;
     }
 });
 </script>
+
+
+
 
 
 

@@ -303,6 +303,47 @@
     margin-right: 5px;
 }
 
+.vlistcard {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.vlistcard:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.taptosee {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    transition: color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.taptosee :hover {
+    color: #0056b3;
+    border-bottom: #ff914d 2px solid;
+}
+
+.bg-yellow {
+    background-color: #ff914d !important;
+}
+
+.totalcost_p {
+    background-color: #ff914d !important;
+    border-radius: 10px;
+    color: white !important;
+}
+
+.genbox-card {
+    cursor: default;
+}
+
 @media screen and (max-width: 1400px) {
     .pdfcard_p {
         font-size: 13px !important;
